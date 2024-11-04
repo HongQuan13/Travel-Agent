@@ -1,20 +1,34 @@
 from dotenv import load_dotenv
-from langchain.llms import HuggingFacePipeline
-from transformers import AutoTokenizer
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
-from langchain.agents import initialize_agent, AgentType
-
+from langchain_community.utilities import GoogleSerperAPIWrapper
+from langchain_core.messages import HumanMessage
+from langgraph.checkpoint.memory import MemorySaver
+from langgraph.prebuilt import create_react_agent
+from langchain_ollama import ChatOllama
 import os
-import transformers
-import torch
 
-from ollamaAPI import OllamaLLM
+from agentTools import google_search
 
 load_dotenv()
-ollamda_llm = OllamaLLM()
 
-response = ollamda_llm.invoke(
-    "Hi, how are you? May help me plan a trip to singapore in 2 days"
+llm = ChatOllama(
+    base_url=os.getenv("OLLAMA_API"),
+    model=os.getenv("OLLAMA_MODEL"),
+    temperature=0,
 )
-print(response)
+
+memory = MemorySaver()
+tools = [google_search]
+agent_executor = create_react_agent(llm, tools, checkpointer=memory)
+
+config = {"configurable": {"thread_id": "abc123"}}
+for chunk in agent_executor.stream(
+    {"messages": [HumanMessage(content="hi im bob! and i live in sf")]}, config
+):
+    print(chunk)
+    print("----")
+
+for chunk in agent_executor.stream(
+    {"messages": [HumanMessage(content="whats the weather where I live?")]}, config
+):
+    print(chunk)
+    print("----")

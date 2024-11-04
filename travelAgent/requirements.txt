@@ -1,3 +1,8 @@
-torch
 python-dotenv
-transformers 
+requests
+langchain_core
+langchain
+transformers
+torch
+langchain_community
+langgraph
