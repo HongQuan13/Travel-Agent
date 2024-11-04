@@ -17,18 +17,29 @@ llm = ChatOllama(
 )
 
 memory = MemorySaver()
-tools = [google_search]
+# tools = [google_search]
+tools = []
 agent_executor = create_react_agent(llm, tools, checkpointer=memory)
 
 config = {"configurable": {"thread_id": "abc123"}}
-for chunk in agent_executor.stream(
-    {"messages": [HumanMessage(content="hi im bob! and i live in sf")]}, config
-):
-    print(chunk)
-    print("----")
 
-for chunk in agent_executor.stream(
-    {"messages": [HumanMessage(content="whats the weather where I live?")]}, config
-):
-    print(chunk)
-    print("----")
+
+def get_agent_response(user_input: str) -> str:
+    response = agent_executor.invoke(
+        {"messages": [HumanMessage(content=user_input)]}, config
+    )
+
+    return response["messages"][-1].pretty_print()
+
+
+if __name__ == "__main__":
+    print("Start chatting with the agent! Type 'exit' to stop.")
+    while True:
+        print("-------------------")
+        user_input = input("You: ")
+
+        if user_input.lower() == "exit":
+            print("Ending the conversation. Goodbye!")
+            break
+
+        get_agent_response(user_input)

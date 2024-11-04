@@ -6,7 +6,7 @@ import os
 @tool
 def google_search(query: str) -> str:
     """
-    Performs a Google search using the Serper API.
+    Retrive latest information or news from internet.
 
     Args:
         query (str): The search query.
