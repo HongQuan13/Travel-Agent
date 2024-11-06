@@ -4,7 +4,10 @@ from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.prebuilt import create_react_agent
 from langchain_ollama import ChatOllama
+from rich import print as rprint
+from rich.pretty import Pretty
 import os
+
 
 from agentTools import google_search
 
@@ -28,8 +31,7 @@ def get_agent_response(user_input: str) -> str:
     response = agent_executor.invoke(
         {"messages": [HumanMessage(content=user_input)]}, config
     )
-
-    return response["messages"][-1].pretty_print()
+    return response["messages"][-1].content
 
 
 if __name__ == "__main__":
@@ -42,4 +44,5 @@ if __name__ == "__main__":
             print("Ending the conversation. Goodbye!")
             break
 
-        get_agent_response(user_input)
+        response = get_agent_response(user_input)
+        rprint("travelAgent: ", Pretty(response))
