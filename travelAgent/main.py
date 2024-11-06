@@ -1,13 +1,11 @@
 from dotenv import load_dotenv
-from langchain_community.utilities import GoogleSerperAPIWrapper
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.prebuilt import create_react_agent
 from langchain_ollama import ChatOllama
 from rich import print as rprint
 from rich.pretty import Pretty
 import os
-
 
 from agentTools import google_search
 
@@ -20,9 +18,21 @@ llm = ChatOllama(
 )
 
 memory = MemorySaver()
-# tools = [google_search]
-tools = []
-agent_executor = create_react_agent(llm, tools, checkpointer=memory)
+tools = [google_search]
+system_message = SystemMessage(
+    content="""You are a helpful assistant. Only use the provided tools when necessary for specific tasks.
+                For general conversation or simple responses, respond directly without using any tools.
+                Available tools:
+                - Use google_search for real-time events or recent information.
+                
+                Respond the conversation below and use tools only when appropriate:
+                {messages}
+            """
+)
+
+agent_executor = create_react_agent(
+    llm, tools, state_modifier=system_message, checkpointer=memory
+)
 
 config = {"configurable": {"thread_id": "abc123"}}
 

@@ -6,3 +6,4 @@ transformers
 torch
 langchain_community
 langgraph
+rich

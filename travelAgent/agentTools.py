@@ -3,16 +3,8 @@ from langchain.tools import tool
 import os
 
 
-@tool
+@tool()
 def google_search(query: str) -> str:
-    """
-    Retrive latest information or news from internet.
-
-    Args:
-        query (str): The search query.
-
-    Returns:
-        str: The search results as a string.
-    """
+    """Use this tool to answer questions about current events, news, or the current state of the world where up-to-date information is required."""
     serper = GoogleSerperAPIWrapper(serper_api_key=os.getenv("SERPER_API_KEY"))
     return serper.run(query)
