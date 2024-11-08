@@ -61,4 +61,4 @@ if __name__ == "__main__":
         "Can you help me planning for 3 days trip vacation in Singapore?",
         "conversationId",
     )
-    logger.info(f"{response} test response")
+    logger.info(f"Test response: {response} ")
