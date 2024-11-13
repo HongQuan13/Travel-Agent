@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from dbs.initPostgres import instancePostgres
-from api.main import mainRouter
+from routes.main import mainRouter
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO, force=True)

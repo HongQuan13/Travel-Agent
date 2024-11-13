@@ -1,7 +1,7 @@
 import logging
 from fastapi import APIRouter
 
-from services.ping.pingService import PingService
+from services.pingService import PingService
 
 logger = logging.getLogger(__name__)
 
