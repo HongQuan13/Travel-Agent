@@ -18,7 +18,8 @@ llm = ChatOllama(
 )
 
 memory = MemorySaver()
-tools = [google_search]
+# tools = [google_search]
+tools = []
 system_message = SystemMessage(
     content="""You are a helpful assistant. Only use the provided tools when necessary for specific tasks.
                 For general conversation or simple responses, respond directly without using any tools.

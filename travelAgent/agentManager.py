@@ -58,7 +58,7 @@ if __name__ == "__main__":
     newAgent = AgentManager()
 
     response = newAgent.generate_response(
-        "Can you help me planning for 3 days trip vacation in Singapore?",
+        "Human: Can you help me planning for 3 days trip vacation in Singapore?",
         "conversationId",
     )
-    logger.info(f"Test response: {response} ")
+    logger.info(f"AI Response: {response} ")
