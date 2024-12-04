@@ -2,7 +2,7 @@ import logging
 from sqlalchemy.orm import Session
 
 from models.userModel import User
-from interfaces.userInterface import CreateUserResponse, UserRequest
+from interfaces.userInterface import CreateUserResponse, CreateUserRequest
 
 logger = logging.getLogger(__name__)
 
@@ -11,7 +11,7 @@ class UserService:
     def __init__(self):
         logger.info("UserService initialized")
 
-    async def create_user(self, user: UserRequest, db: Session):
+    async def create_user(self, user: CreateUserRequest, db: Session):
         existUser = db.query(User).filter_by(email=user.email).first()
 
         if existUser:

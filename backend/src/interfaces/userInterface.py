@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class UserRequest(BaseModel):
+class CreateUserRequest(BaseModel):
     username: str
     email: str
 

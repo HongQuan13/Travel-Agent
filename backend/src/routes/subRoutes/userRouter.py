@@ -4,7 +4,7 @@ from fastapi.params import Depends
 from sqlalchemy.orm import Session
 
 from dbs.initPostgres import getDatabase
-from interfaces.userInterface import UserRequest
+from interfaces.userInterface import CreateUserRequest
 from services.userService import UserService
 
 logger = logging.getLogger(__name__)
@@ -16,6 +16,8 @@ class UserRouter:
         self.router.add_api_route("/createUser", self.create_user, methods=["POST"])
         self.handler = UserService()
 
-    async def create_user(self, body: UserRequest, db: Session = Depends(getDatabase)):
+    async def create_user(
+        self, body: CreateUserRequest, db: Session = Depends(getDatabase)
+    ):
         logger.info("create_user called")
         return await self.handler.create_user(body, db)

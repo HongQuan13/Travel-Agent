@@ -2,8 +2,9 @@ from sqlalchemy import Enum, Integer, ForeignKey, Text, TIMESTAMP
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 
-from backend.src.models.baseModel import Base
-from backend.src.models.conversationModel import Conversation
+from models.baseModel import Base
+
+# from models.conversationModel import Conversation
 
 
 class Message(Base):
@@ -17,6 +18,6 @@ class Message(Base):
     message_text: Mapped[str] = mapped_column(Text, nullable=False)
     timestamp: Mapped[datetime] = mapped_column(TIMESTAMP, default=datetime.utcnow)
 
-    conversation: Mapped["Conversation"] = relationship(
-        "Conversation", back_populates="messages"
-    )
+    # conversation: Mapped["Conversation"] = relationship(
+    #     "Conversation", back_populates="messages"
+    # )
