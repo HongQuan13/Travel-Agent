@@ -53,12 +53,12 @@ class Database:
         return self._session_local()
 
 
-def instancePostgres():
+def instance_postgres():
     db = Database()
     db.get_engine()
 
 
-def getDatabase():
+def get_database():
     db = Database().get_session()
     try:
         yield db

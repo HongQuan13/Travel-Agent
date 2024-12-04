@@ -12,17 +12,17 @@ class UserService:
         logger.info("UserService initialized")
 
     async def create_user(self, user: CreateUserRequest, db: Session):
-        existUser = db.query(User).filter_by(email=user.email).first()
+        exist_user = db.query(User).filter_by(email=user.email).first()
 
-        if existUser:
+        if exist_user:
             logger.error("User account already exists!")
             return None
 
-        newUser = User(username=user.username, email=user.email)
-        db.add(newUser)
+        new_user = User(username=user.username, email=user.email)
+        db.add(new_user)
         db.commit()
-        logger.info(f"Create new user {newUser.id} successfully")
+        logger.info(f"Create new user {new_user.id} successfully")
 
         return CreateUserResponse(
-            id=newUser.id, email=newUser.email, username=newUser.username
+            id=new_user.id, email=new_user.email, username=new_user.username
         )

@@ -18,11 +18,11 @@ class ChatService:
     async def create_conversation(
         self, conversation: CreateConversationRequest, db: Session
     ):
-        newConversation = Conversation(user_id=conversation.user_id)
-        db.add(newConversation)
+        new_conversation = Conversation(user_id=conversation.user_id)
+        db.add(new_conversation)
         db.commit()
         logger.info(f"Create new conversation for {conversation.user_id} successfully")
 
         return CreateConversationResponse(
-            conversation_id=newConversation.id, user_id=conversation.user_id
+            conversation_id=new_conversation.id, user_id=conversation.user_id
         )

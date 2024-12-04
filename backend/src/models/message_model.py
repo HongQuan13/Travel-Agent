@@ -1,10 +1,8 @@
 from sqlalchemy import Enum, Integer, ForeignKey, Text, TIMESTAMP
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime
 
 from models.base_model import Base
-
-# from models.conversationModel import Conversation
 
 
 class Message(Base):
@@ -17,7 +15,3 @@ class Message(Base):
     sender: Mapped[str] = mapped_column(Enum("user", "bot"), nullable=False)
     message_text: Mapped[str] = mapped_column(Text, nullable=False)
     timestamp: Mapped[datetime] = mapped_column(TIMESTAMP, default=datetime.utcnow)
-
-    # conversation: Mapped["Conversation"] = relationship(
-    #     "Conversation", back_populates="messages"
-    # )

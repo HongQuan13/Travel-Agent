@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from dbs.init_postgres import instancePostgres
-from routes.main import mainRouter
+from dbs.init_postgres import instance_postgres
+from routes.main import main_router
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO, force=True)
@@ -24,8 +24,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(mainRouter)
-instancePostgres()
+app.include_router(main_router)
+instance_postgres()
 
 
 @app.exception_handler(Exception)
