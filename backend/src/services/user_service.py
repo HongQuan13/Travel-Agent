@@ -1,8 +1,8 @@
 import logging
 from sqlalchemy.orm import Session
 
-from models.userModel import User
-from interfaces.userInterface import CreateUserResponse, CreateUserRequest
+from models.user_model import User
+from interfaces.user_interface import CreateUserResponse, CreateUserRequest
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +22,7 @@ class UserService:
         db.add(newUser)
         db.commit()
         logger.info(f"Create new user {newUser.id} successfully")
+
         return CreateUserResponse(
             id=newUser.id, email=newUser.email, username=newUser.username
         )

@@ -3,9 +3,9 @@ from fastapi import APIRouter
 from fastapi.params import Depends
 from sqlalchemy.orm import Session
 
-from dbs.initPostgres import getDatabase
-from interfaces.userInterface import CreateUserRequest
-from services.userService import UserService
+from dbs.init_postgres import getDatabase
+from interfaces.user_interface import CreateUserRequest
+from services.user_service import UserService
 
 logger = logging.getLogger(__name__)
 

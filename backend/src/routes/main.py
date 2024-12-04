@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-from .subRoutes.pingRouter import PingRouter
-from .subRoutes.userRouter import UserRouter
-from .subRoutes.chatRouter import ChatRouter
+from routes.sub_routes.ping_router import PingRouter
+from routes.sub_routes.user_router import UserRouter
+from routes.sub_routes.chat_router import ChatRouter
 
 mainRouter = APIRouter()
 ROUTE_BASE = "api/v1"

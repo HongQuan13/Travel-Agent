@@ -2,7 +2,7 @@ from sqlalchemy import Enum, Integer, ForeignKey, Text, TIMESTAMP
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 
-from models.baseModel import Base
+from models.base_model import Base
 
 # from models.conversationModel import Conversation
 

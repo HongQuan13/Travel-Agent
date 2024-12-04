@@ -7,7 +7,7 @@ from rich import print as rprint
 from rich.pretty import Pretty
 import os
 
-from agentTools import google_search
+from travel_agent.agent_tools import google_search
 
 load_dotenv()
 

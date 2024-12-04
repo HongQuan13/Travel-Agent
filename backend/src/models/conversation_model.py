@@ -1,9 +1,9 @@
 from sqlalchemy import Integer, ForeignKey, String, TIMESTAMP
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from models.baseModel import Base
-from models.userModel import User
-from models.messageModel import Message
+from models.base_model import Base
+from models.user_model import User
+from models.message_model import Message
 
 
 class Conversation(Base):

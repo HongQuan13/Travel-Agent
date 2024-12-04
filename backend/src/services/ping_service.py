@@ -1,6 +1,6 @@
 import logging
 
-from interfaces.pingInterface import PingResponse
+from interfaces.ping_interface import PingResponse
 
 logger = logging.getLogger(__name__)
 

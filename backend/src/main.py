@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from dbs.initPostgres import instancePostgres
+from dbs.init_postgres import instancePostgres
 from routes.main import mainRouter
 
 load_dotenv()
