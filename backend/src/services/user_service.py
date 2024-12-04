@@ -1,5 +1,6 @@
 import logging
 from sqlalchemy.orm import Session
+from fastapi import HTTPException
 
 from models.user_model import User
 from interfaces.user_interface import CreateUserResponse, CreateUserRequest
@@ -15,8 +16,7 @@ class UserService:
         exist_user = db.query(User).filter_by(email=user.email).first()
 
         if exist_user:
-            logger.error("User account already exists!")
-            return None
+            raise HTTPException(status_code=400, detail="User account exist")
 
         new_user = User(username=user.username, email=user.email)
         db.add(new_user)
