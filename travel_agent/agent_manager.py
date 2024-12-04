@@ -41,8 +41,8 @@ class AgentManager:
         self.ollama_api = ollama_api.lower().strip()
         self.model = model.lower().strip()
 
-    def generate_response(self, user_input: str, conversationId: str) -> str:
-        config = {"configurable": {"thread_id": conversationId}}
+    def generate_response(self, user_input: str, conversation_id: str) -> str:
+        config = {"configurable": {"thread_id": conversation_id}}
 
         response = self.agent_executor.invoke(
             {"messages": [HumanMessage(content=user_input)]}, config
