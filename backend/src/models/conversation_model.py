@@ -1,7 +1,7 @@
 from sqlalchemy import Integer, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
-from models.base_model import Base
+from backend.src.models.base_model import Base
 
 
 class Conversation(Base):

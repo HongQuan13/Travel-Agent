@@ -2,10 +2,10 @@ import logging
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from models.user_model import User
-from models.conversation_model import Conversation
-from models.message_model import Message
-from interfaces.chat_interface import (
+from backend.src.models.user_model import User
+from backend.src.models.conversation_model import Conversation
+from backend.src.models.message_model import Message
+from backend.src.interfaces.chat_interface import (
     CreateConversationResponse,
     CreateConversationRequest,
     SendMessageRequest,
@@ -56,13 +56,29 @@ class ChatService:
             f"Send new message to conversation {message.conversation_id} successfully"
         )
 
+        bot_response = await self.bot_reply(
+            message.message_text, message.conversation_id, db
+        )
         return SendMessageResponse(
             message_id=new_message.id,
             message_text=new_message.message_text,
             sender=SenderType.user,
             conversation_id=message.conversation_id,
+            bot_response=bot_response,
         )
 
-    async def bot_reply(self, db: Session):
+    async def bot_reply(self, user_message: str, conversation_id: int, db: Session):
         llm = AgentManager()
-        chat_response = llm.generate_response(user_input=..., conversation_id=...)
+        chat_response = llm.generate_response(
+            user_input=user_message, conversation_id=conversation_id
+        )
+
+        bot_reply = Message(
+            conversation_id=conversation_id,
+            sender=SenderType.bot,
+            message_text=chat_response,
+        )
+        db.add(bot_reply)
+        db.commit()
+        logger.info(f"Bot reply to user conversation {conversation_id} successfully")
+        return chat_response

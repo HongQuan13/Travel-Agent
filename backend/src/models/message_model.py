@@ -2,7 +2,7 @@ from sqlalchemy import Enum, Integer, ForeignKey, Text, TIMESTAMP
 from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime
 
-from models.base_model import Base
+from backend.src.models.base_model import Base
 
 
 class Message(Base):

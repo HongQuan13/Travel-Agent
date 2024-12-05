@@ -3,9 +3,12 @@ from fastapi import APIRouter
 from fastapi.params import Depends
 from sqlalchemy.orm import Session
 
-from dbs.init_postgres import get_database
-from interfaces.chat_interface import CreateConversationRequest, SendMessageRequest
-from services.chat_service import ChatService
+from backend.src.dbs.init_postgres import get_database
+from backend.src.interfaces.chat_interface import (
+    CreateConversationRequest,
+    SendMessageRequest,
+)
+from backend.src.services.chat_service import ChatService
 
 logger = logging.getLogger(__name__)
 

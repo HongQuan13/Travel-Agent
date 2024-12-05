@@ -27,3 +27,4 @@ class SendMessageResponse(BaseModel):
     message_text: str
     conversation_id: int
     sender: Literal["user", "bot"]
+    bot_response: str

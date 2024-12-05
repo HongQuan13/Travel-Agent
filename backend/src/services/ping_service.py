@@ -1,6 +1,6 @@
 import logging
 
-from interfaces.ping_interface import PingResponse
+from backend.src.interfaces.ping_interface import PingResponse
 
 logger = logging.getLogger(__name__)
 

@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from dbs.init_postgres import instance_postgres
-from routes.main import main_router
+from backend.src.dbs.init_postgres import instance_postgres
+from backend.src.routes.main import main_router
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO, force=True)
