@@ -109,11 +109,13 @@ function MessageContainer({
             <Send className="h-4 w-4" />
             <span className="sr-only">Send message</span>
           </Button>
-          {!finalPlanView && (
-            <Button onClick={handleFinalize} variant="secondary">
-              Finalize Plan
-            </Button>
-          )}
+          <Button
+            onClick={handleFinalize}
+            variant="secondary"
+            className={finalPlanView ? "lg:hidden" : ""}
+          >
+            Finalize Plan
+          </Button>
         </form>
       </div>
     </div>
