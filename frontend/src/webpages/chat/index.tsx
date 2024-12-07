@@ -1,10 +1,11 @@
 import { useState } from "react";
+
 import MessageContainer from "@/components/chat/message";
-import FinalizePlan from "@/components/chat/finalizePlan";
+import FinalizePlan from "@/components/chat/finalPlan";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 
-export default function Home() {
-  const [finalPlanView, setfinalPlanView] = useState(false);
+function Chatbot() {
+  const [finalPlanView, setFinalPlanView] = useState(false);
   const [mobileView, setMobileView] = useState(false);
 
   return (
@@ -12,7 +13,7 @@ export default function Home() {
       <div className={`h-full ${finalPlanView ? "lg:w-1/2" : "w-full"}`}>
         <MessageContainer
           finalPlanView={finalPlanView}
-          setIsFinalized={setfinalPlanView}
+          setFinalPlan={setFinalPlanView}
           setMobileView={setMobileView}
         />
       </div>
@@ -37,3 +38,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Chatbot;

@@ -8,13 +8,13 @@ import { Message } from "@/interfaces/chat";
 
 interface MessageContainerProps {
   finalPlanView: Boolean;
-  setIsFinalized: React.Dispatch<React.SetStateAction<boolean>>;
+  setFinalPlan: React.Dispatch<React.SetStateAction<boolean>>;
   setMobileView: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function MessageContainer({
   finalPlanView,
-  setIsFinalized,
+  setFinalPlan,
   setMobileView,
 }: MessageContainerProps) {
   const [inputValue, setInputValue] = React.useState("");
@@ -47,7 +47,7 @@ function MessageContainer({
   };
 
   const handleFinalize = () => {
-    setIsFinalized(true);
+    setFinalPlan(true);
     setMobileView(true);
   };
 

@@ -1,6 +1,8 @@
-import React from "react";
+import { useState } from "react";
+
 import { Location } from "@/interfaces/chat";
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Share2,
   Instagram,
@@ -8,11 +10,10 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { Button } from "../ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Button } from "@/components/ui/button";
 
-function FinalizePlan() {
-  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+function FinalPlan() {
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
 
   const location: Location = {
     id: 1,
@@ -101,4 +102,4 @@ function FinalizePlan() {
   );
 }
 
-export default FinalizePlan;
+export default FinalPlan;
