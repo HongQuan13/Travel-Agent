@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
 import { Message } from "@/interfaces/chat";
+import axios from "axios";
 
 interface MessageContainerProps {
   finalPlanView: Boolean;
@@ -18,27 +19,40 @@ function MessageContainer({
   setMobileView,
 }: MessageContainerProps) {
   const [inputValue, setInputValue] = React.useState("");
-  const [messages, setMessages] = React.useState<Message[]>([
-    {
-      id: "1",
-      content: "Hello! Let's plan your Seattle Instagram getaway!",
-      sender: "bot",
-    },
-    { id: "2", content: "I'd love to visit the Space Needle!", sender: "user" },
-    {
-      id: "3",
-      content:
-        "Great choice! The Space Needle offers amazing photo opportunities.",
-      sender: "bot",
-    },
-  ]);
+  const [messages, setMessages] = React.useState<Message[]>([]);
+
+  useEffect(() => {
+    retrieveChatContent();
+  }, []);
+
+  const retrieveChatContent = async () => {
+    try {
+      //hardcode conversation_id = 1
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/chat/retrieve-conversation/1`,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Access-Control-Allow-Origin": "*",
+          },
+          withCredentials: true,
+        }
+      );
+
+      const allMessages = response.data.all_messages;
+      setMessages(allMessages);
+    } catch (error: any) {
+      console.error("Error:", error);
+    }
+  };
+
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const handleSendMessage = () => {
     if (inputValue.trim()) {
       const newMessage: Message = {
         id: Date.now().toString(),
-        content: inputValue,
+        message_text: inputValue,
         sender: "user",
       };
       setMessages([...messages, newMessage]);
@@ -60,7 +74,7 @@ function MessageContainer({
   return (
     <div className="flex flex-col h-full">
       <ScrollArea ref={scrollAreaRef} className="flex-grow p-6">
-        {messages.map((message) => (
+        {messages.map((message: any) => (
           <div
             key={message.id}
             className={`flex ${
@@ -84,7 +98,7 @@ function MessageContainer({
                     : "bg-muted"
                 }`}
               >
-                {message.content}
+                {message.message_text}
               </div>
             </div>
           </div>

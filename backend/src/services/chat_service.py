@@ -8,6 +8,8 @@ from backend.src.models.message_model import Message
 from backend.src.interfaces.chat_interface import (
     CreateConversationResponse,
     CreateConversationRequest,
+    MessageInfo,
+    RetrieveConversationResponse,
     SendMessageRequest,
     SendMessageResponse,
     SenderType,
@@ -82,3 +84,24 @@ class ChatService:
         db.commit()
         logger.info(f"Bot reply to user conversation {conversation_id} successfully")
         return chat_response
+
+    async def retrieve_conversation(self, conversation_id: int, db: Session):
+        exist_conversation = (
+            db.query(Conversation).filter_by(id=conversation_id).first()
+        )
+        if not exist_conversation:
+            raise HTTPException(status_code=400, detail="Conversation not exist")
+
+        all_messages = (
+            db.query(Message.message_text, Message.timestamp, Message.sender)
+            .filter(Message.conversation_id == conversation_id)
+            .order_by(Message.timestamp)
+            .all()
+        )
+
+        structured_messages = [
+            MessageInfo(message_text=m[0], timestamp=m[1], sender=m[2])
+            for m in all_messages
+        ]
+
+        return RetrieveConversationResponse(all_messages=structured_messages)

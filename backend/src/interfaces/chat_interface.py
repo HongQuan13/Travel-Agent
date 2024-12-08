@@ -1,4 +1,5 @@
-from typing import Literal
+from datetime import datetime
+from typing import List, Literal
 from pydantic import BaseModel
 
 
@@ -28,3 +29,13 @@ class SendMessageResponse(BaseModel):
     conversation_id: int
     sender: Literal["user", "bot"]
     bot_response: str
+
+
+class MessageInfo(BaseModel):
+    sender: str
+    message_text: str
+    timestamp: datetime
+
+
+class RetrieveConversationResponse(BaseModel):
+    all_messages: List[MessageInfo]

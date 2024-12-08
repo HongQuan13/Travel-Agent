@@ -1,6 +1,6 @@
 export interface Message {
   id: string;
-  content: string;
+  message_text: string;
   sender: string;
 }
 

@@ -20,6 +20,11 @@ class ChatRouter:
             "/create-conversation", self.create_conversation, methods=["POST"]
         )
         self.router.add_api_route("/send-message", self.send_messsage, methods=["POST"])
+        self.router.add_api_route(
+            "/retrieve-conversation/{conversation_id}",
+            self.retrieve_conversation,
+            methods=["GET"],
+        )
         self.handler = ChatService()
 
     async def create_conversation(
@@ -33,3 +38,11 @@ class ChatRouter:
     ):
         logger.info("send_message called")
         return await self.handler.send_message(body, db)
+
+    async def retrieve_conversation(
+        self,
+        conversation_id: int,
+        db: Session = Depends(get_database),
+    ):
+        logger.info("retrieve_conversation called")
+        return await self.handler.retrieve_conversation(conversation_id, db)

@@ -1,7 +1,9 @@
 import logging
 from fastapi import FastAPI, Request
 from dotenv import load_dotenv
-from fastapi.middleware.cors import CORSMiddleware
+
+# from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from backend.src.dbs.init_postgres import instance_postgres
@@ -12,9 +14,7 @@ logging.basicConfig(level=logging.INFO, force=True)
 
 app = FastAPI()
 
-origins = [
-    "*",
-]
+origins = ["http://localhost:5173"]
 
 app.add_middleware(
     CORSMiddleware,
