@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
 import { Message } from "@/interfaces/chat";
-import axios from "axios";
+import { axiosClient } from "@/lib/axios";
 
 interface MessageContainerProps {
   finalPlanView: Boolean;
@@ -28,15 +28,7 @@ function MessageContainer({
   const retrieveChatContent = async () => {
     try {
       //hardcode conversation_id = 1
-      const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/chat/retrieve-conversation/1`,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await axiosClient.get("chat/retrieve-conversation/1");
 
       const allMessages = response.data.all_messages;
       setMessages(allMessages);
@@ -58,20 +50,11 @@ function MessageContainer({
     }
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_BASE_URL}/chat/send-message`,
-        {
-          conversation_id: 1,
-          user_id: 1,
-          message_text: inputValue.trim(),
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await axiosClient.post("chat/send-message", {
+        conversation_id: 1,
+        user_id: 1,
+        message_text: inputValue.trim(),
+      });
 
       const replyMessage: Message = {
         message_text: response.data.bot_response,
