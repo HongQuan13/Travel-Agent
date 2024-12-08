@@ -20,10 +20,17 @@ function MessageContainer({
 }: MessageContainerProps) {
   const [inputValue, setInputValue] = React.useState("");
   const [messages, setMessages] = React.useState<Message[]>([]);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     retrieveChatContent();
   }, []);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   const retrieveChatContent = async () => {
     try {
@@ -109,6 +116,7 @@ function MessageContainer({
             </div>
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </ScrollArea>
       <div className="p-6 border-t bg-background">
         <form
