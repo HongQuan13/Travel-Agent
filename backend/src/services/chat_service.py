@@ -12,7 +12,7 @@ from backend.src.interfaces.chat_interface import (
     SendMessageResponse,
     SenderType,
 )
-from travel_agent.agent_manager import AgentManager
+from travel_agent.agent_handler.gpt_agent_manager import GPTAgentManager
 
 
 logger = logging.getLogger(__name__)
@@ -68,7 +68,7 @@ class ChatService:
         )
 
     async def bot_reply(self, user_message: str, conversation_id: int, db: Session):
-        llm = AgentManager()
+        llm = GPTAgentManager()
         chat_response = llm.generate_response(
             user_input=user_message, conversation_id=conversation_id
         )

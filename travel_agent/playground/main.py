@@ -7,8 +7,6 @@ from rich import print as rprint
 from rich.pretty import Pretty
 import os
 
-from travel_agent.agent_tools import google_search
-
 load_dotenv()
 
 llm = ChatOllama(

@@ -3,23 +3,23 @@ import logging
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.checkpoint.memory import MemorySaver
-from langgraph.prebuilt import create_react_agent, chat_agent_executor
-from langchain_ollama import ChatOllama
+from langgraph.prebuilt import create_react_agent
+from langchain_openai import ChatOpenAI
 
-from travel_agent.agent_constant import PROMPT_TEMPLATE
-from travel_agent.agent_tools import google_search
+from travel_agent.helpers.agent_constant import PROMPT_TEMPLATE
+from travel_agent.helpers.agent_tools import google_search
 
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
 load_dotenv()
 
 
-class AgentManager:
+class GPTAgentManager:
     _instance = None
 
     def __new__(cls):
         if cls._instance is None:
-            cls._instance = super(AgentManager, cls).__new__(cls)
+            cls._instance = super(GPTAgentManager, cls).__new__(cls)
             cls._instance._agent_executor = None
         return cls._instance
 
@@ -30,8 +30,7 @@ class AgentManager:
 
     def _load_agent(self):
         if self._agent_executor is None:
-            llm = ChatOllama(
-                base_url=self._ollama_api,
+            llm = ChatOpenAI(
                 model=self._model,
                 temperature=0,
             )
@@ -44,13 +43,12 @@ class AgentManager:
             )
 
     def _check_env(self):
-        ollama_api = os.getenv("OLLAMA_API")
-        model = os.getenv("OLLAMA_MODEL")
+        openai_api_key = os.getenv("OPENAI_API_KEY")
+        model = os.getenv("GPT_MODEL")
 
-        if ollama_api is None or model is None:
-            raise ValueError(f"Unable to access ollama_api or model in .env file")
+        if openai_api_key is None or model is None:
+            raise ValueError(f"Unable to access openai_api_key or model in .env file")
 
-        self._ollama_api = ollama_api.lower().strip()
         self._model = model.lower().strip()
 
     def generate_response(self, user_input: str, conversation_id: str) -> str:
@@ -67,7 +65,7 @@ if __name__ == "__main__":
     logger = logging.getLogger(__name__)
 
     load_dotenv()
-    newAgent = AgentManager()
+    newAgent = GPTAgentManager()
 
     response = newAgent.generate_response(
         "Human: Can you help me planning for 3 days trip vacation in Singapore?",
