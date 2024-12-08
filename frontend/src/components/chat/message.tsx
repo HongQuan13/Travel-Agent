@@ -105,7 +105,7 @@ function MessageContainer({
                 </AvatarFallback>
               </Avatar>
               <div
-                className={`mx-2 py-2 px-3 rounded-lg ${
+                className={`mx-2 py-2 px-3 rounded-lg whitespace-pre-line ${
                   message.sender === "user"
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted"
