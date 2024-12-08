@@ -23,7 +23,7 @@ function MessageContainer({
 
   useEffect(() => {
     retrieveChatContent();
-  }, [messages]);
+  }, []);
 
   const retrieveChatContent = async () => {
     try {
@@ -33,7 +33,6 @@ function MessageContainer({
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            "Access-Control-Allow-Origin": "*",
           },
           withCredentials: true,
         }
@@ -48,14 +47,39 @@ function MessageContainer({
 
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (inputValue.trim()) {
       const newMessage: Message = {
         message_text: inputValue,
         sender: "user",
       };
-      setMessages([...messages, newMessage]);
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
       setInputValue("");
+    }
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/chat/send-message`,
+        {
+          conversation_id: 1,
+          user_id: 1,
+          message_text: inputValue.trim(),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      const replyMessage: Message = {
+        message_text: response.data.bot_response,
+        sender: "bot",
+      };
+      setMessages((prevMessages) => [...prevMessages, replyMessage]);
+    } catch (error: any) {
+      console.error("Error:", error.message);
     }
   };
 
