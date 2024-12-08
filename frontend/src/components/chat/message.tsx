@@ -23,7 +23,7 @@ function MessageContainer({
 
   useEffect(() => {
     retrieveChatContent();
-  }, []);
+  }, [messages]);
 
   const retrieveChatContent = async () => {
     try {
@@ -51,7 +51,6 @@ function MessageContainer({
   const handleSendMessage = () => {
     if (inputValue.trim()) {
       const newMessage: Message = {
-        id: Date.now().toString(),
         message_text: inputValue,
         sender: "user",
       };
