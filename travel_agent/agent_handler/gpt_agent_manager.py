@@ -7,7 +7,9 @@ from langgraph.prebuilt import create_react_agent
 from langchain_openai import ChatOpenAI
 
 from travel_agent.helpers.agent_constant import PROMPT_TEMPLATE
-from travel_agent.helpers.agent_tools import finalize_plan, google_search
+from travel_agent.helpers.agent_tools.agent_tools import google_search
+from travel_agent.helpers.agent_tools.finalize_plan import finalize_plan_tool
+
 
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
@@ -35,7 +37,7 @@ class GPTAgentManager:
                 temperature=0,
             )
             memory = MemorySaver()
-            tools = [google_search, finalize_plan]
+            tools = [google_search, finalize_plan_tool]
             system_message = SystemMessage(content=PROMPT_TEMPLATE)
 
             self._agent_executor = create_react_agent(
