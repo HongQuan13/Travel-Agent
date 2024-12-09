@@ -85,35 +85,3 @@ finalize_plan_tool = StructuredTool.from_function(
     """,
     args_schema=FinalizePlanInput,
 )
-
-
-# class FinalizePlanTool(BaseTool):
-#     name: str = "finalize_plan"
-#     description: str = """
-#     This function is used to generate finalized version of the data for travel-related queries, such as travel plans, lists of restaurants, or details about places.
-#     The output is designed to be versatile and suitable for frontend or backend applications.
-
-#     Use Cases:
-#     - Finalizing a travel plan with detailed itinerary.
-#     - Providing a structured list of restaurants or attractions.
-#     - Summarizing details about specific places or activities.
-#     """
-#     args_schema: Type[BaseModel] = FinalizePlanInput
-
-#     def _run(
-#         self,
-#         mainHeader: str,
-#         subHeaders: Dict[str, List[Place]],
-#         run_manager: Optional[CallbackManagerForToolRun] = None,
-#     ) -> object:
-#         """Use the tool."""
-#         logger.info(f"finalize_plan called")
-#         json_response = {
-#             "isFinalized": True,
-#             "mainHead": mainHeader,
-#             "subHeaders": subHeaders,
-#         }
-#         return json.dumps(json_response)
-
-
-# FinalizePlanTool.schema()
