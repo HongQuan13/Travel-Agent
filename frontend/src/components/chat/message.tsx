@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from "react";
 import { Send } from "lucide-react";
-import { Avatar, AvatarFallback } from "../ui/avatar";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { ScrollArea } from "../ui/scroll-area";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Message } from "@/interfaces/chat";
 import { axiosClient } from "@/lib/axios";
 
@@ -122,7 +122,6 @@ function MessageContainer({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleSendMessage();
           }}
           className="flex space-x-2"
         >
@@ -133,7 +132,7 @@ function MessageContainer({
             onChange={(e: any) => setInputValue(e.target.value)}
             className="flex-grow"
           />
-          <Button type="submit" size="icon">
+          <Button type="submit" size="icon" onClick={handleSendMessage}>
             <Send className="h-4 w-4" />
             <span className="sr-only">Send message</span>
           </Button>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import MessageContainer from "@/components/chat/message";
-import FinalizePlan from "@/components/chat/finalPlan";
+import FinalizePlan from "@/components/finalPlan/plan";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 
 function Chatbot() {
