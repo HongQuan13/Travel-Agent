@@ -1,12 +1,11 @@
 import json
 import logging
-from typing import Dict, List, Optional, Type
-from langchain_core.callbacks import (
-    CallbackManagerForToolRun,
-    AsyncCallbackManagerForToolRun,
-)
-from langchain_core.tools import BaseTool, StructuredTool
+from typing import Dict, List, Optional
+from langchain_core.tools import StructuredTool, ToolException
 from pydantic import BaseModel, Field
+
+from backend.src.dbs.init_postgres import get_database
+from backend.src.models.plan_model import Plan
 
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
@@ -39,6 +38,15 @@ class FinalizePlanInput(BaseModel):
     )
 
 
+def save_final_plan(plan_detail: str):
+    db = get_database()
+    session = next(db)
+    new_plan = Plan(plan_detail=plan_detail)
+    session.add(new_plan)
+    session.commit()
+    logger.info(f"Create new plan {new_plan.id} successfully")
+
+
 def finalize_plan(
     isFinalized: bool,
     mainHeader: str,
@@ -51,7 +59,12 @@ def finalize_plan(
         "mainHead": mainHeader,
         "subHeaders": subHeaders,
     }
-    return json_response
+    jsong_dumps = json.dumps(
+        json_response, default=lambda o: o.dict() if hasattr(o, "dict") else o
+    )
+
+    save_final_plan(jsong_dumps)
+    return "/internal"
 
 
 finalize_plan_tool = StructuredTool.from_function(
@@ -66,8 +79,8 @@ finalize_plan_tool = StructuredTool.from_function(
     - Providing a structured list of restaurants or attractions.
     - Summarizing details about specific places or activities.
 
-    Only return the json format output without any explaination:
-    Example output:
+    Whenever finalize_plan_tool run successfully, only return "/internal".
+    Example input:
     {
     "isFinalized": true,
     "mainHeader": "Seattle Instagram Getaway",
@@ -84,4 +97,5 @@ finalize_plan_tool = StructuredTool.from_function(
     }
     """,
     args_schema=FinalizePlanInput,
+    # return_direct=True,
 )
