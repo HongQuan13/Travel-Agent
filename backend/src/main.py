@@ -2,7 +2,6 @@ import logging
 from fastapi import FastAPI, Request
 from dotenv import load_dotenv
 
-# from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
