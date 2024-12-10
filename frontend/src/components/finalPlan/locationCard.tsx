@@ -12,21 +12,21 @@ import {
 } from "lucide-react";
 
 interface LocationCardProps {
-  name: string;
+  placeName: string;
   description: string;
-  images: string[];
-  googleMapsUrl: string;
+  images?: string[];
+  googleMapsUrl?: string;
   instagramUrl?: string;
   tiktokUrl?: string;
 }
 
 export function LocationCard({
-  name,
+  placeName,
   description,
-  images,
-  googleMapsUrl,
-  instagramUrl,
-  tiktokUrl,
+  images = [],
+  googleMapsUrl = "",
+  instagramUrl = "",
+  tiktokUrl = "",
 }: LocationCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -46,7 +46,7 @@ export function LocationCard({
             <div className="bg-primary/10 w-8 h-8 rounded-full flex items-center justify-center">
               <MapPin className="h-4 w-4 text-primary" />
             </div>
-            <h3 className="text-xl font-semibold">{name}</h3>
+            <h3 className="text-xl font-semibold">{placeName}</h3>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" className="rounded-full">
