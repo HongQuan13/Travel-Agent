@@ -1,3 +1,4 @@
+import asyncio
 import json
 import logging
 from typing import Dict, List, Optional
@@ -5,6 +6,7 @@ from langchain_core.tools import StructuredTool, ToolException
 from pydantic import BaseModel, Field
 
 from backend.src.dbs.init_postgres import get_database
+from backend.src.lib.websocket import WebSocketManager
 from backend.src.models.plan_model import Plan
 
 logging.basicConfig(level=logging.INFO, force=True)
@@ -64,6 +66,7 @@ def finalize_plan(
     )
 
     save_final_plan(jsong_dumps)
+    asyncio.run(WebSocketManager().broadcast(jsong_dumps))
     return "/internal"
 
 

@@ -15,6 +15,8 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_text()
+            logger.info(f"Received: {data}")
+            await manager.broadcast("hello back")
     except WebSocketDisconnect:
         manager.disconnect(websocket)
 
