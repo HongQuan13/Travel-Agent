@@ -1,7 +1,7 @@
 import os
 from langchain.tools import tool
-from langchain_community.utilities.google_serper import GoogleSerperAPIWrapper
 from langchain_community.tools import DuckDuckGoSearchRun
+from langchain_community.utilities.google_serper import GoogleSerperAPIWrapper
 
 
 @tool()

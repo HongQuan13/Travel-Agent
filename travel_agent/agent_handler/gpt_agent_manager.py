@@ -7,11 +7,14 @@ from langgraph.prebuilt import create_react_agent
 from langchain_openai import ChatOpenAI
 
 from travel_agent.helpers.agent_constant import PROMPT_TEMPLATE
-from travel_agent.helpers.agent_tools.text_search import (
+from travel_agent.helpers.agent_tools.text_search_tool import (
     google_search,
     duckduckgo_search,
 )
-from travel_agent.helpers.agent_tools.finalize_plan import finalize_plan_tool
+from travel_agent.helpers.agent_tools.image_search.image_search_tool import (
+    image_search_tool,
+)
+from travel_agent.helpers.agent_tools.finalize_plan_tool import finalize_plan_tool
 
 
 logging.basicConfig(level=logging.INFO, force=True)
@@ -40,7 +43,12 @@ class GPTAgentManager:
                 temperature=0,
             )
             memory = MemorySaver()
-            tools = [google_search, duckduckgo_search, finalize_plan_tool]
+            tools = [
+                google_search,
+                duckduckgo_search,
+                image_search_tool,
+                finalize_plan_tool,
+            ]
             system_message = SystemMessage(content=PROMPT_TEMPLATE)
 
             self._agent_executor = create_react_agent(
