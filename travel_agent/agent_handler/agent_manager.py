@@ -3,11 +3,11 @@ import logging
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.checkpoint.memory import MemorySaver
-from langgraph.prebuilt import create_react_agent, chat_agent_executor
+from langgraph.prebuilt import create_react_agent
 from langchain_ollama import ChatOllama
 
 from travel_agent.helpers.agent_constant import PROMPT_TEMPLATE
-from travel_agent.helpers.agent_tools.agent_tools import google_search
+from travel_agent.helpers.agent_tools.text_search import google_search
 
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
