@@ -1,17 +1,33 @@
+import os
 import logging
 import urllib.parse
+from dotenv import load_dotenv
 from tavily import TavilyClient
 from typing import List
 
+from travel_agent.helpers.agent_tools.image_search.cloudinary_handler import (
+    CloudinaryHandler,
+)
+
+logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
+load_dotenv()
 
 
 class TavilySearch:
     TOP_K = 5
 
     def __init__(self):
+        self._check_env()
         self._tavily_client = TavilyClient()
+        self._cloudinary_handler = CloudinaryHandler()
         logger.info("ImageSearch initialized")
+
+    def _check_env(self):
+        tavily_api_key = os.getenv("TAVILY_API_KEY")
+
+        if tavily_api_key is None:
+            raise ValueError(f"Unable to access TAVILY_API_KEY in .env file")
 
     def _tavily_search(self, query: str) -> List[str]:
         try:
@@ -22,7 +38,8 @@ class TavilySearch:
 
             images = []
             for image in response["images"]:
-                images.append(image)
+                optimized_url = self._cloudinary_handler.upload_image(image)
+                images.append(optimized_url)
 
             return images
 
