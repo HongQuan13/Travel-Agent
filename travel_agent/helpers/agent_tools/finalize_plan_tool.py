@@ -19,12 +19,20 @@ class ImageUrl(BaseModel):
 
 class Place(BaseModel):
     placeName: str = Field(description="The name of the place or event")
-    location: str = Field(
-        description="The geographical location of the place or event."
-    )
+    address: str = Field(description="The geographical address of the place or event.")
     description: str = Field(description="A brief summary of the place or event.")
+
+
+class DeepResearchInput(BaseModel):
+    mainHeader: str = Field(
+        description="The primary title or header for the generated plan, summarizing its main focus or theme."
+    )
     images: List[ImageUrl] = Field(
-        description="List of images about the place or event",
+        description="List of images about places or event inside plan",
+    )
+    subHeaders: Dict[str, List[Place]] = Field(
+        description="""A dictionary where each key is a subheader (a brief descriptive title), 
+        and each value is a list of Place objects associated with that subheader.""",
     )
 
     @validator("images")
@@ -32,16 +40,6 @@ class Place(BaseModel):
         if not value:
             raise ValueError("The 'images' list must contain at least one item.")
         return value
-
-
-class DeepResearchInput(BaseModel):
-    mainHeader: str = Field(
-        description="The primary title or header for the generated plan, summarizing its main focus or theme."
-    )
-    subHeaders: Dict[str, List[Place]] = Field(
-        description="""A dictionary where each key is a subheader (a brief descriptive title), 
-        and each value is a list of Place objects associated with that subheader.""",
-    )
 
 
 def save_final_plan(plan_detail: str):
@@ -83,14 +81,14 @@ deep_research_plan_tool = StructuredTool.from_function(
 
         Example Input:
         {
-            "mainHeader": "Seattle Instagram Getaway",
+            "mainHeader": "Seattle Instagram Getaway", 
+            "images": ["https://res.cloudinary.com/ducz9g7pb/image/upload/c_auto,f_auto,g_auto,h_270,q_auto,w_480/v1/travel-agent/v2dtdyvuddly2u2ehfzz"]
             "subHeaders": {
                 "Day-1": [
                     {
-                        "placeName": "Pike Place Market",
-                        "location": "Seattle, WA",
-                        "description": "A historic market overlooking the waterfront, featuring local vendors and unique goods.",
-                        "images": ["https://res.cloudinary.com/ducz9g7pb/image/upload/c_auto,f_auto,g_auto,h_270,q_auto,w_480/v1/travel-agent/v2dtdyvuddly2u2ehfzz"]
+                        "placeName": "Nanyang Technological University",
+                        "address": "50 Nanyang Ave, Singapore 639798",
+                        "description": "A top-ranked global university excelling in research, innovation, and education."
                     }
                 ]
             }

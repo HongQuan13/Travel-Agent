@@ -1,43 +1,15 @@
-import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Instagram,
-  MapPin,
-  MoreVertical,
-  Bookmark,
-  Play,
-} from "lucide-react";
-
-interface LocationCardProps {
-  placeName: string;
-  description: string;
-  images?: string[];
-  googleMapsUrl?: string;
-  instagramUrl?: string;
-  tiktokUrl?: string;
-}
+import { Instagram, MapPin, MoreVertical, Bookmark, Play } from "lucide-react";
+import { LocationCardProps } from "@/interfaces/interface";
 
 export function LocationCard({
   placeName,
   description,
-  images = [],
   googleMapsUrl = "",
   instagramUrl = "",
   tiktokUrl = "",
 }: LocationCardProps) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const previousImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
   return (
     <Card className="bg-card">
       <CardContent className="p-6">
@@ -59,43 +31,6 @@ export function LocationCard({
         </div>
 
         <p className="text-muted-foreground mb-6">{description}</p>
-
-        <div className="relative mb-6 aspect-video bg-muted rounded-lg overflow-hidden">
-          <img
-            src={images[currentImageIndex]}
-            alt={`${name} view ${currentImageIndex + 1}`}
-            className="object-cover"
-          />
-          <div className="absolute inset-0 flex items-center justify-between p-2">
-            <Button
-              variant="secondary"
-              size="icon"
-              onClick={previousImage}
-              className="h-8 w-8 rounded-full"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="secondary"
-              size="icon"
-              onClick={nextImage}
-              className="h-8 w-8 rounded-full"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-          <div className="absolute bottom-4 right-4 flex gap-2">
-            {images.map((_, index) => (
-              <div
-                key={index}
-                className={`w-1.5 h-1.5 rounded-full ${
-                  index === currentImageIndex ? "bg-white" : "bg-white/50"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
             {instagramUrl && (
