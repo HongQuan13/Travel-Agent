@@ -106,13 +106,18 @@ function MessageContainer({
                 </AvatarFallback>
               </Avatar>
               <div
-                className={`mx-2 py-2 px-3 rounded-lg whitespace-pre-line ${
+                className={`mx-2 py-2 px-3 rounded-lg whitespace-pre-line break-words ${
                   message.sender === "user"
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted"
                 }`}
+                style={{
+                  maxWidth: "75%",
+                  wordWrap: "break-word",
+                  wordBreak: "break-word",
+                }}
               >
-                <ReactMarkdown>{message.message_text}</ReactMarkdown>
+                {message.message_text}
               </div>
             </div>
           </div>
