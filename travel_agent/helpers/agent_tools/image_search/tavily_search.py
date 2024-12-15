@@ -29,7 +29,7 @@ class TavilySearch:
         if tavily_api_key is None:
             raise ValueError(f"Unable to access TAVILY_API_KEY in .env file")
 
-    def _tavily_search(self, query: str) -> List[str]:
+    async def _tavily_search(self, query: str) -> List[str]:
         try:
             escaped_term = urllib.parse.quote_plus(query)
             response = self._tavily_client.search(
@@ -47,14 +47,21 @@ class TavilySearch:
             logger.error(f"Unknown error {error}")
             return []
 
-    def search_images(self, query: str):
-        links = self._tavily_search(query)
+    async def search_images(self, query: str):
+        links = await self._tavily_search(query)
 
-        output_dict = {
-            "query": query,
-            "links": links,
-            "count": len(links),
-        }
+        if len(links) == 0:
+            output_dict = {
+                "query": query,
+                "links": "https://res.cloudinary.com/ducz9g7pb/image/upload/c_auto,f_auto,g_auto,h_270,q_auto,w_480/v1/travel-agent/v2dtdyvuddly2u2ehfzz",
+                "count": 1,
+            }
+        else:
+            output_dict = {
+                "query": query,
+                "links": links,
+                "count": len(links),
+            }
 
         return output_dict
 
