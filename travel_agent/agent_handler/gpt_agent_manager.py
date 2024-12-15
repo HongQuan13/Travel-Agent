@@ -14,7 +14,7 @@ from travel_agent.helpers.agent_tools.text_search_tool import (
 from travel_agent.helpers.agent_tools.image_search.image_search_tool import (
     image_search_tool,
 )
-from travel_agent.helpers.agent_tools.finalize_plan_tool import finalize_plan_tool
+from travel_agent.helpers.agent_tools.finalize_plan_tool import deep_research_plan
 
 
 logging.basicConfig(level=logging.INFO, force=True)
@@ -47,7 +47,7 @@ class GPTAgentManager:
                 google_search,
                 duckduckgo_search,
                 image_search_tool,
-                finalize_plan_tool,
+                deep_research_plan,
             ]
             system_message = SystemMessage(content=PROMPT_TEMPLATE)
 

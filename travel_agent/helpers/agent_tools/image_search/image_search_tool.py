@@ -1,3 +1,4 @@
+import asyncio
 from pydantic import BaseModel
 from langchain_core.tools import StructuredTool
 
@@ -10,12 +11,13 @@ class ImageSearchInput(BaseModel):
 
 def image_search(query: str) -> str:
     search_agent = TavilySearch()
-    return search_agent.search_images(query)
+    result = asyncio.run(search_agent.search_images(query))
+    return result
 
 
 image_search_tool = StructuredTool.from_function(
     func=image_search,
     name="image_search_tool",
-    description="Use this tool to retrieve images related to a place or anything else relevant to travel planning.",
+    description="Retrieves a list of images related to a specific place",
     args_schema=ImageSearchInput,
 )

@@ -11,6 +11,14 @@ load_dotenv()
 
 
 class CloudinaryHandler:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(CloudinaryHandler, cls).__new__(cls)
+            cls._instance._agent_executor = None
+        return cls._instance
+
     def __init__(self):
         self._check_env()
         self._config()
@@ -39,7 +47,20 @@ class CloudinaryHandler:
     def upload_image(self, image_url: str) -> str:
         try:
             upload_result = cloudinary.uploader.upload(
-                image_url, folder="travel-agent", format="png"
+                image_url,
+                folder="travel-agent",
+                format="png",
+                transformation=[
+                    {
+                        "width": 800,
+                        "height": 600,
+                        "crop": "limit",
+                    },
+                    {
+                        "quality": "auto",
+                        "fetch_format": "auto",
+                    },
+                ],
             )
 
             optimized_url, _ = cloudinary_url(
