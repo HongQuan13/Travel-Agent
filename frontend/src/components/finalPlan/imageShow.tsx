@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ImageCard } from "@/interfaces/interface";
 
-export function ImageShow({ images = [] }: { images: string[] }) {
+export function ImageShow({ images = [] }: { images: ImageCard[] }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextImage = () => {
@@ -16,7 +17,7 @@ export function ImageShow({ images = [] }: { images: string[] }) {
   return (
     <div className="relative mb-6 aspect-video bg-muted rounded-lg overflow-hidden">
       <img
-        src={images[currentImageIndex]}
+        src={images[currentImageIndex].image_url}
         alt={`${name} view ${currentImageIndex + 1}`}
         className="object-cover"
       />

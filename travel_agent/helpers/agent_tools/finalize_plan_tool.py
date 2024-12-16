@@ -101,7 +101,7 @@ def deep_research_plan(
     """Use the tool."""
     logger.info(f"deep_research_plan called")
     json_response = {
-        "mainHead": mainHeader,
+        "mainHeader": mainHeader,
         "images": images,
         "subHeaders": subHeaders,
     }

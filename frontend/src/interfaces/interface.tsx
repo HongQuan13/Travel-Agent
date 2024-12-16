@@ -10,11 +10,14 @@ export interface LocationCardProps {
   instagramUrl?: string;
   tiktokUrl?: string;
 }
+export interface ImageCard {
+  image_url: string;
+}
 
 export interface PlanCardProps {
-  mainHead: string;
-  images: string[];
-  subHeaders: object;
+  mainHeader: string;
+  images: ImageCard[];
+  subHeaders: object[];
 }
 
 export interface WebSocketContextType {
@@ -28,8 +31,4 @@ export interface WebSocketProviderProps {
   children: React.ReactNode;
 }
 
-export const testPlan = `{"mainHead": "2-Day Trip to India", "images": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN7fIsq7JVP045499zcXJmse5_m0RTXbXkxrlRbQ-Bm_mJMpkEMFep6aqOow&s",
-"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2G-luksTRsr2Qm7f1lp7eoaLVq5vG3S7yLousPRfvaA1fVP7CS7stP7KwrxE&s",
-"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlcY06-Ar-SMr3uWTbL7_avJWxZjt4b7oxDWNxQA9fSAramw7Qbzclc3oEZg&s",
-"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_grCZAZpgH5IqBZqmcXMSUUXlp0561CnM-LNMxJLr3eOczlWduXYUW7guzg&s",
-"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2L7RSlOxJMxCdE_nAbQOQV3qMvE-r4HYQRGkhx8ibmz9BITOkvmRSBeG9Xg&s"], "subHeaders": {"Day 1: Exploring Delhi": [{"placeName": "Red Fort", "location": "Delhi, India", "description": "Start your day with a visit to this iconic UNESCO World Heritage site."}, {"placeName": "Local Cafe", "location": "Delhi, India", "description": "Enjoy a traditional Indian breakfast at a local cafe."}, {"placeName": "Jama Masjid", "location": "Delhi, India", "description": "One of the largest mosques in India."}, {"placeName": "Karim's", "location": "Delhi, India", "description": "Famous for its Mughlai cuisine."}, {"placeName": "India Gate and Rashtrapati Bhavan", "location": "Delhi, India", "description": "Enjoy a leisurely walk around these historic landmarks."}, {"placeName": "Connaught Place", "location": "Delhi, India", "description": "Explore shops and enjoy street food."}, {"placeName": "Rooftop Restaurant", "location": "Delhi, India", "description": "Enjoy a meal with a view."}], "Day 2: Agra Day Trip": [{"placeName": "Travel to Agra", "location": "Agra, India", "description": "Take an early morning train or hire a car."}, {"placeName": "Taj Mahal", "location": "Agra, India", "description": "Explore this wonder of the world."}, {"placeName": "Local Restaurant", "location": "Agra, India", "description": "Enjoy local cuisine."}, {"placeName": "Agra Fort", "location": "Agra, India", "description": "Another UNESCO World Heritage site."}, {"placeName": "Return to Delhi", "location": "Delhi, India", "description": "Travel back to Delhi."}, {"placeName": "Local Dhaba", "location": "Delhi, India", "description": "Experience authentic Indian food."}]}}`;
+export const testPlan = `{"mainHeader": "Day Trip in Singapore: Nature, Culture, and Food", "images": [{"image_url": "https://res.cloudinary.com/ducz9g7pb/image/upload/c_auto,f_auto,g_auto,h_270,q_auto,w_480/v1/travel-agent/v2dtdyvuddly2u2ehfzz"}, {"image_url": "https://res.cloudinary.com/ducz9g7pb/image/upload/c_auto,f_auto,g_auto,h_270,q_auto,w_480/v1/travel-agent/txlna9uwcgsruvebvcst"}, {"image_url": "https://res.cloudinary.com/ducz9g7pb/image/upload/c_auto,f_auto,g_auto,h_270,q_auto,w_480/v1/travel-agent/j2kxf2yx4sv7rxlfc41b"}, {"image_url": "https://res.cloudinary.com/ducz9g7pb/image/upload/c_auto,f_auto,g_auto,h_270,q_auto,w_480/v1/travel-agent/yij5kzyj6ylzadyqm7nu"}, {"image_url": "https://res.cloudinary.com/ducz9g7pb/image/upload/c_auto,f_auto,g_auto,h_270,q_auto,w_480/v1/travel-agent/u3cupkuxn3qxv2rxlfdb"}], "subHeaders": [{"title": "Morning: Gardens by the Bay", "places": [{"placeName": "Gardens by the Bay", "address": "18 Marina Gardens Dr, Singapore 018953", "description": "Start your day with a visit to this iconic garden featuring the Supertree Grove, Cloud Forest, and Flower Dome. It's a perfect blend of nature and technology."}]}, {"title": "Midday: Explore Chinatown", "places": [{"placeName": "Chinatown", "address": "Chinatown, Singapore", "description": "Explore the rich cultural heritage of Chinatown. Visit the Buddha Tooth Relic Temple and Museum, and enjoy some local street food at the Chinatown Food Street."}]}, {"title": "Afternoon: National Museum of Singapore", "places": [{"placeName": "National Museum of Singapore", "address": "93 Stamford Rd, Singapore 178897", "description": "Dive into Singapore's history and culture at the National Museum. It's the oldest museum in Singapore, offering a modern and interactive experience."}]}, {"title": "Evening: Marina Bay Sands SkyPark", "places": [{"placeName": "Marina Bay Sands SkyPark", "address": "10 Bayfront Ave, Singapore 018956", "description": "End your day with a breathtaking view of the city skyline from the SkyPark Observation Deck. It's a perfect spot to relax and enjoy the sunset."}]}, {"title": "Dinner: Lau Pa Sat", "places": [{"placeName": "Lau Pa Sat", "address": "18 Raffles Quay, Singapore 048582", "description": "Enjoy a variety of local dishes at this famous hawker center. It's a great place to experience Singapore's diverse culinary scene."}]}]}`;

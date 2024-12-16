@@ -28,21 +28,19 @@ function FinalPlan() {
       <CardContent className="p-6 overflow-auto max-h-full">
         {[detailPlan].map((plan, index) => (
           <div key={index}>
-            <MainHeader title={plan.mainHead} />
+            <MainHeader title={plan.mainHeader} />
             <ImageShow images={plan.images} />
             <div className="space-y-8">
-              {Object.entries(plan.subHeaders).map(
-                ([subHeader, locations]: [string, any]) => (
-                  <section key={subHeader}>
-                    <SubHeader title={subHeader} />
-                    <div className="space-y-6">
-                      {locations.map((location: any, locIndex: number) => (
-                        <LocationCard key={locIndex} {...location} />
-                      ))}
-                    </div>
-                  </section>
-                )
-              )}
+              {plan.subHeaders.map((subHeader: any, subHeaderIndex: number) => (
+                <section key={subHeaderIndex}>
+                  <SubHeader title={subHeader.title} />
+                  <div className="space-y-6">
+                    {subHeader.places.map((place: any, placeIndex: number) => (
+                      <LocationCard key={placeIndex} {...place} />
+                    ))}
+                  </div>
+                </section>
+              ))}
             </div>
           </div>
         ))}
