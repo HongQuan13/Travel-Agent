@@ -6,6 +6,8 @@ import { LocationCardProps } from "@/interfaces/interface";
 export function LocationCard({
   placeName,
   description,
+  address,
+  price,
   googleMapsUrl = "",
   instagramUrl = "",
   tiktokUrl = "",
@@ -31,6 +33,19 @@ export function LocationCard({
         </div>
 
         <p className="text-muted-foreground mb-6">{description}</p>
+
+        <div className="flex items-center space-x-2 mb-1">
+          <h4 className="font-semibold">Address:</h4>
+          <p className="text-sm text-muted-foreground">{address}</p>
+        </div>
+
+        <div className="flex items-center space-x-2 mb-1">
+          <h4 className="font-semibold">Price:</h4>
+          <p className="text-sm text-muted-foreground">
+            {price ? price : "N/A"}
+          </p>
+        </div>
+
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
             {instagramUrl && (

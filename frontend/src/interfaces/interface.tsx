@@ -6,6 +6,8 @@ export interface Message {
 export interface LocationCardProps {
   placeName: string;
   description: string;
+  address: string;
+  price: string;
   googleMapsUrl?: string;
   instagramUrl?: string;
   tiktokUrl?: string;
