@@ -18,6 +18,7 @@ from travel_agent.helpers.agent_tools.finalize_plan_tool import (
     deep_research_plan,
     place_detail_tool,
     subheaders_tool,
+    notice_generate_plan_successful_tool,
 )
 
 
@@ -54,6 +55,7 @@ class GPTAgentManager:
                 deep_research_plan,
                 place_detail_tool,
                 subheaders_tool,
+                notice_generate_plan_successful_tool,
             ]
             system_message = SystemMessage(content=PROMPT_TEMPLATE)
 

@@ -14,6 +14,10 @@ logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
 
 
+class PlanGenerateNotice(BaseModel):
+    plan_title: str = Field(description="Title of the deep research generated plan")
+
+
 class ImageUrl(BaseModel):
     image_url: str = Field(description="Image url associated with the place or event")
 
@@ -55,6 +59,12 @@ class DeepResearchInput(BaseModel):
         if not isinstance(value, ImageUrl):
             raise ValueError("Each item in 'images' must be an ImageUrl object.")
         return value
+
+
+def notice_generate_plan_successful(plan_title: str):
+    """Use the tool."""
+    logger.info(f"notice_generate_plan_successful called")
+    return f"Plan {plan_title} is generated successfully"
 
 
 def save_final_plan(plan_detail: str):
@@ -112,6 +122,13 @@ def deep_research_plan(
     return
 
 
+notice_generate_plan_successful_tool = StructuredTool.from_function(
+    func=notice_generate_plan_successful,
+    name="notice_generate_plan_successful_tool",
+    description="""Use to notice user, deep research final plan generated successfully""",
+    args_schema=PlanGenerateNotice,
+)
+
 place_detail_tool = StructuredTool.from_function(
     func=place_detail,
     name="place_detail_tool",
@@ -130,7 +147,7 @@ deep_research_plan_tool = StructuredTool.from_function(
     func=deep_research_plan,
     name="deep_research_plan_tool",
     description="""
-        Use when user want to generate a deep research for visualization purposes. 
+        Use when user want to generate a deep research plan. 
         It formats travel-related data, such as itineraries, restaurant lists, or place details, into a finalized structure.
 
         Output is not returned to the user but confirms the successful generation of the final plan.
