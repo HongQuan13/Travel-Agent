@@ -1,7 +1,7 @@
 import logging
 from langchain_core.tools import StructuredTool
 
-from travel_agent.helpers.agent_tools.finalize_plan.models import Place
+from travel_agent.helpers.agent_tools.final_itinerary.models import Place
 
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)

@@ -14,16 +14,16 @@ from travel_agent.helpers.agent_tools.text_search_tool import (
 from travel_agent.helpers.agent_tools.image_search.image_search_tool import (
     image_search_tool,
 )
-from travel_agent.helpers.agent_tools.finalize_plan.finalize_plan_tool import (
-    deep_research_plan_tool,
+from travel_agent.helpers.agent_tools.final_itinerary.finalize_itinerary_tool import (
+    finalize_itinerary_tool,
 )
-from travel_agent.helpers.agent_tools.finalize_plan.generate_place_tool import (
+from travel_agent.helpers.agent_tools.final_itinerary.generate_place_tool import (
     generate_place_tool,
 )
-from travel_agent.helpers.agent_tools.finalize_plan.generate_plan_notice_tool import (
-    notice_generate_plan_successful_tool,
+from travel_agent.helpers.agent_tools.final_itinerary.generate_itinerary_notice_tool import (
+    notice_generate_itinerary_successful_tool,
 )
-from travel_agent.helpers.agent_tools.finalize_plan.generate_subheader_tool import (
+from travel_agent.helpers.agent_tools.final_itinerary.generate_subheader_tool import (
     generate_subheaders_tool,
 )
 
@@ -58,9 +58,9 @@ class GPTAgentManager:
                 google_search,
                 duckduckgo_search,
                 image_search_tool,
-                deep_research_plan_tool,
+                finalize_itinerary_tool,
                 generate_place_tool,
-                notice_generate_plan_successful_tool,
+                notice_generate_itinerary_successful_tool,
                 generate_subheaders_tool,
             ]
             system_message = SystemMessage(content=PROMPT_TEMPLATE)

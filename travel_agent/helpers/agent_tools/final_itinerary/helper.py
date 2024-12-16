@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
 
 
-def save_final_plan(plan_detail: str):
+def save_final_itinerary(plan_detail: str):
     db = get_database()
     session = next(db)
     new_plan = Plan(plan_detail=plan_detail)

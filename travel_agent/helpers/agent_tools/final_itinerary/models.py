@@ -27,23 +27,17 @@ class ImageUrl(BaseModel):
         return value
 
 
-class DeepResearchPlan(BaseModel):
+class FinalItinerary(BaseModel):
     mainHeader: str = Field(
-        description="The primary title or header for the generated plan, summarizing its main focus or theme."
+        description="The primary title or header for the final itinerary, summarizing its main focus or theme."
     )
     images: List[ImageUrl] = Field(
-        description="List of images about places or event inside plan",
+        description="List of images about places or event inside itinerary",
     )
     subHeaders: List[SubHeaders] = Field(
-        description="""List of subheaders inside plan""",
+        description="""List of subheaders inside itinerary""",
     )
 
-    # @validator("images")
-    # def validate_images_content(cls, value):
-    #     if not isinstance(value, ImageUrl):
-    #         raise ValueError("Each item in 'images' must be an ImageUrl object.")
-    #     return value
 
-
-class PlanGenerateNotice(BaseModel):
-    plan_title: str = Field(description="Title of the deep research generated plan")
+class SucessfulItineraryNotice(BaseModel):
+    plan_title: str = Field(description="Title of the final itinerary")

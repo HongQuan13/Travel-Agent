@@ -6,9 +6,11 @@ from fastapi.encoders import jsonable_encoder
 from langchain_core.tools import StructuredTool
 
 from backend.src.lib.websocket import WebSocketManager
-from travel_agent.helpers.agent_tools.finalize_plan.helper import save_final_plan
-from travel_agent.helpers.agent_tools.finalize_plan.models import (
-    DeepResearchPlan,
+from travel_agent.helpers.agent_tools.final_itinerary.helper import (
+    save_final_itinerary,
+)
+from travel_agent.helpers.agent_tools.final_itinerary.models import (
+    FinalItinerary,
     ImageUrl,
     SubHeaders,
 )
@@ -17,13 +19,13 @@ logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
 
 
-def deep_research_plan(
+def finalize_itinerary(
     mainHeader: str,
     images: List[ImageUrl],
     subHeaders: List[SubHeaders],
 ) -> object:
     """Use the tool."""
-    logger.info(f"deep_research_plan called")
+    logger.info(f"finalize_itinerary called")
     json_response = {
         "mainHeader": mainHeader,
         "images": images,
@@ -31,19 +33,19 @@ def deep_research_plan(
     }
     jsong_dumps = json.dumps(jsonable_encoder(json_response))
 
-    save_final_plan(jsong_dumps)
+    save_final_itinerary(jsong_dumps)
     asyncio.run(WebSocketManager().broadcast(jsong_dumps))
     return
 
 
-deep_research_plan_tool = StructuredTool.from_function(
-    func=deep_research_plan,
-    name="deep_research_plan_tool",
+finalize_itinerary_tool = StructuredTool.from_function(
+    func=finalize_itinerary,
+    name="finalize_itinerary_tool",
     description="""
-        Use when user want to generate a deep research plan. 
+        Use when user want to generate the final itinerary. 
         It formats travel-related data, such as itineraries, restaurant lists, or place details, into a finalized structure.
 
-        Output is not returned to the user but confirms the successful generation of the final plan.
+        Output is not returned to the user but confirms the successful generation of the final itinerary.
 
         Example Input:
         {
@@ -63,5 +65,5 @@ deep_research_plan_tool = StructuredTool.from_function(
             ]
         }
     """,
-    args_schema=DeepResearchPlan,
+    args_schema=FinalItinerary,
 )
