@@ -22,8 +22,9 @@ export interface PlanCardProps {
 
 export interface WebSocketContextType {
   message: string;
-  sendMessage: (msg: object) => void;
+  sendMessage: (msg: string) => void;
   isConnected: boolean;
+  close: () => void;
 }
 
 export interface WebSocketProviderProps {

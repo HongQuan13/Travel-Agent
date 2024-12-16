@@ -65,8 +65,8 @@ class CloudinaryHandler:
 
             optimized_url, _ = cloudinary_url(
                 upload_result["public_id"],
-                width=480,
-                height=270,
+                width=650,
+                height=365,
                 crop="auto",
                 gravity="auto",
                 fetch_format="auto",

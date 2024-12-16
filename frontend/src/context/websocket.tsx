@@ -1,18 +1,11 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   WebSocketContextType,
   WebSocketProviderProps,
 } from "@/interfaces/interface";
+import { AutoReconnectWebSocket } from "./autoReconnectWebsocket";
 
-const WebSocketContext = createContext<WebSocketContextType | undefined>(
-  undefined
-);
+const WebSocketContext = createContext<WebSocketContextType | null>(null);
 
 export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
   url,
@@ -20,49 +13,48 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 }) => {
   const [message, setMessage] = useState<string>("");
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  const socketRef = useRef<WebSocket | null>(null);
+  const [wsClient, setWsClient] = useState<AutoReconnectWebSocket | null>(null);
 
   useEffect(() => {
-    const connectWebSocket = () => {
-      socketRef.current = new WebSocket(url);
+    const client = new AutoReconnectWebSocket(url, {
+      reconnectInterval: 1000,
+      maxReconnectAttempts: 20,
+    });
 
-      socketRef.current.onopen = () => {
-        setIsConnected(true);
-        console.log("WebSocket connected");
-      };
+    setWsClient(client);
 
-      socketRef.current.onmessage = (event: MessageEvent) => {
-        setMessage(event.data); // Replace with your message parsing logic
-      };
-
-      socketRef.current.onclose = () => {
-        setIsConnected(false);
-        console.log("WebSocket disconnected");
-      };
-
-      socketRef.current.onerror = (error) => {
-        console.error("WebSocket error:", error);
-      };
+    const handleMessage = (msg: string) => {
+      setMessage(msg);
     };
 
-    connectWebSocket();
+    client.onMessage = handleMessage;
 
-    // Cleanup on component unmount
+    const interval = setInterval(() => {
+      setIsConnected(client.isConnected());
+    }, 1000);
+
     return () => {
-      socketRef.current?.close();
+      client.close();
+      clearInterval(interval);
     };
   }, [url]);
 
-  const sendMessage = (msg: object) => {
-    if (isConnected && socketRef.current) {
-      socketRef.current.send(JSON.stringify(msg));
+  const sendMessage = (message: string) => {
+    if (wsClient) {
+      wsClient.send(message);
     } else {
-      console.error("WebSocket is not connected");
+      console.error("WebSocket client is not initialized.");
     }
   };
 
+  const close = () => {
+    wsClient?.close();
+  };
+
   return (
-    <WebSocketContext.Provider value={{ message, sendMessage, isConnected }}>
+    <WebSocketContext.Provider
+      value={{ close, message, sendMessage, isConnected }}
+    >
       {children}
     </WebSocketContext.Provider>
   );
