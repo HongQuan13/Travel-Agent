@@ -53,7 +53,7 @@ class ChatService:
         new_message = Message(
             conversation_id=message.conversation_id,
             sender=SenderType.user,
-            message_text=message.message_text,
+            content=message.content,
         )
         db.add(new_message)
         db.commit()
@@ -62,11 +62,11 @@ class ChatService:
         )
 
         bot_response = await self.bot_reply(
-            message.message_text, message.conversation_id, db
+            message.content, message.conversation_id, db
         )
         return SendMessageResponse(
             message_id=new_message.id,
-            message_text=new_message.message_text,
+            content=new_message.content,
             sender=SenderType.user,
             conversation_id=message.conversation_id,
             bot_response=bot_response,
@@ -81,7 +81,7 @@ class ChatService:
         bot_reply = Message(
             conversation_id=conversation_id,
             sender=SenderType.bot,
-            message_text=chat_response,
+            content=chat_response,
         )
         db.add(bot_reply)
         db.commit()
@@ -97,7 +97,7 @@ class ChatService:
 
         all_messages = (
             db.query(
-                Message.message_text,
+                Message.content,
                 Message.timestamp,
                 Message.sender,
                 Message.category,
@@ -109,7 +109,7 @@ class ChatService:
 
         structured_messages = [
             MessageInfo(
-                message_text=m[0],
+                content=m[0],
                 timestamp=m[1],
                 sender=m[2],
                 category=(m[3] if m[3] != None else "text"),
@@ -136,7 +136,7 @@ class ChatService:
             raise HTTPException(status_code=400, detail="Conversation not exist")
 
         plan_id = (
-            db.query(Message.message_text)
+            db.query(Message.content)
             .filter(
                 Message.conversation_id == conversation_id,
                 Message.sender == "bot",

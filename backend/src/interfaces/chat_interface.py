@@ -20,12 +20,12 @@ class SenderType:
 class SendMessageRequest(BaseModel):
     conversation_id: int
     user_id: int
-    message_text: str
+    content: str
 
 
 class SendMessageResponse(BaseModel):
     message_id: int
-    message_text: str
+    content: str
     conversation_id: int
     sender: Literal["user", "bot"]
     bot_response: str
@@ -33,7 +33,7 @@ class SendMessageResponse(BaseModel):
 
 class MessageInfo(BaseModel):
     sender: str
-    message_text: str
+    content: str
     timestamp: datetime
     category: Literal["text", "plan"]
 

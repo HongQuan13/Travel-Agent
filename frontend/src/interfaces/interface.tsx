@@ -1,5 +1,5 @@
 export interface Message {
-  message_text: string;
+  content: string;
   sender: string;
   category?: "plan" | "text";
 }

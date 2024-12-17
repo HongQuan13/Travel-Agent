@@ -31,7 +31,7 @@ function MessageContainer({
     if (message != "") {
       const content = JSON.parse(message);
       const newMessage: Message = {
-        message_text: content.plan_id,
+        content: content.plan_id,
         sender: "bot",
         category: "plan",
       };
@@ -66,7 +66,7 @@ function MessageContainer({
   const handleSendMessage = async () => {
     if (inputValue.trim()) {
       const newMessage: Message = {
-        message_text: inputValue,
+        content: inputValue,
         sender: "user",
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -77,11 +77,11 @@ function MessageContainer({
       const response = await axiosClient.post("chat/send-message", {
         conversation_id: 1,
         user_id: 1,
-        message_text: inputValue.trim(),
+        content: inputValue.trim(),
       });
 
       const replyMessage: Message = {
-        message_text: response.data.bot_response,
+        content: response.data.bot_response,
         sender: "bot",
       };
       setMessages((prevMessages) => [...prevMessages, replyMessage]);
@@ -123,8 +123,8 @@ function MessageContainer({
               </Avatar>
               {message.category === "plan" ? (
                 <PlaceCardHeader
-                  id={message.message_text}
-                  title={message.message_text}
+                  id={message.content}
+                  title={message.content}
                   handleClick={handleClickPlan}
                 />
               ) : (
@@ -140,7 +140,7 @@ function MessageContainer({
                     wordBreak: "break-word",
                   }}
                 >
-                  {message.message_text}
+                  {message.content}
                 </div>
               )}
             </div>

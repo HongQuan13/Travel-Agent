@@ -33,7 +33,7 @@ def save_itinerary_message(plan_id: str):
         conversation_id=1,
         sender="bot",
         category="plan",
-        message_text=plan_id,
+        content=plan_id,
     )
 
     try:

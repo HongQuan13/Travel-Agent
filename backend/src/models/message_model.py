@@ -14,5 +14,5 @@ class Message(Base):
     )
     sender: Mapped[str] = mapped_column(Enum("user", "bot"), nullable=False)
     category: Mapped[str] = mapped_column(Enum("text", "plan"), default="text")
-    message_text: Mapped[str] = mapped_column(Text, nullable=False)
+    content: Mapped[str] = mapped_column(Text, nullable=False)
     timestamp: Mapped[datetime] = mapped_column(TIMESTAMP, default=datetime.utcnow)
