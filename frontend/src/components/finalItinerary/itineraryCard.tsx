@@ -1,7 +1,12 @@
 import { Atom } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { PlaceCardHeaderProps } from "@/interfaces/interface";
+
+interface PlaceCardHeaderProps {
+  id: string;
+  title: string;
+  handleClick: (event: React.MouseEvent<HTMLDivElement>) => void;
+}
 
 export default function PlaceCardHeader({
   id,
@@ -18,7 +23,7 @@ export default function PlaceCardHeader({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Atom className="h-5 w-5 text-primary" />
-            <span className="font-medium">Final Initerary</span>
+            <span className="font-medium">Final Itinerary</span>
           </div>
         </div>
         <div className="mt-2">

@@ -2,7 +2,16 @@ import { Instagram, MapPin, MoreVertical, Bookmark, Play } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { LocationCardProps } from "@/interfaces/interface";
+
+interface LocationCardProps {
+  placeName: string;
+  description: string;
+  address: string;
+  price: string;
+  googleMapsUrl?: string;
+  instagramUrl?: string;
+  tiktokUrl?: string;
+}
 
 export function LocationCard({
   placeName,
