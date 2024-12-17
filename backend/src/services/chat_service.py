@@ -93,14 +93,24 @@ class ChatService:
             raise HTTPException(status_code=400, detail="Conversation not exist")
 
         all_messages = (
-            db.query(Message.message_text, Message.timestamp, Message.sender)
+            db.query(
+                Message.message_text,
+                Message.timestamp,
+                Message.sender,
+                Message.category,
+            )
             .filter(Message.conversation_id == conversation_id)
             .order_by(Message.timestamp)
             .all()
         )
 
         structured_messages = [
-            MessageInfo(message_text=m[0], timestamp=m[1], sender=m[2])
+            MessageInfo(
+                message_text=m[0],
+                timestamp=m[1],
+                sender=m[2],
+                category=(m[3] if m[3] != None else "text"),
+            )
             for m in all_messages
         ]
 

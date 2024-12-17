@@ -35,6 +35,7 @@ class MessageInfo(BaseModel):
     sender: str
     message_text: str
     timestamp: datetime
+    category: Literal["text", "plan"]
 
 
 class RetrieveConversationResponse(BaseModel):
