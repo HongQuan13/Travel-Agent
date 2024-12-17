@@ -21,6 +21,16 @@ class ChatRouter:
         )
         self.router.add_api_route("/send-message", self.send_messsage, methods=["POST"])
         self.router.add_api_route(
+            "/retrieve-plan/{plan_id}",
+            self.retrieve_plan,
+            methods=["GET"],
+        )
+        self.router.add_api_route(
+            "/retrieve-latest-plan/{conversation_id}",
+            self.retrieve_latest_plan,
+            methods=["GET"],
+        )
+        self.router.add_api_route(
             "/retrieve-conversation/{conversation_id}",
             self.retrieve_conversation,
             methods=["GET"],
@@ -46,3 +56,19 @@ class ChatRouter:
     ):
         logger.info("retrieve_conversation called")
         return await self.handler.retrieve_conversation(conversation_id, db)
+
+    async def retrieve_plan(
+        self,
+        plan_id: int,
+        db: Session = Depends(get_database),
+    ):
+        logger.info("retrieve_plan called")
+        return await self.handler.retrieve_plan(plan_id, db)
+
+    async def retrieve_latest_plan(
+        self,
+        conversation_id: int,
+        db: Session = Depends(get_database),
+    ):
+        logger.info("retrieve_latest_plan called")
+        return await self.handler.retrieve_latest_plan(conversation_id, db)

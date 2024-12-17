@@ -40,3 +40,7 @@ class MessageInfo(BaseModel):
 
 class RetrieveConversationResponse(BaseModel):
     all_messages: List[MessageInfo]
+
+
+class RetrievePlanDetailResponse(BaseModel):
+    plan_detail: str

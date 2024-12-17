@@ -13,12 +13,14 @@ interface MessageContainerProps {
   finalPlanView: Boolean;
   setFinalPlan: React.Dispatch<React.SetStateAction<boolean>>;
   setMobileView: React.Dispatch<React.SetStateAction<boolean>>;
+  handleClickPlan: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 function MessageContainer({
   finalPlanView,
   setFinalPlan,
   setMobileView,
+  handleClickPlan,
 }: MessageContainerProps) {
   const [inputValue, setInputValue] = React.useState("");
   const [messages, setMessages] = React.useState<Message[]>([]);
@@ -123,6 +125,7 @@ function MessageContainer({
                 <PlaceCardHeader
                   id={message.message_text}
                   title={message.message_text}
+                  handleClick={handleClickPlan}
                 />
               ) : (
                 <div

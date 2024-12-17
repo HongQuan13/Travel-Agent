@@ -1,24 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { MainHeader, SubHeader } from "@/components/finalPlan/header";
 import { LocationCard } from "@/components/finalPlan/locationCard";
 import { Card, CardContent } from "@/components/ui/card";
-import { useWebSocket } from "@/context/websocket";
 import { ImageShow } from "./imageShow";
-import { PlanCardProps, testPlan } from "@/interfaces/interface";
+import { PlanCardProps } from "@/interfaces/interface";
 
-function FinalPlan() {
+function FinalPlan({ detailPlan }: { detailPlan: PlanCardProps }) {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
-  const defaultResponse = JSON.parse(testPlan);
-  const [detailPlan, setDetailPlan] = useState<PlanCardProps>(defaultResponse);
-  const { message, sendMessage, isConnected } = useWebSocket();
-
-  useEffect(() => {
-    if (message != "") {
-      const content = JSON.parse(message);
-      setDetailPlan(content.plan_detail);
-    }
-  }, [message]);
 
   useEffect(() => {
     if (scrollAreaRef.current) {
