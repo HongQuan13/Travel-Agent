@@ -13,6 +13,6 @@ class Message(Base):
         ForeignKey("conversations.id"), nullable=False
     )
     sender: Mapped[str] = mapped_column(Enum("user", "bot"), nullable=False)
-    category: Mapped[str] = mapped_column(Enum("text", "plan"), default="text")
+    category: Mapped[str] = mapped_column(Enum("text", "itinerary"), default="text")
     content: Mapped[str] = mapped_column(Text, nullable=False)
     timestamp: Mapped[datetime] = mapped_column(TIMESTAMP, default=datetime.utcnow)

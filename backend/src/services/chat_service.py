@@ -142,7 +142,7 @@ class ChatService:
             .filter(
                 Message.conversation_id == conversation_id,
                 Message.sender == "bot",
-                Message.category == "plan",
+                Message.category == "itinerary",
             )
             .order_by(Message.timestamp.desc())
             .first()

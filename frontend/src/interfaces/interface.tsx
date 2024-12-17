@@ -1,7 +1,7 @@
 export interface Message {
   content: string;
   sender: string;
-  category?: "plan" | "text";
+  category?: "itinerary" | "text";
 }
 
 export interface LocationCardProps {

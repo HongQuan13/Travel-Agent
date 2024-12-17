@@ -33,7 +33,7 @@ function MessageContainer({
       const newMessage: Message = {
         content: content.itinerary_id,
         sender: "bot",
-        category: "plan",
+        category: "itinerary",
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
     }
@@ -121,7 +121,7 @@ function MessageContainer({
                   {message.sender === "user" ? "U" : "B"}
                 </AvatarFallback>
               </Avatar>
-              {message.category === "plan" ? (
+              {message.category === "itinerary" ? (
                 <PlaceCardHeader
                   id={message.content}
                   title={message.content}

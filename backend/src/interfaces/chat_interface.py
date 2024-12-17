@@ -35,7 +35,7 @@ class MessageInfo(BaseModel):
     sender: str
     content: str
     timestamp: datetime
-    category: Literal["text", "plan"]
+    category: Literal["text", "itinerary"]
 
 
 class RetrieveConversationResponse(BaseModel):

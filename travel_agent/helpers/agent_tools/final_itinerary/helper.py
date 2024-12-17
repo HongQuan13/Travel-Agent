@@ -32,7 +32,7 @@ def save_itinerary_message(itinerary_id: str):
         new_message = Message(
             conversation_id=1,
             sender="bot",
-            category="plan",
+            category="itinerary",
             content=itinerary_id,
         )
         session.add(new_message)
