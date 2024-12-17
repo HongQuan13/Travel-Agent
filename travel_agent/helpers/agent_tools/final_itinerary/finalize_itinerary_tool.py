@@ -8,6 +8,7 @@ from langchain_core.tools import StructuredTool
 from backend.src.lib.websocket import WebSocketManager
 from travel_agent.helpers.agent_tools.final_itinerary.helper import (
     save_final_itinerary,
+    save_itinerary_message,
 )
 from travel_agent.helpers.agent_tools.final_itinerary.models import (
     FinalItinerary,
@@ -33,8 +34,16 @@ def finalize_itinerary(
     }
     jsong_dumps = json.dumps(jsonable_encoder(json_response))
 
-    save_final_itinerary(jsong_dumps)
-    asyncio.run(WebSocketManager().broadcast(jsong_dumps))
+    plan_id = save_final_itinerary(jsong_dumps)
+    save_itinerary_message(plan_id)
+
+    # hardcode conversation_id = 1
+    socket_message = {
+        "conversation_id": 1,
+        "plan_id": plan_id,
+        "plan_detail": jsonable_encoder(json_response),
+    }
+    asyncio.run(WebSocketManager().broadcast(json.dumps(socket_message)))
     return
 
 

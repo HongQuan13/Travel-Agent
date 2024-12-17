@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Message } from "@/interfaces/interface";
 import { axiosClient } from "@/lib/axios";
 import PlaceCardHeader from "../finalPlan/planCard";
+import { useWebSocket } from "@/context/websocket";
 
 interface MessageContainerProps {
   finalPlanView: Boolean;
@@ -22,6 +23,19 @@ function MessageContainer({
   const [inputValue, setInputValue] = React.useState("");
   const [messages, setMessages] = React.useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const { message, sendMessage, isConnected } = useWebSocket();
+
+  useEffect(() => {
+    if (message != "") {
+      const content = JSON.parse(message);
+      const newMessage: Message = {
+        message_text: content.plan_id,
+        sender: "bot",
+        category: "plan",
+      };
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    }
+  }, [message]);
 
   useEffect(() => {
     retrieveChatContent();
@@ -105,25 +119,31 @@ function MessageContainer({
                   {message.sender === "user" ? "U" : "B"}
                 </AvatarFallback>
               </Avatar>
-              <div
-                className={`mx-2 py-2 px-3 rounded-lg whitespace-pre-line break-words ${
-                  message.sender === "user"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted"
-                }`}
-                style={{
-                  maxWidth: "75%",
-                  wordWrap: "break-word",
-                  wordBreak: "break-word",
-                }}
-              >
-                {message.message_text}
-              </div>
+              {message.category === "plan" ? (
+                <PlaceCardHeader
+                  id={message.message_text}
+                  title={message.message_text}
+                />
+              ) : (
+                <div
+                  className={`mx-2 py-2 px-3 rounded-lg whitespace-pre-line break-words ${
+                    message.sender === "user"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted"
+                  }`}
+                  style={{
+                    maxWidth: "75%",
+                    wordWrap: "break-word",
+                    wordBreak: "break-word",
+                  }}
+                >
+                  {message.message_text}
+                </div>
+              )}
             </div>
           </div>
         ))}
         <div ref={messagesEndRef} />
-        <PlaceCardHeader />
       </ScrollArea>
       <div className="p-6 border-t bg-background">
         <form

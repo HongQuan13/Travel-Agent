@@ -14,7 +14,10 @@ function FinalPlan() {
   const { message, sendMessage, isConnected } = useWebSocket();
 
   useEffect(() => {
-    if (message != "") setDetailPlan(JSON.parse(message));
+    if (message != "") {
+      const content = JSON.parse(message);
+      setDetailPlan(content.plan_detail);
+    }
   }, [message]);
 
   useEffect(() => {
