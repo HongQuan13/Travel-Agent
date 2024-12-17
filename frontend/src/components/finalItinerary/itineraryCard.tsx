@@ -1,6 +1,7 @@
+import { Atom } from "lucide-react";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { PlaceCardHeaderProps } from "@/interfaces/interface";
-import { Atom } from "lucide-react";
 
 export default function PlaceCardHeader({
   id,

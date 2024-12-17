@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { MainHeader, SubHeader } from "@/components/finalItinerary/header";
 import { LocationCard } from "@/components/finalItinerary/locationCard";
 import { Card, CardContent } from "@/components/ui/card";
-import { ImageShow } from "./imageShow";
+import { ImageShow } from "@/components/finalItinerary/imageShow";
 import { ItineraryCardProps } from "@/interfaces/interface";
 
 function FinalItinerary({

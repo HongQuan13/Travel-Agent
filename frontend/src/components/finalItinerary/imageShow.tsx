@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import { ImageCard } from "@/interfaces/interface";
 
 export function ImageShow({ images = [] }: { images: ImageCard[] }) {

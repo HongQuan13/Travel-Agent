@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import Chatbot from "./chat";
+
 import Layout from "@/components/layout";
-import Home from "./home";
+import Chatbot from "@/webpages/chat";
+import Home from "@/webpages/home";
 
 function Webpages() {
   return (

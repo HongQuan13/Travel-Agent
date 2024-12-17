@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+
 import {
   WebSocketContextType,
   WebSocketProviderProps,
 } from "@/interfaces/interface";
-import { AutoReconnectWebSocket } from "./autoReconnectWebsocket";
+import { AutoReconnectWebSocket } from "@/context/autoReconnectWebsocket";
 
 const WebSocketContext = createContext<WebSocketContextType | null>(null);
 

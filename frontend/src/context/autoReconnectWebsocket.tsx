@@ -10,7 +10,7 @@ export class AutoReconnectWebSocket {
   private currentReconnectAttempts: number = 0;
   private isManuallyClosed: boolean = false;
   private ws: WebSocket | null = null;
-  public onMessage: ((msg: string) => void) | null = null; // Callback for incoming messages
+  public onMessage: ((msg: string) => void) | null = null;
 
   constructor(url: string, options: WebSocketOptions = {}) {
     this.url = url;

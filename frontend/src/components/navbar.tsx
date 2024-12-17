@@ -1,12 +1,10 @@
-"use client";
-
-import * as React from "react";
+import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
+import { Fragment, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "react-router-dom";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -15,7 +13,7 @@ const navItems = [
 ];
 
 export function Navbar() {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="bg-background border-b h-16">
@@ -46,7 +44,7 @@ export function Navbar() {
               <SheetContent side="right" className="w-[240px] sm:w-[540px]">
                 <nav className="flex flex-col gap-4">
                   {navItems.map((item, index) => (
-                    <React.Fragment key={item.name}>
+                    <Fragment key={item.name}>
                       <Button
                         asChild
                         variant="ghost"
@@ -56,7 +54,7 @@ export function Navbar() {
                         <Link to={item.href}>{item.name}</Link>
                       </Button>
                       {index < navItems.length - 1 && <Separator />}
-                    </React.Fragment>
+                    </Fragment>
                   ))}
                 </nav>
               </SheetContent>

@@ -1,6 +1,7 @@
+import { Instagram, MapPin, MoreVertical, Bookmark, Play } from "lucide-react";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Instagram, MapPin, MoreVertical, Bookmark, Play } from "lucide-react";
 import { LocationCardProps } from "@/interfaces/interface";
 
 export function LocationCard({
