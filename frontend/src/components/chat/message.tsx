@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Message } from "@/interfaces/interface";
 import { axiosClient } from "@/lib/axios";
+import PlaceCardHeader from "../finalPlan/planCard";
 
 interface MessageContainerProps {
   finalPlanView: Boolean;
@@ -122,6 +123,7 @@ function MessageContainer({
           </div>
         ))}
         <div ref={messagesEndRef} />
+        <PlaceCardHeader />
       </ScrollArea>
       <div className="p-6 border-t bg-background">
         <form
