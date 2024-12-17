@@ -104,7 +104,7 @@ function MessageContainer({
   return (
     <div className="flex flex-col h-full">
       <ScrollArea ref={scrollAreaRef} className="flex-grow p-6">
-        {messages.map((message: any) => (
+        {messages.map((message: Message) => (
           <div
             key={message.id}
             className={`flex ${
@@ -159,7 +159,9 @@ function MessageContainer({
             type="text"
             placeholder="Type your message..."
             value={inputValue}
-            onChange={(e: any) => setInputValue(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setInputValue(e.target.value)
+            }
             className="flex-grow"
           />
           <Button type="submit" size="icon" onClick={handleSendMessage}>
