@@ -3,7 +3,7 @@ import logging
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from backend.src.models.plan_model import Plan
+from backend.src.models.itinerary_model import Itinerary
 from backend.src.models.user_model import User
 from backend.src.models.conversation_model import Conversation
 from backend.src.models.message_model import Message
@@ -12,7 +12,7 @@ from backend.src.interfaces.chat_interface import (
     CreateConversationRequest,
     MessageInfo,
     RetrieveConversationResponse,
-    RetrievePlanDetailResponse,
+    RetrieveItineraryDetailResponse,
     SendMessageRequest,
     SendMessageResponse,
     SenderType,
@@ -119,15 +119,17 @@ class ChatService:
 
         return RetrieveConversationResponse(all_messages=structured_messages)
 
-    async def retrieve_plan(self, plan_id: int, db: Session):
-        plan_content = db.query(Plan.plan_detail).filter_by(id=plan_id).first()
+    async def retrieve_itinerary(self, itinerary_id: int, db: Session):
+        itinerary_content = (
+            db.query(Itinerary.itinerary_detail).filter_by(id=itinerary_id).first()
+        )
 
-        if not plan_content:
-            raise HTTPException(status_code=400, detail="Plan not exist")
+        if not itinerary_content:
+            raise HTTPException(status_code=400, detail="Itinerary not exist")
 
-        return RetrievePlanDetailResponse(plan_detail=plan_content[0])
+        return RetrieveItineraryDetailResponse(itinerary_detail=itinerary_content[0])
 
-    async def retrieve_latest_plan(self, conversation_id: int, db: Session):
+    async def retrieve_latest_itinerary(self, conversation_id: int, db: Session):
         exist_conversation = (
             db.query(Conversation).filter_by(id=conversation_id).first()
         )
@@ -135,7 +137,7 @@ class ChatService:
         if not exist_conversation:
             raise HTTPException(status_code=400, detail="Conversation not exist")
 
-        plan_id = (
+        itinerary_id = (
             db.query(Message.content)
             .filter(
                 Message.conversation_id == conversation_id,
@@ -145,9 +147,11 @@ class ChatService:
             .order_by(Message.timestamp.desc())
             .first()
         )
-        plan_content = db.query(Plan.plan_detail).filter_by(id=plan_id[0]).first()
+        itinerary_content = (
+            db.query(Itinerary.itinerary_detail).filter_by(id=itinerary_id[0]).first()
+        )
 
-        if not plan_content:
-            raise HTTPException(status_code=400, detail="Plan not exist")
+        if not itinerary_content:
+            raise HTTPException(status_code=400, detail="itinerary not exist")
 
-        return RetrievePlanDetailResponse(plan_detail=plan_content[0])
+        return RetrieveItineraryDetailResponse(itinerary_detail=itinerary_content[0])

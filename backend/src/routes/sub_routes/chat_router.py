@@ -21,13 +21,13 @@ class ChatRouter:
         )
         self.router.add_api_route("/send-message", self.send_messsage, methods=["POST"])
         self.router.add_api_route(
-            "/retrieve-plan/{plan_id}",
-            self.retrieve_plan,
+            "/retrieve-itinerary/{itinerary_id}",
+            self.retrieve_itinerary,
             methods=["GET"],
         )
         self.router.add_api_route(
-            "/retrieve-latest-plan/{conversation_id}",
-            self.retrieve_latest_plan,
+            "/retrieve-latest-itinerary/{conversation_id}",
+            self.retrieve_latest_itinerary,
             methods=["GET"],
         )
         self.router.add_api_route(
@@ -57,18 +57,18 @@ class ChatRouter:
         logger.info("retrieve_conversation called")
         return await self.handler.retrieve_conversation(conversation_id, db)
 
-    async def retrieve_plan(
+    async def retrieve_itinerary(
         self,
-        plan_id: int,
+        itinerary_id: int,
         db: Session = Depends(get_database),
     ):
-        logger.info("retrieve_plan called")
-        return await self.handler.retrieve_plan(plan_id, db)
+        logger.info("retrieve_itinerary called")
+        return await self.handler.retrieve_itinerary(itinerary_id, db)
 
-    async def retrieve_latest_plan(
+    async def retrieve_latest_itinerary(
         self,
         conversation_id: int,
         db: Session = Depends(get_database),
     ):
-        logger.info("retrieve_latest_plan called")
-        return await self.handler.retrieve_latest_plan(conversation_id, db)
+        logger.info("retrieve_latest_itinerary called")
+        return await self.handler.retrieve_latest_itinerary(conversation_id, db)

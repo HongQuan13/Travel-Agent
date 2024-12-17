@@ -27,23 +27,29 @@ def finalize_itinerary(
 ) -> object:
     """Use the tool."""
     logger.info(f"finalize_itinerary called")
-    json_response = {
-        "mainHeader": mainHeader,
-        "images": images,
-        "subHeaders": subHeaders,
-    }
-    jsong_dumps = json.dumps(jsonable_encoder(json_response))
 
-    plan_id = save_final_itinerary(jsong_dumps)
-    save_itinerary_message(plan_id)
+    try:
+        json_response = {
+            "mainHeader": mainHeader,
+            "images": images,
+            "subHeaders": subHeaders,
+        }
+        jsong_dumps = json.dumps(jsonable_encoder(json_response))
 
-    # hardcode conversation_id = 1
-    socket_message = {
-        "conversation_id": 1,
-        "plan_id": plan_id,
-        "plan_detail": jsonable_encoder(json_response),
-    }
-    asyncio.run(WebSocketManager().broadcast(json.dumps(socket_message)))
+        itinerary_id = save_final_itinerary(jsong_dumps)
+        save_itinerary_message(itinerary_id)
+
+        # hardcode conversation_id = 1
+        socket_message = {
+            "conversation_id": 1,
+            "itinerary_id": itinerary_id,
+            "itinerary_detail": jsonable_encoder(json_response),
+        }
+        asyncio.run(WebSocketManager().broadcast(json.dumps(socket_message)))
+
+    except Exception as e:
+        logger.error(f"Error saving itinerary: {e}")
+        raise
     return
 
 

@@ -40,4 +40,4 @@ class FinalItinerary(BaseModel):
 
 
 class SucessfulItineraryNotice(BaseModel):
-    plan_title: str = Field(description="Title of the final itinerary")
+    itinerary_title: str = Field(description="Title of the final itinerary")

@@ -6,21 +6,21 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Message } from "@/interfaces/interface";
 import { axiosClient } from "@/lib/axios";
-import PlaceCardHeader from "../finalPlan/planCard";
+import PlaceCardHeader from "../finalItinerary/itineraryCard";
 import { useWebSocket } from "@/context/websocket";
 
 interface MessageContainerProps {
-  finalPlanView: Boolean;
-  setFinalPlan: React.Dispatch<React.SetStateAction<boolean>>;
+  finalItineraryView: Boolean;
+  setFinalItinerary: React.Dispatch<React.SetStateAction<boolean>>;
   setMobileView: React.Dispatch<React.SetStateAction<boolean>>;
-  handleClickPlan: (event: React.MouseEvent<HTMLDivElement>) => void;
+  handleClickItinerary: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 function MessageContainer({
-  finalPlanView,
-  setFinalPlan,
+  finalItineraryView,
+  setFinalItinerary,
   setMobileView,
-  handleClickPlan,
+  handleClickItinerary,
 }: MessageContainerProps) {
   const [inputValue, setInputValue] = React.useState("");
   const [messages, setMessages] = React.useState<Message[]>([]);
@@ -31,7 +31,7 @@ function MessageContainer({
     if (message != "") {
       const content = JSON.parse(message);
       const newMessage: Message = {
-        content: content.plan_id,
+        content: content.itinerary_id,
         sender: "bot",
         category: "plan",
       };
@@ -91,7 +91,7 @@ function MessageContainer({
   };
 
   const handleFinalize = () => {
-    setFinalPlan(true);
+    setFinalItinerary(true);
     setMobileView(true);
   };
 
@@ -125,7 +125,7 @@ function MessageContainer({
                 <PlaceCardHeader
                   id={message.content}
                   title={message.content}
-                  handleClick={handleClickPlan}
+                  handleClick={handleClickItinerary}
                 />
               ) : (
                 <div
@@ -169,9 +169,9 @@ function MessageContainer({
           <Button
             onClick={handleFinalize}
             variant="secondary"
-            className={finalPlanView ? "lg:hidden" : ""}
+            className={finalItineraryView ? "lg:hidden" : ""}
           >
-            Finalize Plan
+            Finalize Itinerary
           </Button>
         </form>
       </div>

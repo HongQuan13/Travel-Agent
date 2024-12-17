@@ -42,5 +42,5 @@ class RetrieveConversationResponse(BaseModel):
     all_messages: List[MessageInfo]
 
 
-class RetrievePlanDetailResponse(BaseModel):
-    plan_detail: str
+class RetrieveItineraryDetailResponse(BaseModel):
+    itinerary_detail: str
