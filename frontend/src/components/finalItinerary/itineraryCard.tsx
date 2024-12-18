@@ -15,7 +15,7 @@ export default function PlaceCardHeader({
 }: PlaceCardHeaderProps) {
   return (
     <Card
-      className="w-full max-w-2xl border bg-card ml-2"
+      className="w-full max-w-2xl border bg-card ml-2 hover:bg-gray-100"
       id={id}
       onClick={handleClick}
     >
