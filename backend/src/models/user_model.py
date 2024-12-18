@@ -12,6 +12,7 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(30), nullable=False)
     email: Mapped[str] = mapped_column(unique=True)
 
+    # relation
     conversation: Mapped["Conversation"] = relationship(back_populates="user")
 
     def __repr__(self) -> str:

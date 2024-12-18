@@ -1,8 +1,12 @@
+from typing import TYPE_CHECKING
 from sqlalchemy import Enum, Integer, ForeignKey, Text, TIMESTAMP
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 
 from backend.src.models.base_model import Base
+
+if TYPE_CHECKING:
+    from backend.src.models.conversation_model import Conversation
 
 
 class Message(Base):
@@ -16,3 +20,6 @@ class Message(Base):
     category: Mapped[str] = mapped_column(Enum("text", "itinerary"), default="text")
     content: Mapped[str] = mapped_column(Text, nullable=False)
     timestamp: Mapped[datetime] = mapped_column(TIMESTAMP, default=datetime.utcnow)
+
+    # relation
+    conversation: Mapped["Conversation"] = relationship(back_populates="message")
