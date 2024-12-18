@@ -16,7 +16,7 @@ export function ImageShow({ images = [] }: { images: ImageCard[] }) {
   };
 
   return (
-    <div className="relative mb-6 aspect-video bg-muted rounded-lg overflow-hidden">
+    <div className="relative mb-6 aspect-video bg-muted rounded-lg overflow-hidden flex justify-center items-center">
       <img
         src={images[currentImageIndex].image_url}
         alt={`${name} view ${currentImageIndex + 1}`}
