@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 const navItems = [
   { name: "Home", href: "/" },
   { name: "Chatbot", href: "/chatbot" },
-  { name: "Test", href: "/tes" },
+  { name: "Login", href: "/login" },
 ];
 
 export function Navbar() {
