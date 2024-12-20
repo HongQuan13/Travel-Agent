@@ -10,6 +10,7 @@ import { axiosClient } from "@/lib/axios";
 
 const navItems = [
   { name: "Home", href: "/" },
+  { name: "Conversation", href: "/conversation" },
   { name: "Chatbot", href: "/chatbot" },
 ];
 

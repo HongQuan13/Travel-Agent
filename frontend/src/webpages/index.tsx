@@ -4,6 +4,7 @@ import Layout from "@/layout/pageLayout";
 import Chatbot from "@/webpages/chat";
 import Home from "@/webpages/home";
 import LoginPage from "@/webpages/auth";
+import Conversation from "@/webpages/chat/conversation";
 import { NonProtectedLayout } from "@/layout/NonProtectedLayout";
 import { ProtectedLayout } from "@/layout/ProtectedLayOut";
 
@@ -16,6 +17,7 @@ function Webpages() {
         </Route>
         <Route element={<ProtectedLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/conversation" element={<Conversation />} />
           <Route path="/chatbot" element={<Chatbot />} />
         </Route>
       </Routes>

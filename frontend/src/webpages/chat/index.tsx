@@ -21,7 +21,6 @@ function Chatbot() {
     const id = event.currentTarget.getAttribute("id");
 
     try {
-      //hardcode conversation_id = 1
       const response = await axiosClient.get(`chat/retrieve-itinerary/${id}`);
 
       const itineraryDetail = response.data.itinerary_detail;
