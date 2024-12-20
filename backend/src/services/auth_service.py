@@ -1,14 +1,19 @@
+import json
 import os
+from fastapi.params import Depends
+import jwt
+import jwt.exceptions
 import logging
 from fastapi import HTTPException
-from fastapi.params import Depends
+from sqlalchemy.orm import Session
 from fastapi.responses import RedirectResponse
-import jwt
 from datetime import datetime, timedelta
-import jwt.exceptions
 from starlette.requests import Request
 
-from backend.src.lib.auth import oauth, oauth2_scheme
+from backend.src.interfaces.user_interface import CreateUserRequest
+from backend.src.lib.auth import oauth
+from backend.src.models.user_model import User
+from backend.src.services.user_service import UserService
 
 logger = logging.getLogger(__name__)
 
@@ -21,11 +26,31 @@ class AuthService:
         redirect_uri = request.url_for("auth_via_google")
         return await oauth.google.authorize_redirect(request, redirect_uri)
 
-    async def auth_via_google(self, request: Request):
+    async def auth_via_google(self, request: Request, db: Session):
         token = await oauth.google.authorize_access_token(request)
         user = token["userinfo"]
 
-        access_token = self.create_access_token(data={"sub": user["email"]})
+        user_data = (
+            db.query(User.id, User.email, User.username)
+            .filter_by(email=user["email"])
+            .first()
+        )
+
+        if not user_data:
+            user_data = await UserService().create_user(
+                CreateUserRequest(
+                    email=str(user["email"]), username=str(user["email"]).split("@")[0]
+                ),
+                db,
+            )
+
+        access_token = self.create_access_token(
+            data={
+                "id": user_data.id,
+                "email": user_data.email,
+                "username": user_data.username,
+            }
+        )
         response = RedirectResponse(url="http://localhost:5173/chatbot")
         response.set_cookie(
             key="access_token",
@@ -50,7 +75,7 @@ class AuthService:
         )
         return encoded_jwt.decode("utf-8")
 
-    def verify_jwt_token(self, request: Request):
+    async def verify_jwt_token(self, request: Request):
         try:
             token = request.cookies.get("access_token")
 
@@ -63,12 +88,11 @@ class AuthService:
                 algorithms=os.getenv("AUTH_ALGORITHM"),
             )
 
-            logger.info(payload)
             return payload
-        # except jwt.ExpiredSignatureError:
-        #     raise HTTPException(status_code=401, detail="Token has expired")
-        # except jwt.PyJWTError:
-        #     raise HTTPException(status_code=401, detail="Invalid token")
+        except jwt.ExpiredSignatureError:
+            raise HTTPException(status_code=401, detail="Token has expired")
+        except jwt.PyJWTError:
+            raise HTTPException(status_code=401, detail="Invalid token")
         except Exception as e:
             logger.error(e)
             raise HTTPException(status_code=500, detail="Internal Server Error")

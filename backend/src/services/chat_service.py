@@ -39,8 +39,10 @@ class ChatService:
             conversation_id=new_conversation.id, user_id=conversation.user_id
         )
 
-    async def send_message(self, message: SendMessageRequest, db: Session):
-        exist_user = db.query(User).filter_by(id=message.user_id).first()
+    async def send_message(
+        self, message: SendMessageRequest, user_id: int, db: Session
+    ):
+        exist_user = db.query(User).filter_by(id=user_id).first()
         if not exist_user:
             raise HTTPException(status_code=400, detail="User account not exist")
 
@@ -64,6 +66,7 @@ class ChatService:
         bot_response = await self.bot_reply(
             message.content, message.conversation_id, db
         )
+
         return SendMessageResponse(
             message_id=new_message.id,
             content=new_message.content,

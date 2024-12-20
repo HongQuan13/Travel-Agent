@@ -8,6 +8,7 @@ from backend.src.interfaces.chat_interface import (
     CreateConversationRequest,
     SendMessageRequest,
 )
+from backend.src.services.auth_service import AuthService
 from backend.src.services.chat_service import ChatService
 
 logger = logging.getLogger(__name__)
@@ -44,10 +45,14 @@ class ChatRouter:
         return await self.handler.create_conversation(body, db)
 
     async def send_messsage(
-        self, body: SendMessageRequest, db: Session = Depends(get_database)
+        self,
+        body: SendMessageRequest,
+        user_info: dict = Depends(AuthService().verify_jwt_token),
+        db: Session = Depends(get_database),
     ):
         logger.info("send_message called")
-        return await self.handler.send_message(body, db)
+        user_id = user_info["id"]
+        return await self.handler.send_message(body, user_id, db)
 
     async def retrieve_conversation(
         self,

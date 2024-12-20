@@ -19,7 +19,6 @@ class SenderType:
 
 class SendMessageRequest(BaseModel):
     conversation_id: int
-    user_id: int
     content: str
 
 

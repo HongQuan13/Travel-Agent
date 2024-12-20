@@ -77,7 +77,6 @@ function MessageContainer({
     try {
       const response = await axiosClient.post("chat/send-message", {
         conversation_id: 1,
-        user_id: 1,
         content: inputValue.trim(),
       });
 

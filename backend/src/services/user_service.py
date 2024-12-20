@@ -3,7 +3,10 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
 from backend.src.models.user_model import User
-from backend.src.interfaces.user_interface import CreateUserResponse, CreateUserRequest
+from backend.src.interfaces.user_interface import (
+    CreateUserResponse,
+    CreateUserRequest,
+)
 
 logger = logging.getLogger(__name__)
 
