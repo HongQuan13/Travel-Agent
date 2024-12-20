@@ -18,6 +18,7 @@ class AuthRouter:
         )
         self.router.add_api_route("/auth/google", self.auth_via_google, methods=["GET"])
         self.router.add_api_route("/auth/verify", self.auth_verify, methods=["GET"])
+        self.router.add_api_route("/auth/logout", self.logout, methods=["POST"])
         self.handler = AuthService()
 
     async def login_via_google(self, request: Request):
@@ -33,3 +34,7 @@ class AuthRouter:
     async def auth_verify(self, request: Request):
         logger.info("auth_verify called")
         return await self.handler.verify_jwt_token(request)
+
+    async def logout(self):
+        logger.info("logout called")
+        return await self.handler.logout()

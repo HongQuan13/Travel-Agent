@@ -1,12 +1,11 @@
 import json
 import os
-from fastapi.params import Depends
 import jwt
 import jwt.exceptions
 import logging
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from fastapi.responses import RedirectResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from datetime import datetime, timedelta
 from starlette.requests import Request
 
@@ -96,3 +95,9 @@ class AuthService:
         except Exception as e:
             logger.error(e)
             raise HTTPException(status_code=500, detail="Internal Server Error")
+
+    async def logout(self):
+        response = JSONResponse(content={"message": "Successfully logged out"})
+        response.delete_cookie("access_token")
+
+        return response

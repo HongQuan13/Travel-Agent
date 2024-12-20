@@ -1,19 +1,36 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { Fragment, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
+import { useAuthContext } from "@/context/auth";
+import { axiosClient } from "@/lib/axios";
 
 const navItems = [
   { name: "Home", href: "/" },
   { name: "Chatbot", href: "/chatbot" },
-  { name: "Login", href: "/login" },
 ];
 
 export function Navbar() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated, setIsAuthenticated } = useAuthContext();
+
+  const handleLogout = async () => {
+    try {
+      const response = await axiosClient.post("auth/logout");
+
+      if (response.status == 200) {
+        console.log("logout successfully");
+        setIsAuthenticated(false);
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log("logout error", error);
+    }
+  };
 
   return (
     <nav className="bg-background border-b h-16">
@@ -31,6 +48,15 @@ export function Navbar() {
                   <Link to={item.href}>{item.name}</Link>
                 </Button>
               ))}
+              {isAuthenticated ? (
+                <Button variant="ghost" onClick={handleLogout}>
+                  Logout
+                </Button>
+              ) : (
+                <Button asChild variant="ghost">
+                  <Link to="/login">Login</Link>
+                </Button>
+              )}
             </div>
           </div>
           <div className="flex items-center sm:hidden">

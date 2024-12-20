@@ -5,6 +5,7 @@ import { axiosClient } from "@/lib/axios";
 interface AuthContextType {
   isAuthenticated: boolean;
   user: any;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface AuthProviderProps {
@@ -35,7 +36,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, setIsAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );
