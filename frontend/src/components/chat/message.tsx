@@ -15,6 +15,7 @@ interface MessageContainerProps {
   setFinalItinerary: React.Dispatch<React.SetStateAction<boolean>>;
   setMobileView: React.Dispatch<React.SetStateAction<boolean>>;
   handleClickItinerary: (event: React.MouseEvent<HTMLDivElement>) => void;
+  conversation_id: string;
 }
 
 function MessageContainer({
@@ -22,11 +23,12 @@ function MessageContainer({
   setFinalItinerary,
   setMobileView,
   handleClickItinerary,
+  conversation_id,
 }: MessageContainerProps) {
   const [inputValue, setInputValue] = React.useState("");
   const [messages, setMessages] = React.useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-  const { message, sendMessage, isConnected } = useWebSocket();
+  const { message } = useWebSocket();
 
   useEffect(() => {
     if (message != "") {
@@ -41,7 +43,7 @@ function MessageContainer({
   }, [message]);
 
   useEffect(() => {
-    retrieveChatContent();
+    if (conversation_id) retrieveChatContent();
   }, []);
 
   useEffect(() => {
@@ -52,8 +54,9 @@ function MessageContainer({
 
   const retrieveChatContent = async () => {
     try {
-      //hardcode conversation_id = 1
-      const response = await axiosClient.get("chat/retrieve-conversation/1");
+      const response = await axiosClient.get(
+        `chat/retrieve-conversation/${conversation_id}`
+      );
 
       const allMessages = response.data.all_messages;
       setMessages(allMessages);
@@ -76,7 +79,7 @@ function MessageContainer({
 
     try {
       const response = await axiosClient.post("chat/send-message", {
-        conversation_id: 1,
+        conversation_id: conversation_id,
         content: inputValue.trim(),
       });
 

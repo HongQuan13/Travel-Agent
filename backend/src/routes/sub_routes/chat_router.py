@@ -5,7 +5,6 @@ from sqlalchemy.orm import Session
 
 from backend.src.dbs.init_postgres import get_database
 from backend.src.interfaces.chat_interface import (
-    CreateConversationRequest,
     SendMessageRequest,
 )
 from backend.src.services.auth_service import AuthService
@@ -19,6 +18,9 @@ class ChatRouter:
         self.router = APIRouter()
         self.router.add_api_route(
             "/create-conversation", self.create_conversation, methods=["POST"]
+        )
+        self.router.add_api_route(
+            "/conversation-history", self.conversation_history, methods=["GET"]
         )
         self.router.add_api_route("/send-message", self.send_messsage, methods=["POST"])
         self.router.add_api_route(
@@ -39,10 +41,22 @@ class ChatRouter:
         self.handler = ChatService()
 
     async def create_conversation(
-        self, body: CreateConversationRequest, db: Session = Depends(get_database)
+        self,
+        user_info: dict = Depends(AuthService().verify_jwt_token),
+        db: Session = Depends(get_database),
     ):
         logger.info("create_conversation called")
-        return await self.handler.create_conversation(body, db)
+        user_id = user_info["id"]
+        return await self.handler.create_conversation(user_id, db)
+
+    async def conversation_history(
+        self,
+        user_info: dict = Depends(AuthService().verify_jwt_token),
+        db: Session = Depends(get_database),
+    ):
+        logger.info("conversation_history called")
+        user_id = user_info["id"]
+        return await self.handler.conversation_history(user_id, db)
 
     async def send_messsage(
         self,

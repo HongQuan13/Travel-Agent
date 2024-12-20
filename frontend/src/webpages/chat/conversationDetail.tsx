@@ -6,6 +6,7 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { axiosClient } from "@/lib/axios";
 import { useWebSocket } from "@/context/websocket";
 import { ItineraryCardProps, testItinerary } from "@/interfaces/interface";
+import { useLocation } from "react-router-dom";
 
 function Chatbot() {
   const [finalItineraryView, setFinalItineraryView] = useState(false);
@@ -13,7 +14,10 @@ function Chatbot() {
   const defaultResponse = JSON.parse(testItinerary);
   const [detailItinerary, setDetailItinerary] =
     useState<ItineraryCardProps>(defaultResponse);
-  const { message, sendMessage, isConnected } = useWebSocket();
+  const { message } = useWebSocket();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const conversation_id = params.get("conversation_id") ?? "";
 
   const handleClickItinerary = async (
     event: React.MouseEvent<HTMLDivElement>
@@ -40,9 +44,8 @@ function Chatbot() {
   useEffect(() => {
     const retrieveLatestItinerary = async () => {
       try {
-        //hardcode conversation_id = 1
         const response = await axiosClient.get(
-          "chat/retrieve-latest-itinerary/1"
+          `chat/retrieve-latest-itinerary/${conversation_id}`
         );
 
         const itineraryDetail = response.data.itinerary_detail;
@@ -52,7 +55,7 @@ function Chatbot() {
       }
     };
 
-    retrieveLatestItinerary();
+    if (conversation_id) retrieveLatestItinerary();
   }, []);
 
   return (
@@ -63,6 +66,7 @@ function Chatbot() {
           setFinalItinerary={setFinalItineraryView}
           setMobileView={setMobileView}
           handleClickItinerary={handleClickItinerary}
+          conversation_id={conversation_id}
         />
       </div>
 

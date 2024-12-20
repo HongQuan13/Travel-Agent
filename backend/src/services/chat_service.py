@@ -8,8 +8,9 @@ from backend.src.models.user_model import User
 from backend.src.models.conversation_model import Conversation
 from backend.src.models.message_model import Message
 from backend.src.interfaces.chat_interface import (
+    ConversationHistoryResponse,
+    ConversationInfo,
     CreateConversationResponse,
-    CreateConversationRequest,
     MessageInfo,
     RetrieveConversationResponse,
     RetrieveItineraryDetailResponse,
@@ -27,17 +28,31 @@ class ChatService:
     def __init__(self):
         logger.info("ChatService initialized")
 
-    async def create_conversation(
-        self, conversation: CreateConversationRequest, db: Session
-    ):
-        new_conversation = Conversation(user_id=conversation.user_id)
+    async def create_conversation(self, user_id: int, db: Session):
+        new_conversation = Conversation(user_id=user_id)
         db.add(new_conversation)
         db.commit()
-        logger.info(f"Create new conversation for {conversation.user_id} successfully")
+        logger.info(f"Create new conversation for {user_id} successfully")
 
         return CreateConversationResponse(
-            conversation_id=new_conversation.id, user_id=conversation.user_id
+            conversation_id=new_conversation.id, user_id=user_id
         )
+
+    async def conversation_history(self, user_id: int, db: Session):
+        exist_user = db.query(User).filter_by(id=user_id).first()
+        if not exist_user:
+            raise HTTPException(status_code=400, detail="User account not exist")
+
+        conversation_list = (
+            db.query(Conversation.id).filter(Conversation.user_id == user_id).all()
+        )
+        structured_conversations = [
+            ConversationInfo(conversation_id=c[0]) for c in conversation_list
+        ]
+
+        logger.info(f"Query all conversations for user {user_id} successfully")
+
+        return ConversationHistoryResponse(conversations=structured_conversations)
 
     async def send_message(
         self, message: SendMessageRequest, user_id: int, db: Session
@@ -150,6 +165,8 @@ class ChatService:
             .order_by(Message.timestamp.desc())
             .first()
         )
+        if itinerary_id == None or len(itinerary_id) == 0:
+            return None
         itinerary_content = (
             db.query(Itinerary.itinerary_detail).filter_by(id=itinerary_id[0]).first()
         )
