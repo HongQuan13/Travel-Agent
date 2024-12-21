@@ -24,13 +24,12 @@ def save_final_itinerary(itinerary_detail: str):
     return new_itinerary.id
 
 
-def save_itinerary_message(itinerary_id: str):
+def save_itinerary_message(itinerary_id: str, conversation_id: str):
     try:
         db = get_database()
         session = next(db)
-        # hardcode conversation_id= 1
         new_message = Message(
-            conversation_id=1,
+            conversation_id=conversation_id,
             sender="bot",
             category="itinerary",
             content=itinerary_id,

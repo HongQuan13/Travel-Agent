@@ -4,6 +4,7 @@ import logging
 from typing import List
 from fastapi.encoders import jsonable_encoder
 from langchain_core.tools import StructuredTool
+from langchain_core.runnables import RunnableConfig
 
 from backend.src.lib.websocket import WebSocketManager
 from travel_agent.helpers.agent_tools.final_itinerary.helper import (
@@ -24,11 +25,13 @@ def finalize_itinerary(
     mainHeader: str,
     images: List[ImageUrl],
     subHeaders: List[SubHeaders],
+    config: RunnableConfig,
 ) -> object:
     """Use the tool."""
     logger.info(f"finalize_itinerary called")
 
     try:
+        conversation_id = config["configurable"]["thread_id"]
         json_response = {
             "mainHeader": mainHeader,
             "images": images,
@@ -37,11 +40,10 @@ def finalize_itinerary(
         jsong_dumps = json.dumps(jsonable_encoder(json_response))
 
         itinerary_id = save_final_itinerary(jsong_dumps)
-        save_itinerary_message(itinerary_id)
+        save_itinerary_message(itinerary_id, conversation_id)
 
-        # hardcode conversation_id = 1
         socket_message = {
-            "conversation_id": 1,
+            "conversation_id": conversation_id,
             "itinerary_id": itinerary_id,
             "itinerary_detail": jsonable_encoder(json_response),
         }

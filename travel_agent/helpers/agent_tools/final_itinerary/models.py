@@ -1,5 +1,6 @@
 from typing import List
 from pydantic import BaseModel, Field, validator
+from langchain_core.runnables import RunnableConfig
 
 
 class Place(BaseModel):
@@ -37,6 +38,7 @@ class FinalItinerary(BaseModel):
     subHeaders: List[SubHeaders] = Field(
         description="""List of subheaders inside itinerary""",
     )
+    config: RunnableConfig
 
 
 class SucessfulItineraryNotice(BaseModel):
