@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from tavily import TavilyClient
 from typing import List
 
+from backend.src.constant.error_constant import ErrorDetail
+from backend.src.constant.info_constant import InfoDetail
 from travel_agent.helpers.agent_tools.image_search.cloudinary_handler import (
     CloudinaryHandler,
 )
@@ -21,7 +23,7 @@ class TavilySearch:
         self._check_env()
         self._tavily_client = TavilyClient()
         self._cloudinary_handler = CloudinaryHandler()
-        logger.info("ImageSearch initialized")
+        logger.info(InfoDetail.class_initialize("ImageSearch"))
 
     def _check_env(self):
         tavily_api_key = os.getenv("TAVILY_API_KEY")
@@ -44,7 +46,7 @@ class TavilySearch:
             return images
 
         except Exception as error:
-            logger.error(f"Unknown error {error}")
+            logger.error(ErrorDetail.unknown("tavily_search", error))
             return []
 
     async def search_images(self, query: str):

@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+from backend.src.constant.error_constant import ErrorDetail
+from backend.src.constant.success_constant import SuccessDetail
+
 logger = logging.getLogger(__name__)
 
 
@@ -36,9 +39,9 @@ class Database:
                 self._session_local = sessionmaker(
                     autocommit=False, autoflush=False, bind=self._engine_instance
                 )
-                logger.info("Database connection established!")
+                logger.info(SuccessDetail.db_connection)
             except Exception as e:
-                logger.error(f"Database connection failed: {e}")
+                logger.error(ErrorDetail.unknown("Database connection", e))
                 self._engine_instance = None
                 raise
 

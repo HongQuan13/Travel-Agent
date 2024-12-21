@@ -21,6 +21,11 @@ class SenderType:
     user = "user"
 
 
+class MessageCategory:
+    text = "text"
+    itinerary = "itinerary"
+
+
 class SendMessageRequest(BaseModel):
     conversation_id: int
     content: str

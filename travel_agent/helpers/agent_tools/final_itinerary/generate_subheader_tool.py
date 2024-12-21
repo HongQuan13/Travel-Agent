@@ -2,6 +2,7 @@ import logging
 from typing import List
 from langchain_core.tools import StructuredTool
 
+from backend.src.constant.info_constant import InfoDetail
 from travel_agent.helpers.agent_tools.final_itinerary.models import Place, SubHeaders
 
 
@@ -11,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 def subheaders(title: str, places: List[Place]):
     """Use the tool."""
-    logger.info(f"subheaders called")
+    logger.info(InfoDetail.func_call("subheaders"))
     json_response = {
         "title": title,
         "places": places,

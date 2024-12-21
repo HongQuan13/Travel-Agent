@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from fastapi.params import Depends
 from sqlalchemy.orm import Session
 
+from backend.src.constant.info_constant import InfoDetail
 from backend.src.dbs.init_postgres import get_database
 from backend.src.interfaces.user_interface import CreateUserRequest
 from backend.src.services.user_service import UserService
@@ -19,5 +20,5 @@ class UserRouter:
     async def create_user(
         self, body: CreateUserRequest, db: Session = Depends(get_database)
     ):
-        logger.info("create_user called")
+        logger.info(InfoDetail.func_call("create_user"))
         return await self.handler.create_user(body, db)

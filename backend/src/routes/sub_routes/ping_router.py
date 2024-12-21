@@ -1,6 +1,7 @@
 import logging
 from fastapi import APIRouter
 
+from backend.src.constant.info_constant import InfoDetail
 from backend.src.services.ping_service import PingService
 
 logger = logging.getLogger(__name__)
@@ -13,5 +14,5 @@ class PingRouter:
         self.handler = PingService()
 
     def call_ping(self):
-        logger.info("call_ping called")
+        logger.info(InfoDetail.func_call("call_ping"))
         return self.handler.handle_ping()

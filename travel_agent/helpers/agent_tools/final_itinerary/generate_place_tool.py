@@ -1,6 +1,7 @@
 import logging
 from langchain_core.tools import StructuredTool
 
+from backend.src.constant.info_constant import InfoDetail
 from travel_agent.helpers.agent_tools.final_itinerary.models import Place
 
 logging.basicConfig(level=logging.INFO, force=True)
@@ -9,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 def generate_place(placeName: str, address: str, description: str):
     """Use the tool."""
-    logger.info(f"place_detail called")
+    logger.info(InfoDetail.func_call("generate_place"))
     json_response = {
         "placeName": placeName,
         "address": address,

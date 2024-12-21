@@ -1,5 +1,7 @@
 import logging
 
+from backend.src.constant.error_constant import ErrorDetail
+from backend.src.constant.success_constant import SuccessDetail
 from backend.src.dbs.init_postgres import get_database
 from backend.src.models.message_model import Message
 from backend.src.models.itinerary_model import Itinerary
@@ -15,10 +17,10 @@ def save_final_itinerary(itinerary_detail: str):
         new_itinerary = Itinerary(itinerary_detail=itinerary_detail)
         session.add(new_itinerary)
         session.commit()
-        logger.info(f"Create new itinerary {new_itinerary.id} successfully")
+        logger.info(SuccessDetail.new_itinerary(new_itinerary.id))
     except Exception as e:
         session.rollback()
-        logger.error(f"Error saving itinerary: {e}")
+        logger.error(ErrorDetail.unknown("save_final_itinerary", e))
         raise
 
     return new_itinerary.id
@@ -36,8 +38,8 @@ def save_itinerary_message(itinerary_id: str, conversation_id: str):
         )
         session.add(new_message)
         session.commit()
-        logger.info(f"Create new message {new_message.id} successfully")
+        logger.info(SuccessDetail.new_message(new_message.id))
     except Exception as e:
         session.rollback()
-        logger.error(f"Error saving message: {e}")
+        logger.error(ErrorDetail.unknown("save_itinerary_message", e))
         raise

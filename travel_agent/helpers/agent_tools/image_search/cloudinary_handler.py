@@ -5,6 +5,9 @@ import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
 from dotenv import load_dotenv
 
+from backend.src.constant.error_constant import ErrorDetail
+from backend.src.constant.info_constant import InfoDetail
+
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
 load_dotenv()
@@ -22,7 +25,7 @@ class CloudinaryHandler:
     def __init__(self):
         self._check_env()
         self._config()
-        logger.info("CloudinaryHandler initialized")
+        logger.info(InfoDetail.class_initialize("CloudinaryHandler"))
 
     def _check_env(self):
         api_key = os.getenv("CLOUDINARY_API_KEY")
@@ -73,7 +76,7 @@ class CloudinaryHandler:
                 quality="auto",
             )
         except Exception as error:
-            logger.error(f"Unknown error {error}")
+            logger.error(ErrorDetail.unknown("upload_image", error))
 
         return optimized_url
 

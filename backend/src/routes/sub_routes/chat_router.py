@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from fastapi.params import Depends
 from sqlalchemy.orm import Session
 
+from backend.src.constant.info_constant import InfoDetail
 from backend.src.dbs.init_postgres import get_database
 from backend.src.interfaces.chat_interface import (
     SendMessageRequest,
@@ -45,7 +46,7 @@ class ChatRouter:
         user_info: dict = Depends(AuthService().verify_jwt_token),
         db: Session = Depends(get_database),
     ):
-        logger.info("create_conversation called")
+        logger.info(InfoDetail.func_call("create_conversation"))
         user_id = user_info["id"]
         return await self.handler.create_conversation(user_id, db)
 
@@ -54,7 +55,7 @@ class ChatRouter:
         user_info: dict = Depends(AuthService().verify_jwt_token),
         db: Session = Depends(get_database),
     ):
-        logger.info("conversation_history called")
+        logger.info(InfoDetail.func_call("conversation_history"))
         user_id = user_info["id"]
         return await self.handler.conversation_history(user_id, db)
 
@@ -64,7 +65,7 @@ class ChatRouter:
         user_info: dict = Depends(AuthService().verify_jwt_token),
         db: Session = Depends(get_database),
     ):
-        logger.info("send_message called")
+        logger.info(InfoDetail.func_call("send_message"))
         user_id = user_info["id"]
         return await self.handler.send_message(body, user_id, db)
 
@@ -73,7 +74,7 @@ class ChatRouter:
         conversation_id: int,
         db: Session = Depends(get_database),
     ):
-        logger.info("retrieve_conversation called")
+        logger.info(InfoDetail.func_call("retrieve_conversation"))
         return await self.handler.retrieve_conversation(conversation_id, db)
 
     async def retrieve_itinerary(
@@ -81,7 +82,7 @@ class ChatRouter:
         itinerary_id: int,
         db: Session = Depends(get_database),
     ):
-        logger.info("retrieve_itinerary called")
+        logger.info(InfoDetail.func_call("retrieve_itinerary"))
         return await self.handler.retrieve_itinerary(itinerary_id, db)
 
     async def retrieve_latest_itinerary(
@@ -89,5 +90,5 @@ class ChatRouter:
         conversation_id: int,
         db: Session = Depends(get_database),
     ):
-        logger.info("retrieve_latest_itinerary called")
+        logger.info(InfoDetail.func_call("retrieve_latest_itinerary"))
         return await self.handler.retrieve_latest_itinerary(conversation_id, db)

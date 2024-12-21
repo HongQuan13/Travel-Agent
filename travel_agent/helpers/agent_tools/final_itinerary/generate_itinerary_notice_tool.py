@@ -1,6 +1,7 @@
 import logging
 from langchain_core.tools import StructuredTool
 
+from backend.src.constant.info_constant import InfoDetail
 from travel_agent.helpers.agent_tools.final_itinerary.models import (
     SucessfulItineraryNotice,
 )
@@ -11,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 def notice_generate_itinerary_successful(itinerary_title: str):
     """Use the tool."""
-    logger.info(f"notice_generate_itinerary_successful called")
+    logger.info(InfoDetail.func_call("notice_generate_itinerary_successful"))
     return f"Itinerary {itinerary_title} is generated successfully"
 
 

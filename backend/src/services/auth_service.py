@@ -9,6 +9,8 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from datetime import datetime, timedelta
 from starlette.requests import Request
 
+from backend.src.constant.error_constant import ErrorDetail
+from backend.src.constant.info_constant import InfoDetail
 from backend.src.interfaces.user_interface import CreateUserRequest
 from backend.src.lib.auth import oauth
 from backend.src.models.user_model import User
@@ -19,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 class AuthService:
     def __init__(self):
-        logger.info("AuthService initialized")
+        logger.info(InfoDetail.class_initialize("AuthService"))
 
     async def login_via_google(self, request: Request):
         redirect_uri = request.url_for("auth_via_google")
@@ -50,7 +52,7 @@ class AuthService:
                 "username": user_data.username,
             }
         )
-        response = RedirectResponse(url="http://localhost:5173/chatbot")
+        response = RedirectResponse(url="http://localhost:5173")
         response.set_cookie(
             key="access_token",
             value=access_token,
@@ -93,7 +95,7 @@ class AuthService:
         except jwt.PyJWTError:
             raise HTTPException(status_code=401, detail="Invalid token")
         except Exception as e:
-            logger.error(e)
+            logger.error(ErrorDetail.unknown("verify_jwt_token", e))
             raise HTTPException(status_code=500, detail="Internal Server Error")
 
     async def logout(self):

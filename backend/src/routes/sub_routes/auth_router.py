@@ -4,6 +4,7 @@ from fastapi.params import Depends
 from starlette.requests import Request
 from sqlalchemy.orm import Session
 
+from backend.src.constant.info_constant import InfoDetail
 from backend.src.dbs.init_postgres import get_database
 from backend.src.services.auth_service import AuthService
 
@@ -22,19 +23,19 @@ class AuthRouter:
         self.handler = AuthService()
 
     async def login_via_google(self, request: Request):
-        logger.info("login_via_google called")
+        logger.info(InfoDetail.func_call("login_via_google"))
         return await self.handler.login_via_google(request)
 
     async def auth_via_google(
         self, request: Request, db: Session = Depends(get_database)
     ):
-        logger.info("auth_via_google called")
+        logger.info(InfoDetail.func_call("auth_via_google"))
         return await self.handler.auth_via_google(request, db)
 
     async def auth_verify(self, request: Request):
-        logger.info("auth_verify called")
+        logger.info(InfoDetail.func_call("auth_verify"))
         return await self.handler.verify_jwt_token(request)
 
     async def logout(self):
-        logger.info("logout called")
+        logger.info(InfoDetail.func_call("logout"))
         return await self.handler.logout()

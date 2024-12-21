@@ -6,6 +6,8 @@ from fastapi.encoders import jsonable_encoder
 from langchain_core.tools import StructuredTool
 from langchain_core.runnables import RunnableConfig
 
+from backend.src.constant.error_constant import ErrorDetail
+from backend.src.constant.info_constant import InfoDetail
 from backend.src.lib.websocket import WebSocketManager
 from travel_agent.helpers.agent_tools.final_itinerary.helper import (
     save_final_itinerary,
@@ -28,7 +30,7 @@ def finalize_itinerary(
     config: RunnableConfig,
 ) -> object:
     """Use the tool."""
-    logger.info(f"finalize_itinerary called")
+    logger.info(InfoDetail.func_call("finalize_itinerary"))
 
     try:
         conversation_id = config["configurable"]["thread_id"]
@@ -50,7 +52,7 @@ def finalize_itinerary(
         asyncio.run(WebSocketManager().broadcast(json.dumps(socket_message)))
 
     except Exception as e:
-        logger.error(f"Error saving itinerary: {e}")
+        logger.error(ErrorDetail.unknown("finalize_itinerary", e))
         raise
     return
 

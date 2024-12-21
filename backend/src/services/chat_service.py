@@ -3,6 +3,8 @@ import logging
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
+from backend.src.constant.info_constant import InfoDetail
+from backend.src.constant.success_constant import SuccessDetail
 from backend.src.models.itinerary_model import Itinerary
 from backend.src.models.user_model import User
 from backend.src.models.conversation_model import Conversation
@@ -11,6 +13,7 @@ from backend.src.interfaces.chat_interface import (
     ConversationHistoryResponse,
     ConversationInfo,
     CreateConversationResponse,
+    MessageCategory,
     MessageInfo,
     RetrieveConversationResponse,
     RetrieveItineraryDetailResponse,
@@ -18,6 +21,7 @@ from backend.src.interfaces.chat_interface import (
     SendMessageResponse,
     SenderType,
 )
+from backend.src.constant.error_constant import ErrorDetail
 from travel_agent.agent_handler.gpt_agent_manager import GPTAgentManager
 
 
@@ -26,13 +30,13 @@ logger = logging.getLogger(__name__)
 
 class ChatService:
     def __init__(self):
-        logger.info("ChatService initialized")
+        logger.info(InfoDetail.class_initialize("ChatService"))
 
     async def create_conversation(self, user_id: int, db: Session):
         new_conversation = Conversation(user_id=user_id)
         db.add(new_conversation)
         db.commit()
-        logger.info(f"Create new conversation for {user_id} successfully")
+        logger.info(SuccessDetail.new_conversation(user_id))
 
         return CreateConversationResponse(
             conversation_id=new_conversation.id, user_id=user_id
@@ -41,7 +45,7 @@ class ChatService:
     async def conversation_history(self, user_id: int, db: Session):
         exist_user = db.query(User).filter_by(id=user_id).first()
         if not exist_user:
-            raise HTTPException(status_code=400, detail="User account not exist")
+            raise HTTPException(status_code=400, detail=ErrorDetail.non_exist_user)
 
         conversation_list = (
             db.query(Conversation.id).filter(Conversation.user_id == user_id).all()
@@ -50,7 +54,7 @@ class ChatService:
             ConversationInfo(conversation_id=c[0]) for c in conversation_list
         ]
 
-        logger.info(f"Query all conversations for user {user_id} successfully")
+        logger.info(SuccessDetail.all_conversation(user_id))
 
         return ConversationHistoryResponse(conversations=structured_conversations)
 
@@ -59,13 +63,15 @@ class ChatService:
     ):
         exist_user = db.query(User).filter_by(id=user_id).first()
         if not exist_user:
-            raise HTTPException(status_code=400, detail="User account not exist")
+            raise HTTPException(status_code=400, detail=ErrorDetail.non_exist_user)
 
         exist_conversation = (
             db.query(Conversation).filter_by(id=message.conversation_id).first()
         )
         if not exist_conversation:
-            raise HTTPException(status_code=400, detail="Conversation not exist")
+            raise HTTPException(
+                status_code=400, detail=ErrorDetail.non_exist_conversation
+            )
 
         new_message = Message(
             conversation_id=message.conversation_id,
@@ -74,9 +80,7 @@ class ChatService:
         )
         db.add(new_message)
         db.commit()
-        logger.info(
-            f"Send new message to conversation {message.conversation_id} successfully"
-        )
+        logger.info(SuccessDetail.new_message(message.conversation_id))
 
         bot_response = await self.bot_reply(
             message.content, message.conversation_id, db
@@ -103,7 +107,7 @@ class ChatService:
         )
         db.add(bot_reply)
         db.commit()
-        logger.info(f"Bot reply to user conversation {conversation_id} successfully")
+        logger.info(SuccessDetail.bot_reply_message(conversation_id))
         return chat_response
 
     async def retrieve_conversation(self, conversation_id: int, db: Session):
@@ -111,7 +115,9 @@ class ChatService:
             db.query(Conversation).filter_by(id=conversation_id).first()
         )
         if not exist_conversation:
-            raise HTTPException(status_code=400, detail="Conversation not exist")
+            raise HTTPException(
+                status_code=400, detail=ErrorDetail.non_exist_conversation
+            )
 
         all_messages = (
             db.query(
@@ -130,7 +136,7 @@ class ChatService:
                 content=m[0],
                 timestamp=m[1],
                 sender=m[2],
-                category=(m[3] if m[3] != None else "text"),
+                category=(m[3] if m[3] != None else MessageCategory.text),
             )
             for m in all_messages
         ]
@@ -143,7 +149,7 @@ class ChatService:
         )
 
         if not itinerary_content:
-            raise HTTPException(status_code=400, detail="Itinerary not exist")
+            raise HTTPException(status_code=400, detail=ErrorDetail.non_exist_itinerary)
 
         return RetrieveItineraryDetailResponse(itinerary_detail=itinerary_content[0])
 
@@ -153,25 +159,29 @@ class ChatService:
         )
 
         if not exist_conversation:
-            raise HTTPException(status_code=400, detail="Conversation not exist")
+            raise HTTPException(
+                status_code=400, detail=ErrorDetail.non_exist_conversation
+            )
 
         itinerary_id = (
             db.query(Message.content)
             .filter(
                 Message.conversation_id == conversation_id,
-                Message.sender == "bot",
-                Message.category == "itinerary",
+                Message.sender == SenderType.bot,
+                Message.category == MessageCategory.itinerary,
             )
             .order_by(Message.timestamp.desc())
             .first()
         )
+
         if itinerary_id == None or len(itinerary_id) == 0:
             return None
+
         itinerary_content = (
             db.query(Itinerary.itinerary_detail).filter_by(id=itinerary_id[0]).first()
         )
 
         if not itinerary_content:
-            raise HTTPException(status_code=400, detail="itinerary not exist")
+            raise HTTPException(status_code=400, detail=ErrorDetail.non_exist_itinerary)
 
         return RetrieveItineraryDetailResponse(itinerary_detail=itinerary_content[0])
