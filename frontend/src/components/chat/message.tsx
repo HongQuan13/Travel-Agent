@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Send } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -25,8 +25,8 @@ function MessageContainer({
   handleClickItinerary,
   conversation_id,
 }: MessageContainerProps) {
-  const [inputValue, setInputValue] = React.useState("");
-  const [messages, setMessages] = React.useState<Message[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [messages, setMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const { message } = useWebSocket();
 
