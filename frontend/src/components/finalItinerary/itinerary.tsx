@@ -3,8 +3,13 @@ import { useEffect, useRef } from "react";
 import { MainHeader, SubHeader } from "@/components/finalItinerary/header";
 import { LocationCard } from "@/components/finalItinerary/locationCard";
 import { Card, CardContent } from "@/components/ui/card";
-import { ImageShow } from "@/components/finalItinerary/imageShow";
-import { ItineraryCardProps } from "@/interfaces/interface";
+import { ImageCard, ImageShow } from "@/components/finalItinerary/imageShow";
+
+export interface ItineraryCardProps {
+  mainHeader: string;
+  images: ImageCard[];
+  subHeaders: object[];
+}
 
 function FinalItinerary({
   detailItinerary,

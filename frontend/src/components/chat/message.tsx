@@ -5,10 +5,16 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Message } from "@/interfaces/interface";
 import { axiosClient } from "@/lib/axios";
 import PlaceCardHeader from "@/components/finalItinerary/itineraryCard";
-import { useWebSocket } from "@/context/websocket";
+import { useWebSocket } from "@/hooks/useWebSocket";
+
+interface Message {
+  id?: number;
+  content: string;
+  sender: string;
+  category?: "itinerary" | "text";
+}
 
 interface MessageContainerProps {
   finalItineraryView: Boolean;

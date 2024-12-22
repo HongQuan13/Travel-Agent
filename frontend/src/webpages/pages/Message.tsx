@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
 import MessageContainer from "@/components/chat/message";
-import FinalizeItinerary from "@/components/finalItinerary/itinerary";
+import FinalizeItinerary, {
+  ItineraryCardProps,
+} from "@/components/finalItinerary/itinerary";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { axiosClient } from "@/lib/axios";
-import { useWebSocket } from "@/context/websocket";
-import { ItineraryCardProps, testItinerary } from "@/interfaces/interface";
+import { testItinerary } from "@/data/testItinerary";
 import { useLocation } from "react-router-dom";
+import { useWebSocket } from "@/hooks/useWebSocket";
 
 function Chatbot() {
   const [finalItineraryView, setFinalItineraryView] = useState(false);

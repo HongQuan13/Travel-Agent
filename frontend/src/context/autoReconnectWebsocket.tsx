@@ -25,7 +25,7 @@ export class AutoReconnectWebSocket {
 
     this.ws.onopen = (event: Event) => {
       console.log("WebSocket connected:", event);
-      this.currentReconnectAttempts = 0; // Reset attempts on successful connection
+      this.currentReconnectAttempts = 0;
     };
 
     this.ws.onmessage = (message: MessageEvent) => {

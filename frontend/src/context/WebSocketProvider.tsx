@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
-import { AutoReconnectWebSocket } from "@/context/autoReconnectWebsocket";
+import { AutoReconnectWebSocket } from "@/context/AutoReconnectWebsocket";
 
-interface WebSocketContextType {
+export interface WebSocketContextType {
   message: string;
   sendMessage: (msg: string) => void;
   isConnected: boolean;
@@ -14,7 +14,9 @@ interface WebSocketProviderProps {
   children: React.ReactNode;
 }
 
-const WebSocketContext = createContext<WebSocketContextType | null>(null);
+export const WebSocketContext = createContext<WebSocketContextType | null>(
+  null
+);
 
 export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
   url,
@@ -67,12 +69,4 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
       {children}
     </WebSocketContext.Provider>
   );
-};
-
-export const useWebSocket = (): WebSocketContextType => {
-  const context = useContext(WebSocketContext);
-  if (!context) {
-    throw new Error("useWebSocket must be used within a WebSocketProvider");
-  }
-  return context;
 };

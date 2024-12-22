@@ -2,7 +2,10 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { ImageCard } from "@/interfaces/interface";
+
+export interface ImageCard {
+  image_url: string;
+}
 
 export function ImageShow({ images = [] }: { images: ImageCard[] }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

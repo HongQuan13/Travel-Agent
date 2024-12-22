@@ -1,8 +1,8 @@
 import { Search } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import ConversationCard from "@/components/chat/conversationCard";
-import { useEffect, useState } from "react";
 import { axiosClient } from "@/lib/axios";
 
 export default function ChatHistory() {

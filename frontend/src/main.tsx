@@ -3,8 +3,8 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "@/index.css";
 import App from "@/App.tsx";
-import { WebSocketProvider } from "@/context/websocket.tsx";
-import { AuthProvider } from "@/context/auth";
+import { WebSocketProvider } from "@/context/WebSocketProvider";
+import { AuthProvider } from "@/context/AuthProvider";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

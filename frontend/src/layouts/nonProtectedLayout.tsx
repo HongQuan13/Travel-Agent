@@ -1,4 +1,4 @@
-import { useAuthContext } from "@/context/auth";
+import { useAuthContext } from "@/context/AuthProvider";
 import { Navigate, Outlet } from "react-router-dom";
 
 interface IProps {
@@ -6,7 +6,7 @@ interface IProps {
 }
 
 export const NonProtectedLayout = ({ fallbackRoute }: IProps) => {
-  const { isAuthenticated, user } = useAuthContext();
+  const { isAuthenticated } = useAuthContext();
 
   if (isAuthenticated) {
     return <Navigate to={fallbackRoute} />;
