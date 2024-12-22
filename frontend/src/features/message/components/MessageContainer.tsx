@@ -1,13 +1,11 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { Send } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useWebSocket } from "@/hooks/useWebSocket";
-import PlaceCardHeader from "@/features/itinerary/components/ItineraryCard";
-import { fetchConversation, sendMessage } from "../services";
+import { PlaceCardHeader } from "@/features/itinerary";
 import { useMessage } from "../hooks/useMessage";
 
 interface Message {

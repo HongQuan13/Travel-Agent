@@ -2,8 +2,7 @@ import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Input } from "@/components/ui/input";
-import ConversationCard from "@/features/message/components/ConversationCard";
-import { fetchConversationHistory } from "@/features/message/services";
+import { ConversationCard, fetchConversationHistory } from "@/features/message";
 
 export default function ConversationHistory() {
   const [conversationHistory, setConversationHistory] = useState<any>([]);

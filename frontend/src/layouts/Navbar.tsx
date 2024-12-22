@@ -5,8 +5,7 @@ import { Fragment, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
-import { useAuthContext } from "@/features/auth/context/AuthContext";
-import { logout } from "@/features/auth/services";
+import { useAuthContext, logout } from "@/features/auth";
 
 const navItems = [
   { name: "Home", href: "/" },

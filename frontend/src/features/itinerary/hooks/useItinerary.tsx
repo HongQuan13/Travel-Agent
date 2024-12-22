@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { ItineraryCardProps } from "@/features/itinerary/components/Itinerary";
+import { ItineraryCardProps } from "../components/Itinerary";
 import { testItinerary } from "@/data/testItinerary";
 import { fetchItinerary, fetchLatestItinerary } from "../services";
 

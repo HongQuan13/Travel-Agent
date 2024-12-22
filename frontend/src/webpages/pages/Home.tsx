@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { createConversation, sendMessage } from "@/features/message/services";
+import { createConversation, sendMessage } from "@/features/message";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");

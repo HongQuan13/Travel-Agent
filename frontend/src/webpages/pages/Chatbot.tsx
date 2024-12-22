@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 
-import MessageContainer from "@/features/message/components/MessageContainer";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useLocation } from "react-router-dom";
 import { useWebSocket } from "@/hooks/useWebSocket";
-import { ItineraryComponent } from "@/features/itinerary";
-import { useItinerary } from "@/features/itinerary/hooks/useItinerary";
+import { MessageContainer } from "@/features/message";
+import { ItineraryComponent, useItinerary } from "@/features/itinerary";
 
 function Chatbot() {
   const [finalItineraryView, setFinalItineraryView] = useState(false);

@@ -8,7 +8,7 @@ interface PlaceCardHeaderProps {
   handleClick: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-export default function PlaceCardHeader({
+function PlaceCardHeader({
   id,
   title = "Default title",
   handleClick,
@@ -33,3 +33,5 @@ export default function PlaceCardHeader({
     </Card>
   );
 }
+
+export default PlaceCardHeader;

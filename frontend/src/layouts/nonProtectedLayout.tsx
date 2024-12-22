@@ -1,4 +1,4 @@
-import { useAuthContext } from "@/features/auth/context/AuthContext";
+import { useAuthContext } from "@/features/auth";
 import { Navigate, Outlet } from "react-router-dom";
 
 interface IProps {
