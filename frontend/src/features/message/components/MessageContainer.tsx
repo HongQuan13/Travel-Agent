@@ -8,6 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import PlaceCardHeader from "@/features/itinerary/components/ItineraryCard";
 import { fetchConversation, sendMessage } from "../services";
+import { useMessage } from "../hooks/useMessage";
 
 interface Message {
   id?: number;
@@ -31,26 +32,18 @@ function MessageContainer({
   handleClickItinerary,
   conversation_id,
 }: MessageContainerProps) {
-  const [inputValue, setInputValue] = useState("");
-  const [messages, setMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-  const { message } = useWebSocket();
-
-  useEffect(() => {
-    if (message != "") {
-      const content = JSON.parse(message);
-      const newMessage: Message = {
-        content: content.itinerary_id,
-        sender: "bot",
-        category: "itinerary",
-      };
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-    }
-  }, [message]);
+  const {
+    messages,
+    inputValue,
+    setInputValue,
+    retrieveChatContent,
+    handleSendMessage,
+  } = useMessage(conversation_id);
 
   useEffect(() => {
     if (conversation_id) retrieveChatContent();
-  }, []);
+  }, [conversation_id]);
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -58,43 +51,12 @@ function MessageContainer({
     }
   }, [messages]);
 
-  const retrieveChatContent = async () => {
-    try {
-      const allMessages = await fetchConversation(conversation_id);
-      setMessages(allMessages);
-    } catch (error: any) {
-      console.error("Error:", error);
-    }
-  };
-
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-
-  const handleSendMessage = async () => {
-    if (inputValue.trim()) {
-      const newMessage: Message = {
-        content: inputValue,
-        sender: "user",
-      };
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-      setInputValue("");
-    }
-
-    try {
-      const reply = await sendMessage(conversation_id, inputValue);
-      const replyMessage: Message = {
-        content: reply,
-        sender: "bot",
-      };
-      setMessages((prevMessages) => [...prevMessages, replyMessage]);
-    } catch (error: any) {
-      console.error("Error:", error.message);
-    }
-  };
-
   const handleFinalize = () => {
     setFinalItinerary(true);
     setMobileView(true);
   };
+
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (scrollAreaRef.current) {
