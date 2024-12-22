@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import { useAuthContext } from "@/features/auth/context/AuthContext";
-import { axiosClient } from "@/lib/axios";
+import { logout } from "@/features/auth/services";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -21,13 +21,9 @@ export function Navbar() {
 
   const handleLogout = async () => {
     try {
-      const response = await axiosClient.post("auth/logout");
-
-      if (response.status == 200) {
-        console.log("logout successfully");
-        setIsAuthenticated(false);
-        navigate("/login");
-      }
+      await logout();
+      setIsAuthenticated(false);
+      navigate("/login");
     } catch (error) {
       console.log("logout error", error);
     }

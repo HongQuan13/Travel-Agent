@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import MessageContainer from "@/features/message/components/Message";
+import MessageContainer from "@/features/message/components/MessageContainer";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useLocation } from "react-router-dom";
 import { useWebSocket } from "@/hooks/useWebSocket";

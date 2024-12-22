@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { axiosClient } from "@/lib/axios";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { createConversation, sendMessage } from "@/features/message/services";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
@@ -15,17 +15,11 @@ export default function Home() {
     try {
       if (inputValue == "") return;
 
-      const newConversation = await axiosClient.post(
-        "chat/create-conversation"
-      );
+      const newConversation = await createConversation();
       const conversation_id = newConversation.data.conversation_id;
-      const response = await axiosClient.post("chat/send-message", {
-        conversation_id: conversation_id,
-        content: inputValue,
-      });
 
-      if (response.status == 200)
-        navigate(`/chatbot?conversation_id=${conversation_id}`);
+      await sendMessage(conversation_id, inputValue);
+      navigate(`/chatbot?conversation_id=${conversation_id}`);
     } catch (error) {
       console.log("handle send message error", error);
     }

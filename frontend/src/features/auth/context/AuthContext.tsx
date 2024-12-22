@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-import { axiosClient } from "@/lib/axios";
+import { authVerify } from "../services";
 
 export interface AuthContextType {
   isAuthenticated: boolean;
@@ -24,11 +24,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const checkAuthenticated = async () => {
     try {
-      const response = await axiosClient.get("auth/verify");
-      if (response.status === 200) {
-        setIsAuthenticated(true);
-        setUser(response.data);
-      }
+      const response = await authVerify();
+      setIsAuthenticated(true);
+      setUser(response.data);
     } catch (error) {
       console.error("User is not authenticated", error);
       setIsAuthenticated(false);

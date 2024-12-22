@@ -5,9 +5,9 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { axiosClient } from "@/lib/axios";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import PlaceCardHeader from "@/features/itinerary/components/ItineraryCard";
+import { fetchConversation, sendMessage } from "../services";
 
 interface Message {
   id?: number;
@@ -60,11 +60,7 @@ function MessageContainer({
 
   const retrieveChatContent = async () => {
     try {
-      const response = await axiosClient.get(
-        `chat/retrieve-conversation/${conversation_id}`
-      );
-
-      const allMessages = response.data.all_messages;
+      const allMessages = await fetchConversation(conversation_id);
       setMessages(allMessages);
     } catch (error: any) {
       console.error("Error:", error);
@@ -84,13 +80,9 @@ function MessageContainer({
     }
 
     try {
-      const response = await axiosClient.post("chat/send-message", {
-        conversation_id: conversation_id,
-        content: inputValue.trim(),
-      });
-
+      const reply = await sendMessage(conversation_id, inputValue);
       const replyMessage: Message = {
-        content: response.data.bot_response,
+        content: reply,
         sender: "bot",
       };
       setMessages((prevMessages) => [...prevMessages, replyMessage]);

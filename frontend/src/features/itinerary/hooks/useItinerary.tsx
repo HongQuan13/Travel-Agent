@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { axiosClient } from "@/lib/axios";
 import { ItineraryCardProps } from "@/features/itinerary/components/Itinerary";
 import { testItinerary } from "@/data/testItinerary";
+import { fetchItinerary, fetchLatestItinerary } from "../services";
 
 export const useItinerary = (conversation_id: string) => {
-  //   const [finalItineraryView, setFinalItineraryView] = useState(false);
-  //   const [mobileView, setMobileView] = useState(false);
   const defaultResponse = JSON.parse(testItinerary);
   const [detailItinerary, setDetailItinerary] =
     useState<ItineraryCardProps>(defaultResponse);
@@ -14,11 +12,7 @@ export const useItinerary = (conversation_id: string) => {
   useEffect(() => {
     const retrieveLatestItinerary = async () => {
       try {
-        const response = await axiosClient.get(
-          `chat/retrieve-latest-itinerary/${conversation_id}`
-        );
-
-        const itineraryDetail = response.data.itinerary_detail;
+        const itineraryDetail = await fetchLatestItinerary(conversation_id);
         setDetailItinerary(JSON.parse(itineraryDetail));
       } catch (error: any) {
         console.error("Error:", error);
@@ -32,11 +26,10 @@ export const useItinerary = (conversation_id: string) => {
     event: React.MouseEvent<HTMLDivElement>
   ) => {
     const id = event.currentTarget.getAttribute("id");
+    if (!id) return;
 
     try {
-      const response = await axiosClient.get(`chat/retrieve-itinerary/${id}`);
-
-      const itineraryDetail = response.data.itinerary_detail;
+      const itineraryDetail = await fetchItinerary(id);
       setDetailItinerary(JSON.parse(itineraryDetail));
     } catch (error: any) {
       console.error("Error:", error);
