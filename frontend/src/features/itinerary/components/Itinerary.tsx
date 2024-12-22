@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 
-import { MainHeader, SubHeader } from "@/components/finalItinerary/header";
-import { LocationCard } from "@/components/finalItinerary/locationCard";
+import { MainHeader, SubHeader } from "./Header";
+import { LocationCard } from "./LocationCard";
 import { Card, CardContent } from "@/components/ui/card";
-import { ImageCard, ImageShow } from "@/components/finalItinerary/imageShow";
+import { ImageCard, ImageShow } from "./ImageShow";
 
 export interface ItineraryCardProps {
   mainHeader: string;
@@ -11,7 +11,7 @@ export interface ItineraryCardProps {
   subHeaders: object[];
 }
 
-function FinalItinerary({
+function Itinerary({
   detailItinerary,
 }: {
   detailItinerary: ItineraryCardProps;
@@ -54,4 +54,4 @@ function FinalItinerary({
   );
 }
 
-export default FinalItinerary;
+export default Itinerary;

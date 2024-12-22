@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { axiosClient } from "@/lib/axios";
-import PlaceCardHeader from "@/components/finalItinerary/itineraryCard";
 import { useWebSocket } from "@/hooks/useWebSocket";
+import PlaceCardHeader from "@/features/itinerary/components/ItineraryCard";
 
 interface Message {
   id?: number;

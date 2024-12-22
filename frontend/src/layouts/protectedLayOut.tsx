@@ -1,4 +1,4 @@
-import { useAuthContext } from "@/context/AuthProvider";
+import { useAuthContext } from "@/features/auth/context/AuthContext";
 import { Navigate, Outlet } from "react-router-dom";
 
 export const ProtectedLayout = () => {

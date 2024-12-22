@@ -5,7 +5,7 @@ import { Fragment, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
-import { useAuthContext } from "@/context/AuthProvider";
+import { useAuthContext } from "@/features/auth/context/AuthContext";
 import { axiosClient } from "@/lib/axios";
 
 const navItems = [
