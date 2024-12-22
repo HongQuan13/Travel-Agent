@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 
-import Layout from "@/layout/pageLayout";
+import Layout from "@/layouts/pageLayout";
 import Chatbot from "@/webpages/chat/conversationDetail";
 import Home from "@/webpages/home";
 import LoginPage from "@/webpages/auth";
 import Conversation from "@/webpages/chat/conversationHistory";
-import { NonProtectedLayout } from "@/layout/NonProtectedLayout";
-import { ProtectedLayout } from "@/layout/ProtectedLayOut";
+import { NonProtectedLayout } from "@/layouts/nonProtectedLayout";
+import { ProtectedLayout } from "@/layouts/protectedLayOut";
 
 function Webpages() {
   return (
