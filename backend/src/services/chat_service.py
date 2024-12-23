@@ -1,6 +1,7 @@
+from datetime import datetime
 import logging
 from fastapi import HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, aliased
 
 from backend.src.constant.info_constant import InfoDetail
 from backend.src.constant.success_constant import SuccessDetail
@@ -67,10 +68,30 @@ class ChatService:
             raise HTTPException(status_code=400, detail=ErrorDetail.non_exist_user)
 
         conversation_list = (
-            db.query(Conversation.id).filter(Conversation.user_id == user_id).all()
+            db.query(
+                Conversation.id,
+                Conversation.title,
+                Conversation.updated_at,
+                db.query(Message.content)
+                .filter(Message.conversation_id == Conversation.id)
+                .filter(Message.sender == "user")
+                .order_by(Message.timestamp.desc())
+                .limit(1)
+                .label("last_user_message"),
+            )
+            .filter(Conversation.user_id == user_id)
+            .order_by(Conversation.updated_at.desc())
+            .all()
         )
+
         structured_conversations = [
-            ConversationInfo(conversation_id=c[0]) for c in conversation_list
+            ConversationInfo(
+                conversation_id=c[0],
+                conversation_title=c[1],
+                updated_at=c[2] if c[2] else datetime.min,
+                last_user_message=c[3],
+            )
+            for c in conversation_list
         ]
 
         logger.info(SuccessDetail.all_conversation(user_id))

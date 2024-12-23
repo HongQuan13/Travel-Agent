@@ -16,6 +16,9 @@ class CreateConversationResponse(BaseModel):
 
 class ConversationInfo(BaseModel):
     conversation_id: int
+    conversation_title: str
+    updated_at: datetime
+    last_user_message: str
 
 
 class ConversationHistoryResponse(BaseModel):
