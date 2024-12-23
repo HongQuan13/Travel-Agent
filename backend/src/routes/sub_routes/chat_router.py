@@ -50,7 +50,6 @@ class ChatRouter:
     ):
         logger.info(InfoDetail.func_call("create_conversation"))
         user_id = user_info["id"]
-        print("testttt", user_id, type(user_id))
         return await self.handler.create_conversation(body, user_id, db)
 
     async def conversation_history(
