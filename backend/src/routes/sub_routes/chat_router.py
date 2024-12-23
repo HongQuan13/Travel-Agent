@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from backend.src.constant.info_constant import InfoDetail
 from backend.src.dbs.init_postgres import get_database
 from backend.src.interfaces.chat_interface import (
+    CreateConversationRequest,
     SendMessageRequest,
 )
 from backend.src.services.auth_service import AuthService
@@ -43,12 +44,14 @@ class ChatRouter:
 
     async def create_conversation(
         self,
+        body: CreateConversationRequest,
         user_info: dict = Depends(AuthService().verify_jwt_token),
         db: Session = Depends(get_database),
     ):
         logger.info(InfoDetail.func_call("create_conversation"))
         user_id = user_info["id"]
-        return await self.handler.create_conversation(user_id, db)
+        print("testttt", user_id, type(user_id))
+        return await self.handler.create_conversation(body, user_id, db)
 
     async def conversation_history(
         self,

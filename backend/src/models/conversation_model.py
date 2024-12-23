@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from sqlalchemy import Integer, ForeignKey
+from sqlalchemy import Integer, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from backend.src.models.base_model import Base
@@ -14,6 +14,7 @@ class Conversation(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+    title: Mapped[str] = mapped_column(String, nullable=False, default="Default title")
 
     # relation
     user: Mapped["User"] = relationship(back_populates="conversation")

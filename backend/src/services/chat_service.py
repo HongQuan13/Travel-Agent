@@ -1,4 +1,3 @@
-import json
 import logging
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
@@ -12,6 +11,7 @@ from backend.src.models.message_model import Message
 from backend.src.interfaces.chat_interface import (
     ConversationHistoryResponse,
     ConversationInfo,
+    CreateConversationRequest,
     CreateConversationResponse,
     MessageCategory,
     MessageInfo,
@@ -32,14 +32,33 @@ class ChatService:
     def __init__(self):
         logger.info(InfoDetail.class_initialize("ChatService"))
 
-    async def create_conversation(self, user_id: int, db: Session):
-        new_conversation = Conversation(user_id=user_id)
+    async def create_conversation(
+        self, body: CreateConversationRequest, user_id: int, db: Session
+    ):
+        llm = GPTAgentManager()
+        conversation_title = llm.generate_conversation_title(body.first_message)
+        new_conversation = Conversation(user_id=user_id, title=conversation_title)
         db.add(new_conversation)
+        db.flush()
+
+        new_message = Message(
+            conversation_id=new_conversation.id,
+            sender=SenderType.user,
+            content=body.first_message,
+        )
+
+        db.add(new_message)
         db.commit()
+
+        bot_response = await self.bot_reply(body.first_message, new_conversation.id, db)
+
         logger.info(SuccessDetail.new_conversation(user_id))
 
         return CreateConversationResponse(
-            conversation_id=new_conversation.id, user_id=user_id
+            conversation_id=new_conversation.id,
+            user_id=user_id,
+            bot_response=bot_response,
+            conversation_title=conversation_title,
         )
 
     async def conversation_history(self, user_id: int, db: Session):

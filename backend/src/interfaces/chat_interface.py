@@ -3,9 +3,15 @@ from typing import List, Literal
 from pydantic import BaseModel
 
 
+class CreateConversationRequest(BaseModel):
+    first_message: str
+
+
 class CreateConversationResponse(BaseModel):
     conversation_id: int
     user_id: int
+    bot_response: str
+    conversation_title: str
 
 
 class ConversationInfo(BaseModel):
