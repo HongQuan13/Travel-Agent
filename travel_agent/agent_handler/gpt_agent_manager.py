@@ -1,10 +1,12 @@
 import os
 import logging
+import sys
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.prebuilt import create_react_agent
 from langchain_openai import ChatOpenAI
+from langchain.prompts import PromptTemplate
 
 from backend.src.constant.info_constant import InfoDetail
 from travel_agent.helpers.agent_constant import PROMPT_TEMPLATE
@@ -87,16 +89,28 @@ class GPTAgentManager:
         )
         return response["messages"][-1].content
 
+    def generate_conversation_title(self, user_input: str) -> str:
+        config = {"configurable": {"thread_id": "0"}}
+        title_prompt = PromptTemplate(
+            input_variables=["user_input"],
+            template="Generate a concise and relevant title (less than 10 words) for this trip plan conversation: {user_input}",
+        )
+
+        title = title_prompt.format(user_input=user_input)
+
+        response = self._agent_executor.invoke(
+            {"messages": [HumanMessage(content=title)]}, config
+        )
+        return response["messages"][-1].content
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, force=True)
     logger = logging.getLogger(__name__)
-
     load_dotenv()
     newAgent = GPTAgentManager()
 
-    response = newAgent.generate_response(
-        "Human: Can you help me planning for 3 days trip vacation in Singapore?",
-        "conversationId",
+    response = newAgent.generate_conversation_title(
+        " Can you help me planning for 3 days trip vacation in Singapore?",
     )
     logger.info(f"AI Response: {response} ")

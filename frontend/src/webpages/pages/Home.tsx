@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { createConversation, sendMessage } from "@/features/message";
+import { createConversation } from "@/features/message";
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
@@ -15,10 +15,8 @@ export default function Home() {
     try {
       if (inputValue == "") return;
 
-      const newConversation = await createConversation();
-      const conversation_id = newConversation.data.conversation_id;
-
-      await sendMessage(conversation_id, inputValue);
+      const newConversation = await createConversation(inputValue);
+      const conversation_id = newConversation.conversation_id;
       navigate(`/chatbot?conversation_id=${conversation_id}`);
     } catch (error) {
       console.log("handle send message error", error);

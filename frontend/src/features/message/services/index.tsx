@@ -25,6 +25,9 @@ export const fetchConversationHistory = async () => {
   return response.conversations;
 };
 
-export const createConversation = async () => {
-  return await postData("chat/create-conversation");
+export const createConversation = async (first_message: string) => {
+  const data = {
+    first_message: first_message,
+  };
+  return await postData("chat/create-conversation", data);
 };
