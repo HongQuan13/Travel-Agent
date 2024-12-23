@@ -2,7 +2,6 @@ import { MoreVertical } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { stringify } from "querystring";
 
 interface ConversationProps {
   conversation_id: string;
