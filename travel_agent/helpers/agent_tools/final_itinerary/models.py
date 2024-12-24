@@ -3,6 +3,19 @@ from pydantic import BaseModel, Field, validator
 from langchain_core.runnables import RunnableConfig
 
 
+class Review(BaseModel):
+    author_name: str = Field(description="The name of the author who wrote the review.")
+    rating: int = Field(
+        description="The rating given by the author, typically a number between 1 and 5."
+    )
+    relative_time_description: str = Field(
+        description="A description of when the review was posted (e.g., '2 days ago')."
+    )
+    text: str = Field(
+        description="The content or body of the review written by the author."
+    )
+
+
 class Place(BaseModel):
     placeName: str = Field(description="The name of the place or event")
     address: str = Field(description="The geographical address of the place or event.")
@@ -16,7 +29,7 @@ class Place(BaseModel):
     international_phone_number: str = Field(
         description="The international phone number for contacting the place."
     )
-    reviews: List[str] = Field(
+    reviews: List[Review] = Field(
         description="A list of reviews or feedback about the place."
     )
 

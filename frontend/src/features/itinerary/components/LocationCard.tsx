@@ -64,7 +64,11 @@ export function LocationCard({
           <Button
             variant="outline"
             className="rounded-full"
-            onClick={() => window.open(locationInfo.googleMapsUrl, "_blank")}
+            onClick={() => {
+              window.open(
+                `https://maps.google.com/?q=${locationInfo.placeName}`
+              );
+            }}
           >
             <img
               src="/placeholder.svg?height=16&width=16"
