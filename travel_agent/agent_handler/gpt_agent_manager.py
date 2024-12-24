@@ -10,7 +10,7 @@ from langchain.prompts import PromptTemplate
 
 from backend.src.constant.info_constant import InfoDetail
 from travel_agent.helpers.agent_constant import PROMPT_TEMPLATE
-from travel_agent.helpers.agent_tools.browsingInternet.browser_internet_tool import (
+from travel_agent.helpers.agent_tools.browsing_internet.browser_internet_tool import (
     browser_internet_tool,
 )
 from travel_agent.helpers.agent_tools.google_map.get_distance_tool import (

@@ -4,10 +4,10 @@ import threading
 from dotenv import load_dotenv
 
 from backend.src.constant.info_constant import InfoDetail
-from travel_agent.helpers.agent_tools.browsingInternet.serper_service import (
+from travel_agent.helpers.agent_tools.browsing_internet.serper_service import (
     SerperClient,
 )
-from travel_agent.helpers.agent_tools.browsingInternet.web_crawler import WebCrawler
+from travel_agent.helpers.agent_tools.browsing_internet.web_crawler import WebCrawler
 
 
 logger = logging.getLogger(__name__)
