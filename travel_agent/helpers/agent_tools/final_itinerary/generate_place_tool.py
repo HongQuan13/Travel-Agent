@@ -1,4 +1,5 @@
 import logging
+from typing import List
 from langchain_core.tools import StructuredTool
 
 from backend.src.constant.info_constant import InfoDetail
@@ -8,13 +9,25 @@ logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
 
 
-def generate_place(placeName: str, address: str, description: str):
+def generate_place(
+    placeName: str,
+    address: str,
+    description: str,
+    current_opening_hours: str,
+    geometry: str,
+    international_phone_number: str,
+    reviews: List[str],
+):
     """Use the tool."""
     logger.info(InfoDetail.func_call("generate_place"))
     json_response = {
         "placeName": placeName,
         "address": address,
         "description": description,
+        "current_opening_hours": current_opening_hours,
+        "geometry": geometry,
+        "international_phone_number": international_phone_number,
+        "reviews": reviews,
     }
     return json_response
 

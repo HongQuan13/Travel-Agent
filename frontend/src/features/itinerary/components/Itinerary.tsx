@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import { MainHeader, SubHeader } from "./Header";
-import { LocationCard } from "./LocationCard";
+import { LocationCard, LocationCardProps } from "./LocationCard";
 import { Card, CardContent } from "@/components/ui/card";
 import { ImageCard, ImageShow } from "./ImageShow";
 
@@ -30,7 +30,11 @@ function Itinerary({
         {[detailItinerary].map((itinerary, index) => (
           <div key={index}>
             <MainHeader title={itinerary.mainHeader} />
-            <ImageShow images={itinerary.images} />
+            {itinerary.images.length > 0 ? (
+              <ImageShow images={itinerary.images} />
+            ) : (
+              <></>
+            )}
             <div className="space-y-8">
               {itinerary.subHeaders.map(
                 (subHeader: any, subHeaderIndex: number) => (
@@ -38,8 +42,8 @@ function Itinerary({
                     <SubHeader title={subHeader.title} />
                     <div className="space-y-6">
                       {subHeader.places.map(
-                        (place: any, placeIndex: number) => (
-                          <LocationCard key={placeIndex} {...place} />
+                        (place: LocationCardProps, placeIndex: number) => (
+                          <LocationCard key={placeIndex} locationInfo={place} />
                         )
                       )}
                     </div>

@@ -7,6 +7,18 @@ class Place(BaseModel):
     placeName: str = Field(description="The name of the place or event")
     address: str = Field(description="The geographical address of the place or event.")
     description: str = Field(description="A brief summary of the place or event.")
+    current_opening_hours: str = Field(
+        description="The current opening hours of the place or event."
+    )
+    geometry: str = Field(
+        description="Geographical coordinates (latitude and longitude) of the place(e.g., 1.3521,103.8198)."
+    )
+    international_phone_number: str = Field(
+        description="The international phone number for contacting the place."
+    )
+    reviews: List[str] = Field(
+        description="A list of reviews or feedback about the place."
+    )
 
 
 class SubHeaders(BaseModel):
