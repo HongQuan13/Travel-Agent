@@ -3,6 +3,7 @@ import { Instagram, MapPin, MoreVertical, Bookmark, Play } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { InfoItem } from "./InfoItem";
+import { Review } from "./ReviewCard";
 
 export interface LocationCardProps {
   placeName: string;
@@ -11,7 +12,7 @@ export interface LocationCardProps {
   current_opening_hours?: string;
   geometry?: string;
   international_phone_number?: string;
-  reviews?: string[];
+  reviews: Review[];
   googleMapsUrl?: string;
   instagramUrl?: string;
   tiktokUrl?: string;
@@ -44,8 +45,8 @@ export function LocationCard({
         <>
           <p className="text-muted-foreground mb-6">
             {locationInfo.description}
+            <InfoItem placeInfo={locationInfo} />
           </p>
-          <InfoItem placeInfo={locationInfo} />
         </>
         <div className="flex items-center justify-between">
           <div className="flex gap-2">

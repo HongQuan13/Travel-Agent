@@ -1,4 +1,5 @@
 import { LocationCardProps } from "./LocationCard";
+import { Reviews } from "./ReviewCard";
 
 export const InfoItem = ({ placeInfo }: { placeInfo: LocationCardProps }) => {
   const infoList = [
@@ -18,6 +19,8 @@ export const InfoItem = ({ placeInfo }: { placeInfo: LocationCardProps }) => {
           <></>
         )
       )}
+
+      {placeInfo.reviews ? <Reviews reviews={placeInfo.reviews} /> : <></>}
     </div>
   );
 };
