@@ -10,6 +10,15 @@ from langchain.prompts import PromptTemplate
 
 from backend.src.constant.info_constant import InfoDetail
 from travel_agent.helpers.agent_constant import PROMPT_TEMPLATE
+from travel_agent.helpers.agent_tools.browsingInternet.browser_internet_tool import (
+    browser_internet_tool,
+)
+from travel_agent.helpers.agent_tools.google_map.get_distance_tool import (
+    get_distance_tool,
+)
+from travel_agent.helpers.agent_tools.google_map.get_place_detail_tool import (
+    get_detail_place_tool,
+)
 from travel_agent.helpers.agent_tools.text_search_tool import (
     google_search,
     duckduckgo_search,
@@ -58,13 +67,16 @@ class GPTAgentManager:
             )
             memory = MemorySaver()
             tools = [
-                google_search,
-                duckduckgo_search,
+                # google_search,
+                # duckduckgo_search,
                 image_search_tool,
                 finalize_itinerary_tool,
                 generate_place_tool,
                 notice_generate_itinerary_successful_tool,
                 generate_subheaders_tool,
+                get_distance_tool,
+                get_detail_place_tool,
+                browser_internet_tool,
             ]
             system_message = SystemMessage(content=PROMPT_TEMPLATE)
 
