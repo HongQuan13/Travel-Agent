@@ -60,4 +60,4 @@ class RetrieveConversationResponse(BaseModel):
 
 
 class RetrieveItineraryDetailResponse(BaseModel):
-    itinerary_detail: str
+    itinerary_detail: object

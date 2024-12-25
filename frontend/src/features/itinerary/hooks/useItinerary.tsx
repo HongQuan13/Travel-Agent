@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { testItinerary } from "@/data/testItinerary";
 import { fetchItinerary, fetchLatestItinerary } from "../services";
 import { ItineraryCardProps } from "../interfaces";
+import { transformBackendDataToFrontend } from "@/utils/variableConversion";
 
 export const useItinerary = (conversationId: string) => {
   const defaultResponse = JSON.parse(testItinerary);
@@ -13,8 +14,7 @@ export const useItinerary = (conversationId: string) => {
     const retrieveLatestItinerary = async () => {
       try {
         const itineraryDetail = await fetchLatestItinerary(conversationId);
-        console.log(itineraryDetail);
-        setDetailItinerary(JSON.parse(itineraryDetail));
+        setDetailItinerary(itineraryDetail);
       } catch (error: any) {
         console.error("Error:", error);
       }
@@ -31,7 +31,8 @@ export const useItinerary = (conversationId: string) => {
 
     try {
       const itineraryDetail = await fetchItinerary(id);
-      setDetailItinerary(JSON.parse(itineraryDetail));
+      console.log("heello", itineraryDetail);
+      setDetailItinerary(itineraryDetail);
     } catch (error: any) {
       console.error("Error:", error);
     }
@@ -39,7 +40,8 @@ export const useItinerary = (conversationId: string) => {
 
   const handleMessageItinerary = (message: string) => {
     const content = JSON.parse(message);
-    setDetailItinerary(content.itineraryDetail);
+    const transformedData = transformBackendDataToFrontend(content);
+    setDetailItinerary(transformedData.itineraryDetail);
   };
 
   return {

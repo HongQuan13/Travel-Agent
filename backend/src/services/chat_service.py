@@ -1,7 +1,8 @@
 from datetime import datetime
+import json
 import logging
 from fastapi import HTTPException
-from sqlalchemy.orm import Session, aliased
+from sqlalchemy.orm import Session
 
 from backend.src.constant.info_constant import InfoDetail
 from backend.src.constant.success_constant import SuccessDetail
@@ -191,7 +192,9 @@ class ChatService:
         if not itinerary_content:
             raise HTTPException(status_code=400, detail=ErrorDetail.non_exist_itinerary)
 
-        return RetrieveItineraryDetailResponse(itinerary_detail=itinerary_content[0])
+        return RetrieveItineraryDetailResponse(
+            itinerary_detail=json.loads(itinerary_content[0])
+        )
 
     async def retrieve_latest_itinerary(self, conversation_id: int, db: Session):
         exist_conversation = (
@@ -224,4 +227,6 @@ class ChatService:
         if not itinerary_content:
             raise HTTPException(status_code=400, detail=ErrorDetail.non_exist_itinerary)
 
-        return RetrieveItineraryDetailResponse(itinerary_detail=itinerary_content[0])
+        return RetrieveItineraryDetailResponse(
+            itinerary_detail=json.loads(itinerary_content[0])
+        )

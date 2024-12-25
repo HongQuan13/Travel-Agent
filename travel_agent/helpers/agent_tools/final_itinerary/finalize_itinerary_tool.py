@@ -45,9 +45,9 @@ def finalize_itinerary(
         save_itinerary_message(itinerary_id, conversation_id)
 
         socket_message = {
-            "conversation_id": conversation_id,
-            "itinerary_id": itinerary_id,
-            "itinerary_detail": jsonable_encoder(json_response),
+            "conversationId": conversation_id,
+            "itineraryId": itinerary_id,
+            "itineraryDetail": jsonable_encoder(json_response),
         }
         asyncio.run(WebSocketManager().broadcast(json.dumps(socket_message)))
 
