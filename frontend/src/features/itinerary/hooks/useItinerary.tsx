@@ -31,7 +31,6 @@ export const useItinerary = (conversationId: string) => {
 
     try {
       const itineraryDetail = await fetchItinerary(id);
-      console.log("heello", itineraryDetail);
       setDetailItinerary(itineraryDetail);
     } catch (error: any) {
       console.error("Error:", error);

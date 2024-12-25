@@ -47,13 +47,11 @@ export function Reviews({ reviews }: ReviewsProps) {
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           onClick={() => handleReviewClick(reviews[currentIndex])}
         >
-          {reviews.map((review: Review) => (
-            <div className="w-full flex-shrink-0 px-4">
+          {reviews.map((review: Review, index: number) => (
+            <div key={index} className="w-full flex-shrink-0 px-4">
               <div className="bg-muted/50 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-medium">
-                    {review?.authorName ?? review?.author_name}
-                  </span>
+                  <span className="font-medium">{review?.authorName}</span>
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
                       <span
@@ -74,8 +72,7 @@ export function Reviews({ reviews }: ReviewsProps) {
                   {review?.text}
                 </p>
                 <span className="text-sm text-muted-foreground mt-2 block">
-                  {review?.relativeTimeDescription ??
-                    review?.relative_time_description}
+                  {review?.relativeTimeDescription}
                 </span>
               </div>
             </div>
@@ -107,10 +104,7 @@ export function Reviews({ reviews }: ReviewsProps) {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>
-              Review by{" "}
-              {selectedReview?.authorName ?? selectedReview?.author_name}
-            </DialogTitle>
+            <DialogTitle>Review by {selectedReview?.authorName}</DialogTitle>
           </DialogHeader>
           <div className="mt-4">
             <div className="flex mb-2">
@@ -122,8 +116,7 @@ export function Reviews({ reviews }: ReviewsProps) {
             </div>
             <p className="text-muted-foreground">{selectedReview?.text}</p>
             <span className="text-sm text-muted-foreground mt-4 block">
-              {selectedReview?.relativeTimeDescription ??
-                selectedReview?.relative_time_description}
+              {selectedReview?.relativeTimeDescription}
             </span>
           </div>
         </DialogContent>

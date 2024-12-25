@@ -6,13 +6,11 @@ export const InfoItem = ({ placeInfo }: { placeInfo: LocationCardProps }) => {
     { label: "Address", value: placeInfo.address },
     {
       label: "Opening Hours",
-      value: placeInfo.currentOpeningHours ?? placeInfo.current_opening_hours,
+      value: placeInfo.currentOpeningHours,
     },
     {
       label: "Phone Number",
-      value:
-        placeInfo.internationalPhoneNumber ??
-        placeInfo.international_phone_number,
+      value: placeInfo.internationalPhoneNumber,
     },
   ];
   return (
@@ -27,7 +25,7 @@ export const InfoItem = ({ placeInfo }: { placeInfo: LocationCardProps }) => {
           )
       )}
 
-      {placeInfo.reviews && placeInfo.reviews[0].text && (
+      {placeInfo?.reviews && placeInfo.reviews[0]?.text && (
         <Reviews reviews={placeInfo.reviews} />
       )}
     </div>

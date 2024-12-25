@@ -29,10 +29,6 @@ export interface LocationCardProps {
   googleMapsUrl?: string;
   instagramUrl?: string;
   tiktokUrl?: string;
-
-  // fix unmatch
-  current_opening_hours?: string;
-  international_phone_number?: string;
 }
 
 export interface ReviewsProps {
@@ -44,8 +40,4 @@ export interface Review {
   text: string;
   rating: number;
   relativeTimeDescription: string;
-
-  // fix unmatch
-  author_name?: string;
-  relative_time_description?: string;
 }
