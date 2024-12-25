@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { ItineraryCardProps } from "../components/Itinerary";
 import { testItinerary } from "@/data/testItinerary";
 import { fetchItinerary, fetchLatestItinerary } from "../services";
+import { ItineraryCardProps } from "../interfaces";
 
-export const useItinerary = (conversation_id: string) => {
+export const useItinerary = (conversationId: string) => {
   const defaultResponse = JSON.parse(testItinerary);
   const [detailItinerary, setDetailItinerary] =
     useState<ItineraryCardProps>(defaultResponse);
@@ -12,15 +12,16 @@ export const useItinerary = (conversation_id: string) => {
   useEffect(() => {
     const retrieveLatestItinerary = async () => {
       try {
-        const itineraryDetail = await fetchLatestItinerary(conversation_id);
+        const itineraryDetail = await fetchLatestItinerary(conversationId);
+        console.log(itineraryDetail);
         setDetailItinerary(JSON.parse(itineraryDetail));
       } catch (error: any) {
         console.error("Error:", error);
       }
     };
 
-    if (conversation_id) retrieveLatestItinerary();
-  }, [conversation_id]);
+    if (conversationId) retrieveLatestItinerary();
+  }, [conversationId]);
 
   const handleClickItinerary = async (
     event: React.MouseEvent<HTMLDivElement>
@@ -38,7 +39,7 @@ export const useItinerary = (conversation_id: string) => {
 
   const handleMessageItinerary = (message: string) => {
     const content = JSON.parse(message);
-    setDetailItinerary(content.itinerary_detail);
+    setDetailItinerary(content.itineraryDetail);
   };
 
   return {

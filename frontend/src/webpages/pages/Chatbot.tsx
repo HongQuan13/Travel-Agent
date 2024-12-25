@@ -12,9 +12,9 @@ function Chatbot() {
   const { message } = useWebSocket();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const conversation_id = params.get("conversation_id") ?? "";
+  const conversationId = params.get("conversationId") ?? "";
   const { detailItinerary, handleClickItinerary, handleMessageItinerary } =
-    useItinerary(conversation_id);
+    useItinerary(conversationId);
 
   useEffect(() => {
     if (message) {
@@ -30,7 +30,7 @@ function Chatbot() {
           setFinalItinerary={setFinalItineraryView}
           setMobileView={setMobileView}
           handleClickItinerary={handleClickItinerary}
-          conversation_id={conversation_id}
+          conversationId={conversationId}
         />
       </div>
 

@@ -14,7 +14,7 @@ function MessageContainer({
   setFinalItinerary,
   setMobileView,
   handleClickItinerary,
-  conversation_id,
+  conversationId,
 }: MessageContainerProps) {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const {
@@ -23,11 +23,11 @@ function MessageContainer({
     setInputValue,
     retrieveChatContent,
     handleSendMessage,
-  } = useMessage(conversation_id);
+  } = useMessage(conversationId);
 
   useEffect(() => {
-    if (conversation_id) retrieveChatContent();
-  }, [conversation_id]);
+    if (conversationId) retrieveChatContent();
+  }, [conversationId]);
 
   useEffect(() => {
     if (messagesEndRef.current) {

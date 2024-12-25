@@ -1,8 +1,8 @@
 export interface ConversationProps {
-  conversation_id: string;
-  conversation_title: string;
-  last_user_message: string;
-  updated_at: string;
+  conversationId: string;
+  conversationTitle: string;
+  lastUserMessage: string;
+  updatedAt: string;
 }
 
 type Category = "itinerary" | "text";
@@ -19,5 +19,5 @@ export interface MessageContainerProps {
   setFinalItinerary: React.Dispatch<React.SetStateAction<boolean>>;
   setMobileView: React.Dispatch<React.SetStateAction<boolean>>;
   handleClickItinerary: (event: React.MouseEvent<HTMLDivElement>) => void;
-  conversation_id: string;
+  conversationId: string;
 }

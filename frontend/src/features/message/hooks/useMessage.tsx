@@ -3,7 +3,7 @@ import { fetchConversation, sendMessage } from "../services";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { Message } from "../interfaces";
 
-export const useMessage = (conversation_id: string) => {
+export const useMessage = (conversationId: string) => {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const { message } = useWebSocket();
@@ -17,7 +17,7 @@ export const useMessage = (conversation_id: string) => {
 
     const content = JSON.parse(message);
     const newMessage: Message = {
-      content: content.itinerary_id,
+      content: content.itineraryId,
       sender: "bot",
       category: "itinerary",
     };
@@ -26,7 +26,7 @@ export const useMessage = (conversation_id: string) => {
 
   const retrieveChatContent = async () => {
     try {
-      const allMessages = await fetchConversation(conversation_id);
+      const allMessages = await fetchConversation(conversationId);
       setMessages(allMessages);
     } catch (error: any) {
       console.error("Error:", error);
@@ -45,7 +45,7 @@ export const useMessage = (conversation_id: string) => {
     }
 
     try {
-      const reply = await sendMessage(conversation_id, inputValue);
+      const reply = await sendMessage(conversationId, inputValue);
       const replyMessage: Message = {
         content: reply,
         sender: "bot",

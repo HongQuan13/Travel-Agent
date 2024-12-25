@@ -5,7 +5,7 @@ export interface ItineraryCardProps {
 }
 
 export interface ImageCard {
-  image_url: string;
+  imageUrl: string;
 }
 
 export interface HeaderProps {
@@ -22,13 +22,17 @@ export interface LocationCardProps {
   placeName: string;
   description: string;
   address: string;
-  current_opening_hours?: string;
+  currentOpeningHours?: string;
   geometry?: string;
-  international_phone_number?: string;
+  internationalPhoneNumber?: string;
   reviews?: Review[];
   googleMapsUrl?: string;
   instagramUrl?: string;
   tiktokUrl?: string;
+
+  // fix unmatch
+  current_opening_hours?: string;
+  international_phone_number?: string;
 }
 
 export interface ReviewsProps {
@@ -36,8 +40,12 @@ export interface ReviewsProps {
 }
 
 export interface Review {
-  author_name: string;
+  authorName: string;
   text: string;
   rating: number;
-  relative_time_description: string;
+  relativeTimeDescription: string;
+
+  // fix unmatch
+  author_name?: string;
+  relative_time_description?: string;
 }

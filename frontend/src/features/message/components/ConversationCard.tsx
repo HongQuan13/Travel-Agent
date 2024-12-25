@@ -35,14 +35,14 @@ function ConversationCard({ item }: { item: ConversationProps }) {
 
   return (
     <div
-      key={item.conversation_id}
+      key={item.conversationId}
       className="border rounded-lg p-4 space-y-2 hover:bg-muted/50 transition-colors"
     >
-      <Link to={`/chatbot?conversation_id=${item.conversation_id}`}>
+      <Link to={`/chatbot?conversationId=${item.conversationId}`}>
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2">
             <h3 className="font-medium">
-              {item.conversation_title ?? "Default title"}
+              {item.conversationTitle ?? "Default title"}
             </h3>
           </div>
           <Button variant="ghost" size="icon" className="h-8 w-8 -mr-2">
@@ -51,12 +51,12 @@ function ConversationCard({ item }: { item: ConversationProps }) {
         </div>
 
         <p className="text-muted-foreground text-sm">
-          {`${handleBriefMessage(item.last_user_message)} ...`}
+          {`${handleBriefMessage(item.lastUserMessage)} ...`}
         </p>
 
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground ml-auto">
-            {`Last update at ${timeDifference(item.updated_at)} ago`}
+            {`Last update at ${timeDifference(item.updatedAt)} ago`}
           </span>
         </div>
       </Link>

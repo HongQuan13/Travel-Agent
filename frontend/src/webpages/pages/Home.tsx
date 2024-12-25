@@ -16,8 +16,8 @@ export default function Home() {
       if (inputValue == "") return;
 
       const newConversation = await createConversation(inputValue);
-      const conversation_id = newConversation.conversation_id;
-      navigate(`/chatbot?conversation_id=${conversation_id}`);
+      const conversationId = newConversation.conversationId;
+      navigate(`/chatbot?conversationId=${conversationId}`);
     } catch (error) {
       console.log("handle send message error", error);
     }

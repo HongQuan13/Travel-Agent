@@ -1,4 +1,4 @@
-import { axiosClient } from "@/lib/axios";
+import axiosClient from "@/lib/axios";
 
 export const fetchData = async (endpoint: string) => {
   try {

@@ -1,33 +1,32 @@
 import { fetchData, postData } from "@/services/api";
 
-export const fetchConversation = async (conversation_id: string) => {
-  const data = await fetchData(`chat/retrieve-conversation/${conversation_id}`);
+export const fetchConversation = async (conversationId: string) => {
+  const data = await fetchData(`chat/retrieve-conversation/${conversationId}`);
 
-  return data.all_messages;
+  return data.allMessages;
 };
 
 export const sendMessage = async (
-  conversation_id: string,
+  conversationId: string,
   inputValue: string
 ) => {
   const data = {
-    conversation_id: conversation_id,
+    conversationId: conversationId,
     content: inputValue.trim(),
   };
   const response = await postData("chat/send-message", data);
 
-  return response.bot_response;
+  return response.botResponse;
 };
 
 export const fetchConversationHistory = async () => {
   const response = await fetchData("chat/conversation-history");
-
   return response.conversations;
 };
 
-export const createConversation = async (first_message: string) => {
+export const createConversation = async (firstMessage: string) => {
   const data = {
-    first_message: first_message,
+    firstMessage: firstMessage,
   };
   return await postData("chat/create-conversation", data);
 };

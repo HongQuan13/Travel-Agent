@@ -4,8 +4,16 @@ import { Reviews } from "./ReviewCard";
 export const InfoItem = ({ placeInfo }: { placeInfo: LocationCardProps }) => {
   const infoList = [
     { label: "Address", value: placeInfo.address },
-    { label: "Opening Hours", value: placeInfo.current_opening_hours },
-    { label: "Phone Number", value: placeInfo.international_phone_number },
+    {
+      label: "Opening Hours",
+      value: placeInfo.currentOpeningHours ?? placeInfo.current_opening_hours,
+    },
+    {
+      label: "Phone Number",
+      value:
+        placeInfo.internationalPhoneNumber ??
+        placeInfo.international_phone_number,
+    },
   ];
   return (
     <div>
