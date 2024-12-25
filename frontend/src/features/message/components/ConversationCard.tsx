@@ -2,13 +2,7 @@ import { MoreVertical } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-
-interface ConversationProps {
-  conversation_id: string;
-  conversation_title: string;
-  last_user_message: string;
-  updated_at: string;
-}
+import { ConversationProps } from "../interfaces";
 
 function ConversationCard({ item }: { item: ConversationProps }) {
   const timeDifference = (time: string | Date): string => {

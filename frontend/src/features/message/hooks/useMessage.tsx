@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchConversation, sendMessage } from "../services";
 import { useWebSocket } from "@/hooks/useWebSocket";
-
-interface Message {
-  id?: number;
-  content: string;
-  sender: string;
-  category?: "itinerary" | "text";
-}
+import { Message } from "../interfaces";
 
 export const useMessage = (conversation_id: string) => {
   const [inputValue, setInputValue] = useState("");

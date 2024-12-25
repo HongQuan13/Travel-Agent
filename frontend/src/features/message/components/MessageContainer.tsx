@@ -7,21 +7,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PlaceCardHeader } from "@/features/itinerary";
 import { useMessage } from "../hooks/useMessage";
-
-interface Message {
-  id?: number;
-  content: string;
-  sender: string;
-  category?: "itinerary" | "text";
-}
-
-interface MessageContainerProps {
-  finalItineraryView: Boolean;
-  setFinalItinerary: React.Dispatch<React.SetStateAction<boolean>>;
-  setMobileView: React.Dispatch<React.SetStateAction<boolean>>;
-  handleClickItinerary: (event: React.MouseEvent<HTMLDivElement>) => void;
-  conversation_id: string;
-}
+import { Message, MessageContainerProps } from "../interfaces";
 
 function MessageContainer({
   finalItineraryView,

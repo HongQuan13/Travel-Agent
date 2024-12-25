@@ -1,15 +1,10 @@
 import { useEffect, useRef } from "react";
 
 import { MainHeader, SubHeader } from "./Header";
-import { LocationCard, LocationCardProps } from "./LocationCard";
+import { LocationCard } from "./LocationCard";
 import { Card, CardContent } from "@/components/ui/card";
-import { ImageCard, ImageShow } from "./ImageShow";
-
-export interface ItineraryCardProps {
-  mainHeader: string;
-  images: ImageCard[];
-  subHeaders: object[];
-}
+import { ImageShow } from "./ImageShow";
+import { ItineraryCardProps, LocationCardProps } from "../interfaces";
 
 function Itinerary({
   detailItinerary,

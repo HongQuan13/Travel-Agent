@@ -1,12 +1,7 @@
 import { Atom } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
-
-interface PlaceCardHeaderProps {
-  id: string;
-  title: string;
-  handleClick: (event: React.MouseEvent<HTMLDivElement>) => void;
-}
+import { PlaceCardHeaderProps } from "../interfaces";
 
 function PlaceCardHeader({
   id,

@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 
-import { AutoReconnectWebSocket } from "@/context/AutoReconnectWebsocket";
+import { AutoReconnectWebSocket } from "@/context/autoReconnectWebsocket";
 
 export interface WebSocketContextType {
   message: string;

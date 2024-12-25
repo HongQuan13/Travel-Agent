@@ -3,20 +3,8 @@ import { Instagram, MapPin, MoreVertical, Bookmark, Play } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { InfoItem } from "./InfoItem";
-import { Review } from "./ReviewCard";
-
-export interface LocationCardProps {
-  placeName: string;
-  description: string;
-  address: string;
-  current_opening_hours?: string;
-  geometry?: string;
-  international_phone_number?: string;
-  reviews: Review[];
-  googleMapsUrl?: string;
-  instagramUrl?: string;
-  tiktokUrl?: string;
-}
+import { LocationCardProps } from "../interfaces";
+import { SiGooglemaps } from "react-icons/si";
 
 export function LocationCard({
   locationInfo,
@@ -70,13 +58,7 @@ export function LocationCard({
               );
             }}
           >
-            <img
-              src="/placeholder.svg?height=16&width=16"
-              alt="Google Maps"
-              width={16}
-              height={16}
-              className="mr-2"
-            />
+            <SiGooglemaps size={32} className="text-blue-500" />
             Google Maps
           </Button>
         </div>

@@ -8,17 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-
-export interface Review {
-  author_name: string;
-  text: string;
-  rating: number;
-  relative_time_description: string;
-}
-
-interface ReviewsProps {
-  reviews: Review[];
-}
+import { Review, ReviewsProps } from "../interfaces";
 
 export function Reviews({ reviews }: ReviewsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -57,18 +47,18 @@ export function Reviews({ reviews }: ReviewsProps) {
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           onClick={() => handleReviewClick(reviews[currentIndex])}
         >
-          {reviews.map((review: any) => (
+          {reviews.map((review: Review) => (
             <div className="w-full flex-shrink-0 px-4">
               <div className="bg-muted/50 rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-medium">{review.author_name}</span>
+                  <span className="font-medium">{review?.author_name}</span>
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
                       <span
                         key={i}
                         className={cn(
                           "h-4 w-4",
-                          i < review.rating
+                          i < review?.rating
                             ? "text-yellow-400"
                             : "text-gray-300"
                         )}
@@ -79,10 +69,10 @@ export function Reviews({ reviews }: ReviewsProps) {
                   </div>
                 </div>
                 <p className="text-muted-foreground line-clamp-3">
-                  {review.text}
+                  {review?.text}
                 </p>
                 <span className="text-sm text-muted-foreground mt-2 block">
-                  {review.relative_time_description}
+                  {review?.relative_time_description}
                 </span>
               </div>
             </div>
@@ -90,23 +80,26 @@ export function Reviews({ reviews }: ReviewsProps) {
         </div>
       </div>
 
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute left-0 top-1/2 -translate-y-1/2"
-        onClick={handlePrevious}
-      >
-        <ChevronLeft className="h-4 w-4" />
-      </Button>
-
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute right-0 top-1/2 -translate-y-1/2"
-        onClick={handleNext}
-      >
-        <ChevronRight className="h-4 w-4" />
-      </Button>
+      {reviews.length > 1 && (
+        <>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute left-0 top-1/2 -translate-y-1/2"
+            onClick={handlePrevious}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute right-0 top-1/2 -translate-y-1/2"
+            onClick={handleNext}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </>
+      )}
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>

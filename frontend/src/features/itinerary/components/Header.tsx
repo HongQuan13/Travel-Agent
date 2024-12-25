@@ -1,6 +1,4 @@
-interface HeaderProps {
-  title: string;
-}
+import { HeaderProps } from "../interfaces";
 
 export function MainHeader({ title }: HeaderProps) {
   return <h1 className="text-4xl font-bold tracking-tight mb-8">{title}</h1>;

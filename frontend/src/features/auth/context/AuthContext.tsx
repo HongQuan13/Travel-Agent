@@ -1,16 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { authVerify } from "../services";
-
-export interface AuthContextType {
-  isAuthenticated: boolean;
-  user: any;
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface AuthProviderProps {
-  children: React.ReactNode;
-}
+import { AuthContextType, AuthProviderProps } from "../interfaces";
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
