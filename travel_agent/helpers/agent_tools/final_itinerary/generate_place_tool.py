@@ -15,8 +15,8 @@ def generate_place(
     description: str,
     current_opening_hours: str,
     geometry: str,
-    international_phone_number: str,
     reviews: List[Review],
+    international_phone_number: str = "",
 ):
     """Use the tool."""
     logger.info(InfoDetail.func_call("generate_place"))

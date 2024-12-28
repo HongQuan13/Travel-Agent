@@ -26,11 +26,12 @@ class Place(BaseModel):
     geometry: str = Field(
         description="Geographical coordinates (latitude and longitude) of the place(e.g., 1.3521,103.8198)."
     )
-    international_phone_number: str = Field(
-        description="The international phone number for contacting the place."
-    )
     reviews: List[Review] = Field(
         description="A list of reviews or feedback about the place."
+    )
+    international_phone_number: str = Field(
+        description="The international phone number for contacting the place.",
+        default="",
     )
 
 

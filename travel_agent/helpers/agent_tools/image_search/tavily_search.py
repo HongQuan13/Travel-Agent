@@ -7,8 +7,8 @@ from typing import List
 
 from backend.src.constant.error_constant import ErrorDetail
 from backend.src.constant.info_constant import InfoDetail
-from travel_agent.helpers.agent_tools.image_search.cloudinary_handler import (
-    CloudinaryHandler,
+from travel_agent.helpers.agent_tools.image_search.s3_bucket_handler import (
+    S3BucketHandler,
 )
 
 logging.basicConfig(level=logging.INFO, force=True)
@@ -22,7 +22,7 @@ class TavilySearch:
     def __init__(self):
         self._check_env()
         self._tavily_client = TavilyClient()
-        self._cloudinary_handler = CloudinaryHandler()
+        self._s3_handler = S3BucketHandler()
         logger.info(InfoDetail.class_initialize("ImageSearch"))
 
     def _check_env(self):
@@ -40,14 +40,14 @@ class TavilySearch:
 
             images = []
             for image in response["images"]:
-                optimized_url = self._cloudinary_handler.upload_image(image)
+                optimized_url = self._s3_handler.image_process(image)
                 images.append(optimized_url)
 
             return images
 
         except Exception as error:
             logger.error(ErrorDetail.unknown("tavily_search", error))
-            return []
+            return images
 
     async def search_images(self, query: str):
         links = await self._tavily_search(query)
