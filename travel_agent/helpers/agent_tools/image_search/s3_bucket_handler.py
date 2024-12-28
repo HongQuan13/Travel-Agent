@@ -58,7 +58,7 @@ class S3BucketHandler:
             response = requests.get(image_url)
             response.raise_for_status()
 
-            image_key = image_url.strip().split("/")[-1]
+            image_key = image_url.strip().split("?")[0].split("/")[-1]
 
             self._s3.put_object(
                 Bucket=self._source_bucket,
@@ -69,11 +69,7 @@ class S3BucketHandler:
 
             self._wait_until_object_exists(self._source_bucket, image_key)
 
-            logger.info(
-                "Put object '%s' to bucket '%s'.",
-                image_key,
-                self._source_bucket,
-            )
+            logger.info("S3 bucket - New object uploaded")
             return image_key
         except ClientError as e:
             error_code = e.response["Error"]["Code"]
