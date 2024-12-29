@@ -19,6 +19,6 @@ def notice_generate_itinerary_successful(itinerary_title: str):
 notice_generate_itinerary_successful_tool = StructuredTool.from_function(
     func=notice_generate_itinerary_successful,
     name="notice_generate_itinerary_successful_tool",
-    description="""Use to notice user, deep research final itinerary generated successfully""",
+    description="""Only use this after successfull use finalize_itinerary_tool to notice user itinerary generated successfully""",
     args_schema=SucessfulItineraryNotice,
 )

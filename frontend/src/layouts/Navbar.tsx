@@ -10,7 +10,6 @@ import { useAuthContext, logout } from "@/features/auth";
 const navItems = [
   { name: "Home", href: "/" },
   { name: "Conversation", href: "/conversation" },
-  { name: "Chatbot", href: "/chatbot" },
 ];
 
 export function Navbar() {

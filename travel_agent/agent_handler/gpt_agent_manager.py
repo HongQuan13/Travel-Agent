@@ -61,10 +61,7 @@ class GPTAgentManager:
 
     def _load_agent(self):
         if self._agent_executor is None:
-            llm = ChatOpenAI(
-                model=self._model,
-                temperature=0,
-            )
+            llm = ChatOpenAI(model=self._model, temperature=0.5)
             memory = MemorySaver()
             tools = [
                 # google_search,

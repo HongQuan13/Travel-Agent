@@ -1,3 +1,4 @@
+import asyncio
 from pydantic import BaseModel
 from langchain_core.tools import StructuredTool
 
@@ -15,7 +16,7 @@ def image_search(query: str, top_k: int = 5) -> str:
     agents = [PixabaySearch(), PexelSearch(), TavilySearch()]
 
     for agent in agents:
-        agent_results = agent.search_images(query)
+        agent_results = asyncio.run(agent.search_images(query))
         result.extend(agent_results)
 
         if len(result) >= top_k:

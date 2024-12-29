@@ -75,17 +75,22 @@ class GoogleMapHandler:
         place_data = response["result"]
 
         formated_data = {
-            "business_status": place_data["business_status"],
-            "open_now": place_data["current_opening_hours"]["open_now"],
-            "current_opening_hours": place_data["current_opening_hours"][
-                "weekday_text"
-            ],
-            "editorial_summary": place_data["editorial_summary"]["overview"],
-            "formatted_address": place_data["formatted_address"],
-            "geometry": f"{place_data['geometry']['location']['lat']},{place_data['geometry']['location']['lng']}",
-            "international_phone_number": place_data["international_phone_number"],
-            "name": place_data["name"],
-            "reviews": place_data["reviews"],
+            "business_status": place_data.get("business_status", ""),
+            "open_now": place_data.get("current_opening_hours", {}).get("open_now", ""),
+            "current_opening_hours": place_data.get("current_opening_hours", {}).get(
+                "weekday_text", ""
+            ),
+            "editorial_summary": place_data.get("editorial_summary", {}).get(
+                "overview", ""
+            ),
+            "formatted_address": place_data.get("formatted_address", ""),
+            "geometry": f"{place_data.get('geometry', {}).get('location', {}).get('lat', '')},"
+            f"{place_data.get('geometry', {}).get('location', {}).get('lng', '')}",
+            "international_phone_number": place_data.get(
+                "international_phone_number", ""
+            ),
+            "name": place_data.get("name", ""),
+            "reviews": place_data.get("reviews", []),
         }
 
         return formated_data

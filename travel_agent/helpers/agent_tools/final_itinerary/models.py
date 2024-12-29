@@ -21,7 +21,7 @@ class Place(BaseModel):
     address: str = Field(description="The geographical address of the place or event.")
     description: str = Field(description="A brief summary of the place or event.")
     current_opening_hours: str = Field(
-        description="The current opening hours of the place or event."
+        description="The summary or simplify information about current opening hours of the place or event."
     )
     geometry: str = Field(
         description="Geographical coordinates (latitude and longitude) of the place(e.g., 1.3521,103.8198)."
