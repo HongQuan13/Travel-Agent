@@ -43,6 +43,9 @@ class PostgresSaverWithLimit(PostgresSaver):
         return checkpoint_tuple
 
     def _handle_message_limit(self, checkpoint_message):
+        if len(checkpoint_message) < self.limit_message:
+            return checkpoint_message
+
         first_message = checkpoint_message[-self.limit_message]
 
         if isinstance(first_message, ToolMessage):

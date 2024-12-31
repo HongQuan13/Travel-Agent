@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { Send } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -87,7 +88,9 @@ function MessageContainer({
                     wordBreak: "break-word",
                   }}
                 >
-                  {message.content}
+                  <ReactMarkdown>
+                    {message.content.replace(/\n/gi, "\n &nbsp;")}
+                  </ReactMarkdown>
                 </div>
               )}
             </div>
