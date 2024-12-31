@@ -138,7 +138,7 @@ class ChatService:
     async def bot_reply(self, user_message: str, conversation_id: int, db: Session):
         llm = GPTAgentManager()
         chat_response = llm.generate_response(
-            user_input=user_message, conversation_id=conversation_id
+            user_input=user_message, conversation_id=str(conversation_id)
         )
 
         bot_reply = Message(
