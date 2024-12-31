@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { HashLoader } from "react-spinners";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createConversation } from "@/features/message";
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const navigate = useNavigate();
 
@@ -15,11 +17,14 @@ export default function Home() {
     try {
       if (inputValue == "") return;
 
+      setLoading(true);
       const newConversation = await createConversation(inputValue);
       const conversationId = newConversation.conversationId;
       navigate(`/chatbot?conversationId=${conversationId}`);
     } catch (error) {
       console.log("handle send message error", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,7 +57,11 @@ export default function Home() {
                   className="h-8 w-8"
                   onClick={handleSendMessage}
                 >
-                  <ArrowUp className="h-4 w-4" />
+                  {loading ? (
+                    <HashLoader size={30} />
+                  ) : (
+                    <ArrowUp className="h-4 w-4" />
+                  )}
                 </Button>
               </div>
             </form>
