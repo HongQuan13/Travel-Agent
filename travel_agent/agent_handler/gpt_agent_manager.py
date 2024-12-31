@@ -124,8 +124,8 @@ class GPTAgentManager:
         )
         return response["messages"][-1].content
 
-    def generate_conversation_title(self, user_input: str) -> str:
-        config = {"configurable": {"thread_id": "0"}}
+    def generate_conversation_title(self, user_input: str, thread_id: str) -> str:
+        config = {"configurable": {"thread_id": thread_id}}
         title_prompt = PromptTemplate(
             input_variables=["user_input"],
             template="Generate a concise and relevant title (less than 10 words) for this trip plan conversation: {user_input}",

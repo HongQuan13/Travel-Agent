@@ -39,10 +39,13 @@ class ChatService:
         self, body: CreateConversationRequest, user_id: int, db: Session
     ):
         llm = GPTAgentManager()
-        conversation_title = llm.generate_conversation_title(body.first_message)
-        new_conversation = Conversation(user_id=user_id, title=conversation_title)
+        new_conversation = Conversation(user_id=user_id)
         db.add(new_conversation)
         db.flush()
+
+        new_conversation.title = llm.generate_conversation_title(
+            body.first_message, str(new_conversation.id)
+        )
 
         new_message = Message(
             conversation_id=new_conversation.id,
@@ -61,7 +64,7 @@ class ChatService:
             conversation_id=new_conversation.id,
             user_id=user_id,
             bot_response=bot_response,
-            conversation_title=conversation_title,
+            conversation_title=new_conversation.title,
         )
 
     async def conversation_history(self, user_id: int, db: Session):

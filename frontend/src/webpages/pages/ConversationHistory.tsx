@@ -22,10 +22,10 @@ export default function ConversationHistory() {
 
   return (
     <div className="max-w-3xl mx-auto p-4 space-y-4">
-      <div className="relative">
+      {/* <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input placeholder="Search for a chat..." className="pl-9" />
-      </div>
+      </div> */}
 
       <div className="space-y-4">
         {conversationHistory.map((item: any) => (
