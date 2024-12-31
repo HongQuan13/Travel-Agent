@@ -1,4 +1,5 @@
 import { MoreVertical } from "lucide-react";
+import moment from "moment";
 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -6,21 +7,24 @@ import { ConversationProps } from "../interfaces";
 
 function ConversationCard({ item }: { item: ConversationProps }) {
   const timeDifference = (time: string | Date): string => {
-    const now = new Date();
-    const targetDate = new Date(time);
+    const now = moment.utc();
+    const targetDate = moment.utc(time);
+    const diffInMinutes = now.diff(targetDate, "minutes");
+    const diffInHours = now.diff(targetDate, "hours");
+    const diffInDays = now.diff(targetDate, "days");
 
-    const diffInMs = now.getTime() - targetDate.getTime();
-    const diffInMinutes = diffInMs / (1000 * 60);
-    const diffInHours = diffInMinutes / 60;
-    const diffInDays = diffInHours / 24;
+    let notice;
 
-    if (diffInMinutes < 60) {
-      return `${Math.floor(diffInMinutes)} minutes`;
+    if (diffInMinutes < 1) return "Updated recently";
+    else if (diffInMinutes < 60) {
+      notice = `${Math.floor(diffInMinutes)} minutes`;
     } else if (diffInHours < 24) {
-      return `${Math.floor(diffInHours)} hours`;
+      notice = `${Math.floor(diffInHours)} hours`;
     } else {
-      return `${Math.floor(diffInDays)} days`;
+      notice = `${Math.floor(diffInDays)} days`;
     }
+
+    return `Last updated at ${notice} ago`;
   };
 
   const handleBriefMessage = (message: string): string => {
@@ -56,7 +60,7 @@ function ConversationCard({ item }: { item: ConversationProps }) {
 
         <div className="flex items-center gap-2">
           <span className="text-sm text-muted-foreground ml-auto">
-            {`Last update at ${timeDifference(item.updatedAt)} ago`}
+            {timeDifference(item.updatedAt)}
           </span>
         </div>
       </Link>

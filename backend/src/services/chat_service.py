@@ -1,7 +1,8 @@
-from datetime import datetime
 import json
 import logging
+from datetime import datetime
 from fastapi import HTTPException
+from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
 from backend.src.constant.info_constant import InfoDetail
@@ -72,7 +73,11 @@ class ChatService:
             db.query(
                 Conversation.id,
                 Conversation.title,
-                Conversation.updated_at,
+                db.query(Message.timestamp)
+                .filter(Message.conversation_id == Conversation.id)
+                .order_by(Message.timestamp.desc())
+                .limit(1)
+                .label("last_update_at"),
                 db.query(Message.content)
                 .filter(Message.conversation_id == Conversation.id)
                 .filter(Message.sender == "user")
@@ -81,7 +86,7 @@ class ChatService:
                 .label("last_user_message"),
             )
             .filter(Conversation.user_id == user_id)
-            .order_by(Conversation.updated_at.desc())
+            .order_by(desc("last_update_at"))
             .all()
         )
 
