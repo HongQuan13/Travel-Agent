@@ -4,6 +4,7 @@ import { useWebSocket } from "@/hooks/useWebSocket";
 import { Message } from "../interfaces";
 
 export const useMessage = (conversationId: string) => {
+  const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const { message } = useWebSocket();
@@ -44,6 +45,7 @@ export const useMessage = (conversationId: string) => {
       setInputValue("");
     }
 
+    setLoading(true);
     try {
       const reply = await sendMessage(conversationId, inputValue);
       const replyMessage: Message = {
@@ -53,9 +55,12 @@ export const useMessage = (conversationId: string) => {
       setMessages((prevMessages) => [...prevMessages, replyMessage]);
     } catch (error: any) {
       console.error("Error:", error.message);
+    } finally {
+      setLoading(false);
     }
   };
   return {
+    loading,
     messages,
     inputValue,
     setInputValue,

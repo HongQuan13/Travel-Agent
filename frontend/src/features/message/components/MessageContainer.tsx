@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Send } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { ClimbingBoxLoader, PacmanLoader } from "react-spinners";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ function MessageContainer({
 }: MessageContainerProps) {
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const {
+    loading,
     messages,
     inputValue,
     setInputValue,
@@ -55,7 +57,7 @@ function MessageContainer({
 
   return (
     <div className="flex flex-col h-full">
-      <ScrollArea ref={scrollAreaRef} className="flex-grow p-6">
+      <ScrollArea ref={scrollAreaRef} className="flex-grow p-6 relative">
         {messages.map((message: Message) => (
           <div
             key={message.id}
@@ -101,6 +103,16 @@ function MessageContainer({
           </div>
         ))}
         <div ref={messagesEndRef} />
+        {loading && (
+          <PacmanLoader
+            size={10}
+            style={{
+              position: "absolute",
+              bottom: "20px",
+              left: "30px",
+            }}
+          />
+        )}
       </ScrollArea>
       <div className="p-6 border-t bg-background">
         <form
