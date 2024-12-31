@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { authVerify } from "../services";
@@ -6,6 +7,7 @@ import { AuthContextType, AuthProviderProps } from "../interfaces";
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
@@ -21,6 +23,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error) {
       console.error("User is not authenticated", error);
       setIsAuthenticated(false);
+      navigate("/login");
     }
   };
 
