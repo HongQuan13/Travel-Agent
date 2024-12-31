@@ -36,9 +36,13 @@ function MessageContainer({
     }
   }, [messages]);
 
-  const handleFinalize = () => {
+  const handleFinalizeMobile = () => {
     setFinalItinerary(true);
     setMobileView(true);
+  };
+
+  const handleFinalize = () => {
+    setFinalItinerary(!finalItineraryView);
   };
 
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -119,11 +123,18 @@ function MessageContainer({
             <span className="sr-only">Send message</span>
           </Button>
           <Button
+            onClick={handleFinalizeMobile}
+            variant="secondary"
+            className="lg:hidden"
+          >
+            Final Itinerary
+          </Button>
+          <Button
             onClick={handleFinalize}
             variant="secondary"
-            className={finalItineraryView ? "lg:hidden" : ""}
+            className="hidden lg:block"
           >
-            Finalize Itinerary
+            Final Itinerary
           </Button>
         </form>
       </div>
