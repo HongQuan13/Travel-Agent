@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Send } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import { ClimbingBoxLoader, PacmanLoader } from "react-spinners";
+import { PacmanLoader } from "react-spinners";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
