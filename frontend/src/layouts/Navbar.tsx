@@ -33,7 +33,9 @@ export function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <span className="text-2xl font-bold text-primary">Logo</span>
+              <span className="text-2xl font-bold text-primary">
+                Travel Planner
+              </span>
             </Link>
           </div>
           <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-center">

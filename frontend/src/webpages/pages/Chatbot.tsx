@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useWebSocket } from "@/hooks/useWebSocket";
 import { MessageContainer } from "@/features/message";
 import { ItineraryComponent, useItinerary } from "@/features/itinerary";
+import { DefaultItinerary } from "@/features/itinerary";
 
 function Chatbot() {
   const [finalItineraryView, setFinalItineraryView] = useState(false);
@@ -40,14 +41,22 @@ function Chatbot() {
           <div className="lg:hidden ">
             <Sheet open={mobileView} onOpenChange={setMobileView}>
               <SheetContent side="bottom" className="h-[85vh] p-0 lg:hidden">
-                <ItineraryComponent detailItinerary={detailItinerary} />
+                {detailItinerary ? (
+                  <ItineraryComponent detailItinerary={detailItinerary} />
+                ) : (
+                  <DefaultItinerary />
+                )}
               </SheetContent>
             </Sheet>
           </div>
 
           {/* Desktop view */}
           <div className="hidden lg:block w-1/2 h-full">
-            <ItineraryComponent detailItinerary={detailItinerary} />
+            {detailItinerary ? (
+              <ItineraryComponent detailItinerary={detailItinerary} />
+            ) : (
+              <DefaultItinerary />
+            )}
           </div>
         </>
       )}

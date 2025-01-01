@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 
-import { testItinerary } from "@/data/testItinerary";
 import { fetchItinerary, fetchLatestItinerary } from "../services";
 import { ItineraryCardProps } from "../interfaces";
 import { transformBackendDataToFrontend } from "@/utils/variableConversion";
 
 export const useItinerary = (conversationId: string) => {
-  const defaultResponse = JSON.parse(testItinerary);
   const [detailItinerary, setDetailItinerary] =
-    useState<ItineraryCardProps>(defaultResponse);
+    useState<ItineraryCardProps | null>(null);
 
   useEffect(() => {
     const retrieveLatestItinerary = async () => {
@@ -40,7 +38,9 @@ export const useItinerary = (conversationId: string) => {
   const handleMessageItinerary = (message: string) => {
     const content = JSON.parse(message);
     const transformedData = transformBackendDataToFrontend(content);
-    setDetailItinerary(transformedData.itineraryDetail);
+
+    if (transformedData.conversationId == conversationId)
+      setDetailItinerary(transformedData.itineraryDetail);
   };
 
   return {
