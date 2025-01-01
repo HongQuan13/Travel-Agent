@@ -44,7 +44,7 @@ export default function Home() {
               }}
             >
               <Input
-                placeholder="Let's plan your trip..."
+                placeholder="Let's plan your day..."
                 className="pr-24 pl-20"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setInputValue(e.target.value)
