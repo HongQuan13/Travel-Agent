@@ -41,8 +41,12 @@ export function Navbar() {
           <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-center">
             <div className="flex space-x-8">
               {navItems.map((item) => (
-                <Button key={item.name} asChild variant="ghost">
-                  <Link to={item.href}>{item.name}</Link>
+                <Button
+                  key={item.name}
+                  variant="ghost"
+                  onClick={() => navigate(item.href)}
+                >
+                  {item.name}
                 </Button>
               ))}
               {isAuthenticated ? (
