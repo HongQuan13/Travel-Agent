@@ -2,7 +2,11 @@ import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { Input } from "@/components/ui/input";
-import { ConversationCard, fetchConversationHistory } from "@/features/message";
+import {
+  ConversationCard,
+  DefaultConversationList,
+  fetchConversationHistory,
+} from "@/features/message";
 
 export default function ConversationHistory() {
   const [conversationHistory, setConversationHistory] = useState<any>([]);
@@ -28,9 +32,13 @@ export default function ConversationHistory() {
       </div> */}
 
       <div className="space-y-4">
-        {conversationHistory.map((item: any) => (
-          <ConversationCard item={item} />
-        ))}
+        {conversationHistory.length > 0 ? (
+          conversationHistory.map((item: any) => (
+            <ConversationCard item={item} />
+          ))
+        ) : (
+          <DefaultConversationList />
+        )}
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import {
 
 function DefaultItinerary() {
   return (
-    <div className="min-h-screen w-full bg-center flex items-center justify-center p-4 bg-slate-50">
+    <div className="h-full w-full bg-center flex items-center justify-center p-4 bg-slate-50">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">

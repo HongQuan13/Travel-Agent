@@ -17,6 +17,8 @@ export const useMessage = (conversationId: string) => {
     if (message == "") return;
 
     const content = JSON.parse(message);
+    if (content.conversationId != conversationId) return;
+
     const newMessage: Message = {
       content: content.itineraryId,
       sender: "bot",
