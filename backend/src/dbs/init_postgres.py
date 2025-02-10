@@ -25,7 +25,8 @@ class Database:
         self._create_connection()
 
     def _check_env(self) -> None:
-        connection_string = os.getenv("DB_CONNECTION_STRING")
+        connection_string = os.getenv("SUPABASE_DB_CONNECTION_STRING")
+
         if connection_string == None:
             raise ValueError(
                 f"Unable to access database connection string in .env file"
