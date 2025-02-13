@@ -124,7 +124,7 @@ class GPTAgentManager:
         )
         return response["messages"][-1].content
 
-    def generate_conversation_title(self, user_input: str, thread_id: str) -> str:
+    def _generate_conversation_title(self, user_input: str, thread_id: str) -> str:
         config = {"configurable": {"thread_id": thread_id}}
         title_prompt = PromptTemplate(
             input_variables=["user_input"],
@@ -135,6 +135,20 @@ class GPTAgentManager:
 
         response = self._agent_executor.invoke(
             {"messages": [HumanMessage(content=title)]}, config
+        )
+        return response["messages"][-1].content
+
+    def generate_new_conversation(self, user_input: str, thread_id: str) -> str:
+        config = {"configurable": {"thread_id": thread_id}}
+        recommendation_prompt = PromptTemplate(
+            input_variables=["user_input"],
+            template="{user_input}",
+        )
+
+        messsage = recommendation_prompt.format(user_input=user_input)
+
+        response = self._agent_executor.invoke(
+            {"messages": [HumanMessage(content=messsage)]}, config
         )
         return response["messages"][-1].content
 

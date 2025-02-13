@@ -4,7 +4,12 @@ from pydantic import BaseModel
 
 
 class CreateConversationRequest(BaseModel):
-    first_message: str
+    destination: str
+    travel_date: datetime
+    duration: int
+    budget: str
+    travel_companion: str
+    activities: List[str]
 
 
 class CreateConversationResponse(BaseModel):

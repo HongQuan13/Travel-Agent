@@ -43,20 +43,20 @@ class ChatService:
         db.add(new_conversation)
         db.flush()
 
-        new_conversation.title = llm.generate_conversation_title(
-            body.first_message, str(new_conversation.id)
+        new_conversation.title = f"A {body.duration}-Day Trip for {body.travel_companion} in {body.destination} – {', '.join(body.activities)}"
+
+        bot_response = llm.generate_new_conversation(
+            new_conversation.title, str(new_conversation.id)
         )
 
         new_message = Message(
             conversation_id=new_conversation.id,
-            sender=SenderType.user,
-            content=body.first_message,
+            sender=SenderType.bot,
+            content=bot_response,
         )
 
         db.add(new_message)
         db.commit()
-
-        bot_response = await self.bot_reply(body.first_message, new_conversation.id, db)
 
         logger.info(SuccessDetail.new_conversation(user_id))
 
@@ -81,12 +81,11 @@ class ChatService:
                 .order_by(Message.timestamp.desc())
                 .limit(1)
                 .label("last_update_at"),
-                db.query(Message.content)
-                .filter(Message.conversation_id == Conversation.id)
-                .filter(Message.sender == "user")
-                .order_by(Message.timestamp.desc())
-                .limit(1)
-                .label("last_user_message"),
+                db.query(Message.content).filter(
+                    Message.conversation_id == Conversation.id
+                )
+                # .filter(Message.sender == "user")
+                .order_by(Message.timestamp.desc()).limit(1).label("last_user_message"),
             )
             .filter(Conversation.user_id == user_id)
             .order_by(desc("last_update_at"))

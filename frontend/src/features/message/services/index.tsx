@@ -1,4 +1,5 @@
 import { fetchData, postData } from "@/services/api";
+import { TravelFormValues } from "@/features/preferenceForm/interfaces";
 
 export const fetchConversation = async (conversationId: string) => {
   const data = await fetchData(`chat/retrieve-conversation/${conversationId}`);
@@ -24,9 +25,6 @@ export const fetchConversationHistory = async () => {
   return response.conversations;
 };
 
-export const createConversation = async (firstMessage: string) => {
-  const data = {
-    firstMessage: firstMessage,
-  };
+export const createConversation = async (data: TravelFormValues) => {
   return await postData("chat/create-conversation", data);
 };
