@@ -64,11 +64,11 @@ export const COMPANIONS = [
 ];
 
 export const BUDGETS = [
-  { value: "low", label: "Low", range: "0 - 1000 USD" },
+  { value: "0 - 1000 USD", label: "Low", range: "0 - 1000 USD" },
   {
-    value: "medium",
+    value: "1000 - 2500 USD",
     label: "Medium",
     range: "1000 - 2500 USD",
   },
-  { value: "high", label: "High", range: "2500+ USD" },
+  { value: "2500+ USD", label: "High", range: "2500+ USD" },
 ];

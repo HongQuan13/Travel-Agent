@@ -43,10 +43,11 @@ class ChatService:
         db.add(new_conversation)
         db.flush()
 
+        user_preference = json.dumps(body.dict(), default=str)
         new_conversation.title = f"A {body.duration}-Day Trip for {body.travel_companion} in {body.destination} – {', '.join(body.activities)}"
 
         bot_response = llm.generate_new_conversation(
-            new_conversation.title, str(new_conversation.id)
+            user_preference, str(new_conversation.id)
         )
 
         new_message = Message(

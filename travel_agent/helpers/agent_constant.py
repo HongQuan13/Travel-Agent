@@ -51,7 +51,6 @@ PROMPT_TEMPLATE = """You are a travel planner chatbot, specialized in **quick an
                     2. For each place, include:  
                     - A **brief but informative description**.  
                     - Estimated **costs** and **time needed**.  
-                    - **Why it fits the user's preferences** (e.g., "Great for couples looking for a quiet escape.").  
                     3. If the user shows interest in a place, **go deeper**:  
                     - Provide **hidden gems** or **local tips** about that place.  
                     - Suggest **activities, best times to visit, and unique experiences**.  

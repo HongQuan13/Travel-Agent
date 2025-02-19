@@ -28,7 +28,7 @@ export default function Home() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       destination: "",
-      duration: "",
+      dayDuration: 1,
       budget: "",
       travelCompanion: "",
       activities: [],
@@ -76,7 +76,7 @@ export default function Home() {
           {/* Duration */}
           <InputField
             control={form.control}
-            name="duration"
+            name="dayDuration"
             label="How many days are you planning to travel?"
             type="number"
             placeholder="Enter number of days"

@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class CreateConversationRequest(BaseModel):
     destination: str
     travel_date: datetime
-    duration: int
+    day_duration: int
     budget: str
     travel_companion: str
     activities: List[str]
