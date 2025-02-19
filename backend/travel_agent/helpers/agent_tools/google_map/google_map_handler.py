@@ -4,7 +4,7 @@ from typing import Literal
 import googlemaps
 from dotenv import load_dotenv
 
-from backend.src.constant.info_constant import InfoDetail
+from src.constant.info_constant import InfoDetail
 
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)

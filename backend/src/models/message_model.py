@@ -3,10 +3,10 @@ from sqlalchemy import Enum, Integer, ForeignKey, Text, TIMESTAMP
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 
-from backend.src.models.base_model import Base
+from src.models.base_model import Base
 
 if TYPE_CHECKING:
-    from backend.src.models.conversation_model import Conversation
+    from src.models.conversation_model import Conversation
 
 
 class Message(Base):

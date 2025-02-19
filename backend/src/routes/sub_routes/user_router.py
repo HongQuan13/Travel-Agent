@@ -3,10 +3,10 @@ from fastapi import APIRouter
 from fastapi.params import Depends
 from sqlalchemy.orm import Session
 
-from backend.src.constant.info_constant import InfoDetail
-from backend.src.dbs.init_postgres import get_database
-from backend.src.interfaces.user_interface import CreateUserRequest
-from backend.src.services.user_service import UserService
+from src.constant.info_constant import InfoDetail
+from src.dbs.init_postgres import get_database
+from src.interfaces.user_interface import CreateUserRequest
+from src.services.user_service import UserService
 
 logger = logging.getLogger(__name__)
 

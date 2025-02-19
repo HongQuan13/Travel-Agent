@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 from tavily import TavilyClient
 from typing import List
 
-from backend.src.constant.error_constant import ErrorDetail
-from backend.src.constant.info_constant import InfoDetail
+from src.constant.error_constant import ErrorDetail
+from src.constant.info_constant import InfoDetail
 from travel_agent.helpers.agent_tools.image_search.s3_bucket_handler import (
     S3BucketHandler,
 )

@@ -6,7 +6,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.prebuilt import create_react_agent
 from langchain_ollama import ChatOllama
 
-from backend.src.constant.info_constant import InfoDetail
+from src.constant.info_constant import InfoDetail
 from travel_agent.helpers.agent_constant import PROMPT_TEMPLATE
 from travel_agent.helpers.agent_tools.text_search_tool import google_search
 

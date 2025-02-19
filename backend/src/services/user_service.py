@@ -2,11 +2,11 @@ import logging
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
-from backend.src.constant.error_constant import ErrorDetail
-from backend.src.constant.info_constant import InfoDetail
-from backend.src.constant.success_constant import SuccessDetail
-from backend.src.models.user_model import User
-from backend.src.interfaces.user_interface import (
+from src.constant.error_constant import ErrorDetail
+from src.constant.info_constant import InfoDetail
+from src.constant.success_constant import SuccessDetail
+from src.models.user_model import User
+from src.interfaces.user_interface import (
     CreateUserResponse,
     CreateUserRequest,
 )

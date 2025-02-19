@@ -2,12 +2,12 @@ import logging
 from fastapi import APIRouter
 from fastapi.params import Depends
 
-from backend.src.routes.sub_routes.auth_router import AuthRouter
-from backend.src.routes.sub_routes.ping_router import PingRouter
-from backend.src.routes.sub_routes.user_router import UserRouter
-from backend.src.routes.sub_routes.chat_router import ChatRouter
-from backend.src.routes.websocket.main import websocket_router
-from backend.src.services.auth_service import AuthService
+from src.routes.sub_routes.auth_router import AuthRouter
+from src.routes.sub_routes.ping_router import PingRouter
+from src.routes.sub_routes.user_router import UserRouter
+from src.routes.sub_routes.chat_router import ChatRouter
+from src.routes.websocket.main import websocket_router
+from src.services.auth_service import AuthService
 
 
 logger = logging.getLogger(__name__)

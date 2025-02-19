@@ -1,7 +1,7 @@
 import logging
 
-from backend.src.constant.info_constant import InfoDetail
-from backend.src.interfaces.ping_interface import PingResponse
+from src.constant.info_constant import InfoDetail
+from src.interfaces.ping_interface import PingResponse
 
 logger = logging.getLogger(__name__)
 

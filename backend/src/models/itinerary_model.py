@@ -2,7 +2,7 @@ from sqlalchemy import String, Text
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 
-from backend.src.models.base_model import Base
+from src.models.base_model import Base
 
 
 class Itinerary(Base):

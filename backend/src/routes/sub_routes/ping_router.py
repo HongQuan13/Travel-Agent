@@ -1,8 +1,8 @@
 import logging
 from fastapi import APIRouter
 
-from backend.src.constant.info_constant import InfoDetail
-from backend.src.services.ping_service import PingService
+from src.constant.info_constant import InfoDetail
+from src.services.ping_service import PingService
 
 logger = logging.getLogger(__name__)
 

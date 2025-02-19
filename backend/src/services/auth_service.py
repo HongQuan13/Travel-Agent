@@ -9,12 +9,12 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from datetime import datetime, timedelta
 from starlette.requests import Request
 
-from backend.src.constant.error_constant import ErrorDetail
-from backend.src.constant.info_constant import InfoDetail
-from backend.src.interfaces.user_interface import CreateUserRequest
-from backend.src.lib.auth import oauth
-from backend.src.models.user_model import User
-from backend.src.services.user_service import UserService
+from src.constant.error_constant import ErrorDetail
+from src.constant.info_constant import InfoDetail
+from src.interfaces.user_interface import CreateUserRequest
+from src.lib.auth import oauth
+from src.models.user_model import User
+from src.services.user_service import UserService
 
 logger = logging.getLogger(__name__)
 

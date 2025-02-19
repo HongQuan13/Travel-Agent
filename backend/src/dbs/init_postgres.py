@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from backend.src.constant.error_constant import ErrorDetail
-from backend.src.constant.success_constant import SuccessDetail
+from src.constant.error_constant import ErrorDetail
+from src.constant.success_constant import SuccessDetail
 
 logger = logging.getLogger(__name__)
 

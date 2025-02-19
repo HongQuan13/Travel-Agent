@@ -8,8 +8,8 @@ from langchain_core.documents import Document
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-from backend.src.constant.error_constant import ErrorDetail
-from backend.src.constant.info_constant import InfoDetail
+from src.constant.error_constant import ErrorDetail
+from src.constant.info_constant import InfoDetail
 
 
 logger = logging.getLogger(__name__)

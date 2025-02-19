@@ -1,7 +1,7 @@
 import logging
 from langchain_core.tools import StructuredTool
 
-from backend.src.constant.info_constant import InfoDetail
+from src.constant.info_constant import InfoDetail
 from travel_agent.helpers.agent_tools.final_itinerary.models import (
     SucessfulItineraryNotice,
 )

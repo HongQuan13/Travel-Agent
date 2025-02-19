@@ -6,9 +6,9 @@ from fastapi.encoders import jsonable_encoder
 from langchain_core.tools import StructuredTool
 from langchain_core.runnables import RunnableConfig
 
-from backend.src.constant.error_constant import ErrorDetail
-from backend.src.constant.info_constant import InfoDetail
-from backend.src.lib.websocket import WebSocketManager
+from src.constant.error_constant import ErrorDetail
+from src.constant.info_constant import InfoDetail
+from src.lib.websocket import WebSocketManager
 from travel_agent.helpers.agent_tools.final_itinerary.helper import (
     save_final_itinerary,
     save_itinerary_message,

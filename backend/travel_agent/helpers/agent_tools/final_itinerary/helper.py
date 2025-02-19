@@ -1,10 +1,10 @@
 import logging
 
-from backend.src.constant.error_constant import ErrorDetail
-from backend.src.constant.success_constant import SuccessDetail
-from backend.src.dbs.init_postgres import get_database
-from backend.src.models.message_model import Message
-from backend.src.models.itinerary_model import Itinerary
+from src.constant.error_constant import ErrorDetail
+from src.constant.success_constant import SuccessDetail
+from src.dbs.init_postgres import get_database
+from src.models.message_model import Message
+from src.models.itinerary_model import Itinerary
 
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)

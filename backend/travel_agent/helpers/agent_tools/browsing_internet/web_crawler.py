@@ -3,7 +3,7 @@ import logging
 import requests
 from bs4 import BeautifulSoup
 
-from backend.src.constant.info_constant import InfoDetail
+from src.constant.info_constant import InfoDetail
 from travel_agent.utils.user_agents import USER_AGENTS
 
 

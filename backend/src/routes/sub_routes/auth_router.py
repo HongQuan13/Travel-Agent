@@ -4,9 +4,9 @@ from fastapi.params import Depends
 from starlette.requests import Request
 from sqlalchemy.orm import Session
 
-from backend.src.constant.info_constant import InfoDetail
-from backend.src.dbs.init_postgres import get_database
-from backend.src.services.auth_service import AuthService
+from src.constant.info_constant import InfoDetail
+from src.dbs.init_postgres import get_database
+from src.services.auth_service import AuthService
 
 logger = logging.getLogger(__name__)
 

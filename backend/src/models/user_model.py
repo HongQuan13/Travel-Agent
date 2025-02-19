@@ -2,8 +2,8 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column, relationship
 
-from backend.src.models.base_model import Base
-from backend.src.models.conversation_model import Conversation
+from src.models.base_model import Base
+from src.models.conversation_model import Conversation
 
 
 class User(Base):

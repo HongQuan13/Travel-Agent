@@ -3,7 +3,7 @@ from datetime import datetime
 from langchain_core.tools import StructuredTool
 from pydantic import BaseModel, Field
 
-from backend.src.constant.info_constant import InfoDetail
+from src.constant.info_constant import InfoDetail
 from travel_agent.helpers.agent_tools.browsing_internet.helpers import format_docs
 from travel_agent.helpers.agent_tools.browsing_internet.in_memory_chroma import (
     InMemeoryChroma,

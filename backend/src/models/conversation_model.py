@@ -2,11 +2,11 @@ from typing import TYPE_CHECKING
 from sqlalchemy import Integer, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from backend.src.models.base_model import Base
-from backend.src.models.message_model import Message
+from src.models.base_model import Base
+from src.models.message_model import Message
 
 if TYPE_CHECKING:
-    from backend.src.models.user_model import User
+    from src.models.user_model import User
 
 
 class Conversation(Base):

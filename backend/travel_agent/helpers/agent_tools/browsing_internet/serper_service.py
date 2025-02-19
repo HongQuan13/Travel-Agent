@@ -4,8 +4,8 @@ import urllib.parse
 from bs4 import BeautifulSoup
 from typing import List, Optional
 
-from backend.src.constant.error_constant import ErrorDetail
-from backend.src.constant.info_constant import InfoDetail
+from src.constant.error_constant import ErrorDetail
+from src.constant.info_constant import InfoDetail
 from travel_agent.utils.user_agents import USER_AGENTS
 
 

@@ -6,9 +6,9 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.responses import JSONResponse
 
-from backend.src.dbs.init_postgres import instance_postgres
-from backend.src.routes.main import main_router
-from backend.src.lib.auth import oauth
+from src.dbs.init_postgres import instance_postgres
+from src.routes.main import main_router
+from src.lib.auth import oauth
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO, force=True)

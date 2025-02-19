@@ -5,13 +5,13 @@ from fastapi import HTTPException
 from sqlalchemy import desc
 from sqlalchemy.orm import Session
 
-from backend.src.constant.info_constant import InfoDetail
-from backend.src.constant.success_constant import SuccessDetail
-from backend.src.models.itinerary_model import Itinerary
-from backend.src.models.user_model import User
-from backend.src.models.conversation_model import Conversation
-from backend.src.models.message_model import Message
-from backend.src.interfaces.chat_interface import (
+from src.constant.info_constant import InfoDetail
+from src.constant.success_constant import SuccessDetail
+from src.models.itinerary_model import Itinerary
+from src.models.user_model import User
+from src.models.conversation_model import Conversation
+from src.models.message_model import Message
+from src.interfaces.chat_interface import (
     ConversationHistoryResponse,
     ConversationInfo,
     CreateConversationRequest,
@@ -24,7 +24,7 @@ from backend.src.interfaces.chat_interface import (
     SendMessageResponse,
     SenderType,
 )
-from backend.src.constant.error_constant import ErrorDetail
+from src.constant.error_constant import ErrorDetail
 from travel_agent.agent_handler.gpt_agent_manager import GPTAgentManager
 
 

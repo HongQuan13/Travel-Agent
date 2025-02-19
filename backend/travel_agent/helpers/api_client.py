@@ -5,7 +5,7 @@ import httpx
 from asyncio_throttle import Throttler
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-from backend.src.constant.error_constant import ErrorDetail
+from src.constant.error_constant import ErrorDetail
 
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)

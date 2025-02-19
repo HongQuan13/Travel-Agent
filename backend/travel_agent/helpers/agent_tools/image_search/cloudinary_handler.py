@@ -5,8 +5,8 @@ import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
 from dotenv import load_dotenv
 
-from backend.src.constant.error_constant import ErrorDetail
-from backend.src.constant.info_constant import InfoDetail
+from src.constant.error_constant import ErrorDetail
+from src.constant.info_constant import InfoDetail
 
 logging.basicConfig(level=logging.INFO, force=True)
 logger = logging.getLogger(__name__)
