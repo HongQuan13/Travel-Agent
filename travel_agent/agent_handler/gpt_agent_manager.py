@@ -13,6 +13,9 @@ from travel_agent.helpers.agent_constant import PROMPT_TEMPLATE
 from travel_agent.helpers.agent_tools.browsing_internet.browser_internet_tool import (
     browser_internet_tool,
 )
+from travel_agent.helpers.agent_tools.google_map.get_nearby_place_tool import (
+    get_nearby_place_tool,
+)
 from travel_agent.helpers.agent_tools.google_map.get_distance_tool import (
     get_distance_tool,
 )
@@ -75,6 +78,7 @@ class GPTAgentManager:
                     get_distance_tool,
                     get_detail_place_tool,
                     browser_internet_tool,
+                    get_nearby_place_tool,
                 ]
                 system_message = SystemMessage(content=PROMPT_TEMPLATE)
                 checkpointer = self._setup_checkpoint()

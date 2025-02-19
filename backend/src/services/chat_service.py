@@ -44,7 +44,7 @@ class ChatService:
         db.flush()
 
         user_preference = json.dumps(body.dict(), default=str)
-        new_conversation.title = f"A {body.duration}-Day Trip for {body.travel_companion} in {body.destination} – {', '.join(body.activities)}"
+        new_conversation.title = f"A {body.day_duration}-Day Trip for {body.travel_companion} in {body.destination} – {', '.join(body.activities)}"
 
         bot_response = llm.generate_new_conversation(
             user_preference, str(new_conversation.id)

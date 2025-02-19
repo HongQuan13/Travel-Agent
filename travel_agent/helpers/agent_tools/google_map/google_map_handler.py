@@ -95,8 +95,30 @@ class GoogleMapHandler:
 
         return formated_data
 
+    def get_nearby_place(
+        self,
+        place_name: str,
+        radius: int = 1000,
+        min_price: int = 0,
+        max_price: int = 2,
+        open_now: bool = False,
+        place_type: str = "tourist_attraction",
+    ):
+        geocode_result = self._gmaps_client.geocode(place_name)[0]
+        location = f"{geocode_result['geometry']['location']['lat']},{geocode_result['geometry']['location']['lng']}"
+
+        places = self._gmaps_client.places_nearby(
+            location=location,
+            radius=radius,
+            min_price=min_price,
+            max_price=max_price,
+            open_now=open_now,
+            type=place_type,
+        )
+        return places
+
 
 if __name__ == "__main__":
     gmap = GoogleMapHandler()
-    response = gmap.get_detail_place("NTU singapore")
+    response = gmap.get_nearby_place("NTU singapore")
     logger.info(response)
