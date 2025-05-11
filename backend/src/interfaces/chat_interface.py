@@ -7,7 +7,7 @@ class CreateConversationRequest(BaseModel):
     destination: str
     travel_date: datetime
     day_duration: int
-    budget: str
+    budget_in_sgd: int
     travel_companion: str
     activities: List[str]
 

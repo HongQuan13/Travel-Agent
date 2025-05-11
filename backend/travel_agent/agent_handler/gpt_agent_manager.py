@@ -22,10 +22,7 @@ from travel_agent.helpers.agent_tools.google_map.get_distance_tool import (
 from travel_agent.helpers.agent_tools.google_map.get_place_detail_tool import (
     get_detail_place_tool,
 )
-from travel_agent.helpers.agent_tools.text_search_tool import (
-    google_search,
-    duckduckgo_search,
-)
+
 from travel_agent.helpers.agent_tools.image_search.image_search_tool import (
     image_search_tool,
 )
@@ -68,8 +65,6 @@ class GPTAgentManager:
             if self._agent_executor is None:
                 llm = ChatOpenAI(model=self._model, temperature=0.5)
                 tools = [
-                    # google_search,
-                    # duckduckgo_search,
                     image_search_tool,
                     finalize_itinerary_tool,
                     generate_place_tool,

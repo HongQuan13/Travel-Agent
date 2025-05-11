@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import {
   ACTIVITIES,
-  BUDGETS,
   COMPANIONS,
 } from "@/features/preferenceForm/components/CardOption";
 import { InputField } from "@/features/preferenceForm/components/InputField";
@@ -29,7 +28,7 @@ export default function Home() {
     defaultValues: {
       destination: "",
       dayDuration: 1,
-      budget: "",
+      budgetInSGD: 50,
       travelCompanion: "",
       activities: [],
     },
@@ -83,11 +82,12 @@ export default function Home() {
           />
 
           {/* Budget */}
-          <CardSelectionField
-            form={form}
-            name="budget"
-            label="What is your budget?"
-            options={BUDGETS}
+          <InputField
+            control={form.control}
+            name="budgetInSGD"
+            label="What is your budget in SGD?"
+            type="number"
+            placeholder="Enter budget in SGD"
           />
 
           {/* Travel Companions */}

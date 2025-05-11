@@ -6,7 +6,7 @@ export const formSchema = z.object({
     required_error: "Please select a travel date",
   }),
   dayDuration: z.coerce.number().int().min(1, "Duration is required").max(10),
-  budget: z.string().min(1, "Please select a budget range"),
+  budgetInSGD: z.coerce.number().int().min(50, "Budget is required"),
   travelCompanion: z.string().min(1, "Please select who you're traveling with"),
   activities: z.array(z.string()).min(1, "Please select at least one activity"),
 });

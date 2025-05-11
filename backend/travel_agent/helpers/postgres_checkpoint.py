@@ -46,9 +46,10 @@ class PostgresSaverWithLimit(PostgresSaver):
         if len(checkpoint_message) < self.limit_message:
             return checkpoint_message
 
-        first_message = checkpoint_message[-self.limit_message]
-
-        if isinstance(first_message, ToolMessage):
+        while self.limit_message <= len(checkpoint_message):
+            first_message = checkpoint_message[-self.limit_message]
+            if not isinstance(first_message, ToolMessage):
+                break
             self.limit_message += 1
 
         return checkpoint_message[-self.limit_message :]
